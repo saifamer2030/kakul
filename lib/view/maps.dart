@@ -203,7 +203,7 @@ class _MapsState extends State<Maps> {
                             Expanded(
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
-                                children: <Widget>[...getSearchItems()],
+                                children: getSearchItems(),
                               ),
                             ),
                           ],

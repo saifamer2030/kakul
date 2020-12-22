@@ -7,6 +7,7 @@ import 'package:kul_last/view/login.dart';
 import 'package:kul_last/view/myaccount.dart';
 import 'package:kul_last/view/registerNewCompany.dart';
 import 'package:kul_last/viewModel/newsProvider.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 class MyMenu extends StatelessWidget {
@@ -137,11 +138,36 @@ class MyMenu extends StatelessWidget {
                           textDirection: TextDirection.ltr,
                         ),
                       ),
+                      Divider(),
+                      ListTile(
+                        onTap: () {
+                          translator.setNewLanguage(
+                            context,
+                            newLanguage: translator.currentLanguage == 'ar' ? 'en' : 'ar',
+                            remember: true,
+                            restart: true,
+                          );
+                        },
+                        leading: Icon(Icons.translate),
+                        title: Text(translator.translate('buttonTitle')),
+                        trailing: Icon(
+                          Icons.arrow_back,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
+
+
+            // OutlineButton(
+            //   onPressed: () {
+            //
+            //   },
+            //   child: Text(translator.translate('buttonTitle')),
+            // ),
           ],
         ),
       ),

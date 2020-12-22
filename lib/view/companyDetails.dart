@@ -15,6 +15,7 @@ import 'newsInCompany.dart';
 
 class CompanyDetails extends StatefulWidget {
   Company company;
+
   CompanyDetails(this.company);
 
   @override
@@ -23,7 +24,9 @@ class CompanyDetails extends StatefulWidget {
 
 class _CompanyDetailsState extends State<CompanyDetails> {
   Company company;
+
   _CompanyDetailsState(this.company);
+
   String address = '';
   List<String> urls = [];
   List<Job> jobs = [];
@@ -181,8 +184,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     ),
                                   ),
                                   Container(
-                                     width: 30,
-                                        height: 30,
+                                    width: 30,
+                                    height: 30,
                                     child: InkWell(
                                         onTap: () {
                                           launchURL(widget.company.snapshat);
@@ -191,11 +194,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                           backgroundColor: MyColor.customColor,
                                           child: Image.asset(
                                             'assets/snap.png',
-                                         //   color: MyColor.customColor,
-                                         color: Colors.white,
-                                         
+                                            //   color: MyColor.customColor,
+                                            color: Colors.white,
                                           ),
-                                          
                                         )),
                                   ),
                                 ],
@@ -858,7 +859,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             : Wrap(
                                 spacing: 10,
                                 runSpacing: 10,
-                                children: <Widget>[...getCompanyImgWidget()],
+                                children:getCompanyImgWidget(),
                               )),
                 SizedBox(
                   height: 40,
