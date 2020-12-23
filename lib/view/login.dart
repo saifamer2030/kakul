@@ -9,6 +9,7 @@ import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../myColor.dart';
 
@@ -68,7 +69,7 @@ class _LoginState extends State<Login> {
                                   )));
                     },
                     child: Text(
-                      'دخول مباشر',
+                      translator.translate('loginDircte'),
                       style: TextStyle(
                         color: MyColor.customColor,
                         fontSize: 16,
@@ -96,7 +97,7 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.all(18),
-                              hintText: 'البريد الألكتروني',
+                              hintText: translator.translate('E-mail'),
                               fillColor: Colors.grey[200],
                               filled: true),
                         ),
@@ -109,7 +110,7 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.all(18),
-                              hintText: 'كلمة المرور',
+                              hintText: translator.translate('password'),
                               fillColor: Colors.grey[200],
                               filled: true),
                         ),
@@ -125,7 +126,7 @@ class _LoginState extends State<Login> {
                               activeColor: MyColor.customColor,
                               value: rememberMe,
                             ),
-                            Text('تذكرني')
+                            Text(translator.translate('RememberMe'),)
                           ],
                         ),
                         Container(
@@ -185,7 +186,7 @@ class _LoginState extends State<Login> {
                                 });
                               });
                             },
-                            child: Text('دخول'),
+                            child: Text(translator.translate('login'),),
                           ),
                         ),
                         SizedBox(
@@ -199,7 +200,7 @@ class _LoginState extends State<Login> {
                                     builder: (context) => NewCompany()));
                           },
                           child: Text(
-                            'ليس لديك حساب سجل الأن',
+                            translator.translate('YouDoNotHaveAnAccountRegisterNow'),
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontSize: 16,
