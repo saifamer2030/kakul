@@ -2,5 +2,18 @@
     "appTitle": "تطبيق تجريبى", 
     "buttonTitle": "English", 
     "googleTest": "تجربة ترجمة جوجل", 
-    "textArea": "هذا مجرد نموذج للتأكد من اداء الأداة"
+    "textArea": "هذا مجرد نموذج للتأكد من اداء الأداة",
+    "login": "تسجيل دخول",
+    "loginDircte": "دخول مباشر",
+    "E-mail": "البريد الألكتروني",
+    "password": "كلمة المرور",
+    "RememberMe": "تذكرني",
+    "YouDoNotHaveAnAccountRegisterNow": "ليس لديك حساب سجل الأن",
+    "AConnectionErrorHasOccurred": "حدث خطأ في الاتصال",
+    "Jobs": "الوظائف"
+
+
+
+
+
 }

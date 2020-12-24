@@ -2,5 +2,13 @@
     "appTitle": "Example App",
     "buttonTitle": "العربية",
     "googleTest": "Google Test", 
-    "textArea": "This is just test text"
+    "textArea": "This is just test text",
+    "login": "login",
+    "loginDircte": "Direct entry",
+    "E-mail": "E-mail",
+    "password": "password",
+    "YouDoNotHaveAnAccountRegisterNow": "You DoNot Have An Account Register Now",
+    "AConnectionErrorHasOccurred": "A connection error has occurred",
+    "Jobs": "Jobs"
+
 }

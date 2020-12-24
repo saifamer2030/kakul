@@ -12,6 +12,7 @@ import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
 import 'package:mime/mime.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 Future<dynamic> getAllSections() async {
   List<Section> sections = [];
@@ -29,7 +30,7 @@ Future<dynamic> getAllSections() async {
     return sections;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getAllSubSections(String secID) async {
@@ -48,7 +49,7 @@ Future<dynamic> getAllSubSections(String secID) async {
     return subSections;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getUserCompany(String userID) async {
@@ -70,7 +71,7 @@ Future<dynamic> getUserCompany(String userID) async {
     return company;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getCompanySection(String secID) async {
@@ -90,7 +91,7 @@ Future<dynamic> getCompanySection(String secID) async {
     return companies;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getAllCompanies() async {
@@ -108,7 +109,7 @@ Future<dynamic> getAllCompanies() async {
     return companies;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 Future<dynamic> getFeaturedCompanies() async {
   List<Company> companies = [];
@@ -125,7 +126,7 @@ Future<dynamic> getFeaturedCompanies() async {
     return companies;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getSuggestedCompanies() async {
@@ -143,7 +144,7 @@ Future<dynamic> getSuggestedCompanies() async {
     return companies;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getCompanyImgs({String companyID}) async {
@@ -164,7 +165,7 @@ Future<dynamic> getCompanyImgs({String companyID}) async {
     return null;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getCompanyJobs({String companyID}) async {
@@ -186,7 +187,7 @@ Future<dynamic> getCompanyJobs({String companyID}) async {
     return null;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getCompanyNews({String companyID}) async {
@@ -209,7 +210,7 @@ Future<dynamic> getCompanyNews({String companyID}) async {
     }
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getAllJobs() async {
@@ -227,7 +228,7 @@ Future<dynamic> getAllJobs() async {
     return jobs;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> getAllNews() async {
@@ -245,7 +246,7 @@ Future<dynamic> getAllNews() async {
     return news;
   }
 
-  return 'حدث خطأ في الاتصال';
+  return translator.translate('AConnectionErrorHasOccurred');
 }
 
 Future<dynamic> registerCompany(

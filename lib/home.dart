@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 
 import 'myColor.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class Home extends StatefulWidget {
   User user;
   Home(this.user);
@@ -94,7 +94,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   color: (controller.index) == 0
                       ? MyColor.customColor
                       : Colors.grey),
-              title: Text('الوظائف'),
+              title: Text(translator.translate('Jobs'),),
             ),
             BottomNavigationBarItem(
               icon: Image.asset('assets/company.png',
