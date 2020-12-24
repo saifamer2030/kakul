@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart' as dio;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/jobs.dart';
+import 'package:kul_last/model/map_helper.dart';
+import 'package:kul_last/model/map_marker.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
@@ -107,7 +110,6 @@ Future<dynamic> getAllCompanies() async {
 
   return 'حدث خطأ في الاتصال';
 }
-
 Future<dynamic> getFeaturedCompanies() async {
   List<Company> companies = [];
   String baseURL = "http://kk.vision.com.sa/API/GetAllCompaniesSP.php";

@@ -7,6 +7,7 @@ import 'package:kul_last/model/userModel.dart';
 import 'package:kul_last/view/companies.dart';
 
 import 'package:kul_last/view/jobs.dart';
+import 'package:kul_last/view/mapcluster.dart';
 import 'package:kul_last/view/maps.dart';
 import 'package:kul_last/view/menu.dart';
 import 'package:kul_last/view/msg.dart';
@@ -125,7 +126,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       ),
                       onPressed: () {
                          Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Maps(compPro.companies,secProv)));
+                        builder: (context) => MapCluster(compPro.companies,secProv)));
                 },
                     ),
      ],
