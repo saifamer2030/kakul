@@ -132,7 +132,7 @@ class MyMenu extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Login()));
                         },
                         leading: Icon(Icons.exit_to_app),
-                        title: Text('تسجيل خروج'),
+                        title: Text(user == null?'تسجيل دخول':'تسجيل خروج'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,

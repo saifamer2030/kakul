@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:kul_last/model/advertisment.dart';
 import 'package:kul_last/view/allFeaturedCompanies.dart';
 import 'package:kul_last/view/allSections.dart';
 import 'package:kul_last/view/allSuggestedCompanies.dart';
@@ -8,11 +12,43 @@ import 'package:kul_last/viewModel/sections.dart';
 import 'package:kul_last/viewModel/suggestedCompanies.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:kul_last/backend/sectionBack.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../myColor.dart';
 import 'companyDetails.dart';
+class Sections extends StatefulWidget {
 
-class Sections extends StatelessWidget {
+
+  @override
+  _SectionsState createState() => _SectionsState();
+}
+
+class _SectionsState extends State<Sections>  {
+  List<Advertisment> adv = [];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 0), () async {
+   await getAllAdvert().then((v) {
+   
+      setState(() {
+        if (v == null)
+          adv = null;
+        else
+          setState(() {
+            adv.addAll(v);
+          });
+      });
+    });
+  });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var featPro = Provider.of<FeaturedCompanyProvider>(context);
@@ -26,10 +62,58 @@ class Sections extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 180,
-              child: Image.asset(
-                'assets/baner.png',
-                fit: BoxFit.fill,
-              ),
+
+                child: adv == null
+                    ? SpinKitThreeBounce(
+                  size: 35,
+                  color: const Color(0xff171732),
+                )
+                    : Swiper(
+                  loop: false,
+                  duration: 1000,
+                  autoplay: true,
+                  autoplayDelay: 15000,
+                  itemCount: adv.length,
+                  pagination: new SwiperPagination(
+                    margin: new EdgeInsets.fromLTRB(
+                        0.0, 0.0, 0.0, 0.0),
+                    builder: new DotSwiperPaginationBuilder(
+                        color: Colors.grey,
+                        activeColor: const Color(0xff171732),
+                        size: 8.0,
+                        activeSize: 8.0),
+                  ),
+                  control: new SwiperControl(),
+                  viewportFraction: 1,
+                  scale: 0.1,
+                  outer: true,
+                  itemBuilder:
+                      (BuildContext context, int index) {
+                 
+                    return  InkWell(
+                      onTap: () async {
+                        var url = adv[index].Link;
+                        if (await canLaunch(url)) {
+                        await launch(url);
+                        } else {
+                        throw 'Could not launch $url';
+                        }
+                      },
+                      child: Image.network(adv[index].image,
+                          fit: BoxFit.fill,
+                          loadingBuilder: (BuildContext context,
+                              Widget child,
+                              ImageChunkEvent loadingProgress) {
+                            if (loadingProgress == null)
+                              return child;
+                            return SpinKitThreeBounce(
+                              color: const Color(0xff171732),
+                              size: 35,
+                            );
+                          }),
+                    );
+                  },
+                )
             ),
             SizedBox(
               height: 10,

@@ -35,7 +35,7 @@ class Company {
     this.imgURL = json['Image'];
     this.email = json['Email'];
     this.face = json['Facebook'];
-    this.face = json['Snapchat'];
+    this.snapshat = json['Snapchat'];
     this.twitter = json['Twitter'];
     this.youtube = json['Youtube'];
     this.instagram = json['Instagram'];
@@ -43,7 +43,7 @@ class Company {
     this.lat = json['lat'];
     this.lng = json['lon'];
     this.secID=json['IdSections'];
-    this.subSecID=json['subSecID'];
+    this.subSecID=json['IdSubSection'];
     this.coverURL=json['Photo'];
   
   }

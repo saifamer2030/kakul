@@ -6,12 +6,15 @@ import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/news.dart';
+import 'package:kul_last/view/addNewjob.dart';
+import 'package:kul_last/view/addNewnews.dart';
 import 'package:kul_last/view/jobsInCompany.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../myColor.dart';
 import 'newsInCompany.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 class CompanyDetails extends StatefulWidget {
   Company company;
@@ -419,6 +422,79 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+            globals.myCompany.id==company.id? Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: .5, color: Colors.grey)),
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNewJob()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.water_damage_rounded),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('إضافة وظيفة')
+                          ],
+                        ),
+                      ),
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.monetization_on),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('إضافة عرض')
+                          ],
+                        ),
+                      ),
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNewNews()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.wysiwyg),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('إضافة خبر')
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ):Container(),
                 SizedBox(
                   height: 10,
                 ),

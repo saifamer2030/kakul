@@ -48,8 +48,10 @@ class _CompaniesState extends State<Companies> {
         onRefresh: ()async{
           setState(() {
             filter=false;
+             selectedSection=null;
+             selectedSubSection=null;
           });
-          return true;
+         // return true;
         },
               child: Column(
           children: <Widget>[
@@ -82,6 +84,7 @@ class _CompaniesState extends State<Companies> {
                               setState(() {
                                 selectedSection = sec;
                               });
+                              subSections.clear();
                               getAllSubSections(selectedSection.id).then((v) {
                                 setState(() {
                                   subSections.addAll(v);
@@ -160,6 +163,7 @@ class _CompaniesState extends State<Companies> {
                     width: 60,
                     child: RaisedButton(
                       onPressed: () {
+                        print("uuu/${comPro.companies.length}///${selectedSection.name}///${selectedSubSection.name}");
                         fileterData(comPro.companies, selectedSection,
                             selectedSubSection);
                       },
@@ -553,12 +557,19 @@ class _CompaniesState extends State<Companies> {
   }
 
   List<DropdownMenuItem> getSubSectionsDropDown() {
+    // List<DropdownMenuItem> items = [DropdownMenuItem(
+    //   child: Padding(
+    //     padding: const EdgeInsets.all(8.0),
+    //     child: Text(""),
+    //   ),
+    //   value: SubSection("",""),
+    // )];
     List<DropdownMenuItem> items = [];
     subSections.forEach((sec) {
       items.add(DropdownMenuItem(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(sec.name),
+          child: sec.name==null?Text(""):Text(sec.name),
         ),
         value: sec,
       ));
@@ -577,6 +588,8 @@ class _CompaniesState extends State<Companies> {
         companies.forEach((company) {
           if (company.secID == selectedSection.name &&
               company.subSecID == selectedSubSection.name) {
+            print("uuuuu////${company.secID}////${company.subSecID}");
+
             filteredList.add(company);
           }
         });

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:kul_last/model/advertisment.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/userModel.dart';
 import 'package:kul_last/view/companies.dart';
@@ -44,6 +45,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
+
     Timer(Duration(seconds: 0), () async {
       getAllCompaniesmap(context).then((v) async {
         print('iddd'+v);
@@ -53,6 +57,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     if (user != null) {
       getUserCompany(user.id).then((v) {
         userCompany = v;
+        globals.myCompany=v;
         setState(() {});
         //updateMyCompanyDistance(userCompany);
       });
@@ -84,7 +89,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var compPro = Provider.of<CompanyProvider>(context);
      var secProv=Provider.of<SectionProvider>(context);
-    var compmapPro = Provider.of<CompanyMapProvider>(context);
+   // var compmapPro = Provider.of<CompanyMapProvider>(context);
 
 
     return Scaffold(
@@ -137,7 +142,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         color: Colors.orange[200],
                       ),
                       onPressed: () {
-                        print("ooooo"+compmapPro.companiesmap.length.toString()+compmapPro.companiesmap.toString());
+                       // print("ooooo"+compmapPro.companiesmap.length.toString()+compmapPro.companiesmap.toString());
                          Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => MapCluster(globals.companies,secProv)));
                 },
@@ -210,13 +215,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Image.asset(
-                            'assets/search.png',
-                            scale: 1.8,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
+                          // Image.asset(
+                          //   'assets/search.png',
+                          //   scale: 1.8,
+                          // ),
+                          // SizedBox(
+                          //   width: 15,
+                          // ),
                           InkWell(
                               onTap: () {
                                 setState(() {

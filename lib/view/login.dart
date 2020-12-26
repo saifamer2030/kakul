@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../myColor.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 class Login extends StatefulWidget {
   @override
@@ -152,6 +153,7 @@ class _LoginState extends State<Login> {
                                     saveUserTosharedPref(mailController.text,
                                         passController.text);
                                   }
+                                  globals.myuser=v;
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(

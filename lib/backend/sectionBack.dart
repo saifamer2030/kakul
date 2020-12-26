@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:kul_last/model/advertisment.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/companyInmap.dart';
 import 'package:kul_last/model/jobs.dart';
@@ -136,8 +137,13 @@ int checkoffers;
       jsonList.forEach((item) {
         if(item['Sex']=="ذكر"){
          m=true;
-        }else{
+         f=false;
+        }else if(item['Sex']=="انثى"){
          f=true;
+         m=false;
+        }else {
+          f=true;
+          m=true;
         }
        // jobs.add(Job.fromMap(i));
       });
@@ -337,6 +343,63 @@ Future<dynamic> getCompanyNews({String companyID}) async {
   return translator.translate('AConnectionErrorHasOccurred');
 }
 
+Future<dynamic> addjob(
+Companyid,
+Companyname,
+CompanyimgURL,
+Companyphone,
+salary,
+workhours,
+details,
+sextype
+   ) async {
+
+  var baseURL ='http://kk.vision.com.sa/API/AddJob.php?Name=$Companyname&Sex=$sextype&Salary=$salary&WorkHours=$workhours&Details=$details&Id-Us=$Companyid';
+    //  baseURL_APP+'Drivers/UpdateOrderIDLocations.php?OrderID=${widget.orderID}&DriverID=${widget.driverId}&driver_lat=${lat}&driver_long=${long}';
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${Companyname}///$salary//$sextype");
+  });
+  // http.Response response = await http.get(baseURL,
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }).then((value){
+  //   //print("lll${value.body}//${widget.orderID}///$lat//$long");
+  // });
+ // print("lll${response.body}//${widget.orderID}$lat//$long");
+}
+
+Future<dynamic> addnews(
+    Companyid,
+    Companyname,
+    CompanyimgURL,
+    Companyphone,
+
+    details,
+    secid
+    ) async {
+
+  var baseURL ='http://kk.vision.com.sa/API/AddNews.php?Name=$secid&Topic=$details&IdSubSection=$secid&us-id=$Companyid&Image=$CompanyimgURL';
+  //  baseURL_APP+'Drivers/UpdateOrderIDLocations.php?OrderID=${widget.orderID}&DriverID=${widget.driverId}&driver_lat=${lat}&driver_long=${long}';
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${Companyname}///$secid//$details");
+  });
+  // http.Response response = await http.get(baseURL,
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }).then((value){
+  //   //print("lll${value.body}//${widget.orderID}///$lat//$long");
+  // });
+  // print("lll${response.body}//${widget.orderID}$lat//$long");
+}
+
+
+
 Future<dynamic> getAllJobs() async {
   List<Job> jobs = [];
   String baseURL = "http://kk.vision.com.sa/API/GetAllJob.php";
@@ -437,4 +500,24 @@ Future<dynamic> registerCompany(
       .post(url, data: formData, options: dio.Options(headers: headers));
 //  print('Status:${response.statusCode}');
 //  print('Response:${response.data.toString()}');
+}
+
+
+Future<dynamic> getAllAdvert() async {
+  List<Advertisment> advertisment = [];
+  String baseURL = "http://kk.vision.com.sa/API/GetAllADS.php";
+  var client = Client();
+  Response response = await client.get(baseURL);
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.body);
+    List jsonSecList = json['ADS'];
+    jsonSecList.forEach((item) {
+      advertisment.add(Advertisment.fromMap(item));
+    //  print("hhhh${item}");
+
+    });
+    return advertisment;
+  }
+
+  return translator.translate('AConnectionErrorHasOccurred');
 }
