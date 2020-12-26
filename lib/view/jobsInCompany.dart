@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/myColor.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class JobsInCompany extends StatelessWidget {
   List<Job> jobs;
   String companyName;
@@ -14,7 +14,7 @@ class JobsInCompany extends StatelessWidget {
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          ' وظائف $companyName',
+          '${translator.translate('position')} $companyName',
         ),
       ),
       body: Directionality(
@@ -69,19 +69,19 @@ class JobsInCompany extends StatelessWidget {
                           children: [
                             TableRow(children: [
                               Text(
-                                'مستوى الخبرة',
+                            translator.translate('ExperienceLevel'),
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.grey[600]),
                               ),
                               Center(
                                 child: Text(
-                                  'حديث التخرج',
+            translator.translate('RecentGraduate'),
                                   style: TextStyle(
                                       color: MyColor.customColor, fontSize: 12),
                                 ),
                               ),
                               Center(
-                                child: Text('نوع العمل',
+                                child: Text(translator.translate('TypeOfEmployment'),
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey[600])),
                               ),
@@ -95,25 +95,25 @@ class JobsInCompany extends StatelessWidget {
                             ]),
                             TableRow(children: [
                               Center(
-                                child: Text('المستوى التعليمي',
+                                child: Text(translator.translate('EducationalLevel'),
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey[600])),
                               ),
                               Center(
                                 child: Text(
-                                  'بكالوريوس',
+            translator.translate('BA'),
                                   style: TextStyle(
                                       color: MyColor.customColor, fontSize: 12),
                                 ),
                               ),
                               Center(
-                                child: Text('نوع المعلن',
+                                child: Text(translator.translate('AdvertiserType'),
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey[600])),
                               ),
                               Center(
                                 child: Text(
-                                  'باحث عن موظف',
+            translator.translate('LookingForAnEmployee'),
                                   style: TextStyle(
                                       color: MyColor.customColor, fontSize: 11),
                                 ),
@@ -144,7 +144,7 @@ class JobsInCompany extends StatelessWidget {
                   child: RaisedButton(
                     color: MyColor.customColor,
                     textColor: Colors.white,
-                    child: Text('اظهار الرقم'),
+                    child: Text(translator.translate('showTheNumber'),),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -171,7 +171,7 @@ class JobsInCompany extends StatelessWidget {
                   height: 60,
                   child: Center(
                     child: Text(
-                      'وظائف اخرى مشابهة',
+            translator.translate('OtherSimilarFunctions'),
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                   ),

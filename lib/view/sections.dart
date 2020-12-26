@@ -8,7 +8,7 @@ import 'package:kul_last/viewModel/sections.dart';
 import 'package:kul_last/viewModel/suggestedCompanies.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../myColor.dart';
 import 'companyDetails.dart';
 
@@ -66,11 +66,11 @@ class Sections extends StatelessWidget {
                                 AllFeaturedCompanies(featPro.companies)));
                   },
                   child: Text(
-                    'المزيد',
+                      translator.translate('More'),
                     style: TextStyle(color: MyColor.customColor),
                   ),
                 ),
-                title: Text('الشركات المميزة')),
+                title: Text(translator.translate('FeaturedCompanies'),)),
          
             Container(
               margin: EdgeInsets.only(right: 10, left: 10),
@@ -187,11 +187,11 @@ class Sections extends StatelessWidget {
                                 AllSections(secPro.sections)));
                   },
                     child: Text(
-                    'المزيد',
+                    translator.translate('More'),,
                     style: TextStyle(color: MyColor.customColor),
                   )
                 ),*/
-                title: Text('الأقسام')),
+                title: Text(translator.translate('sections'),)),
 
        
         
@@ -289,11 +289,11 @@ class Sections extends StatelessWidget {
                                 SuggestedCompanyProvider.companies)));
                   },
                   child: Text(
-                    'المزيد',
+                    translator.translate('More'),,
                     style: TextStyle(color: MyColor.customColor),
                   ),
                 ),
-                title: Text('الشركات المقترحة')),
+                title: Text(translator.translate('TheProposedCompanies'),)),
             Consumer<SuggestedCompanyProvider>(
               builder: (context, comp, w) => Container(
                 margin: EdgeInsets.only(right: 10, left: 10),

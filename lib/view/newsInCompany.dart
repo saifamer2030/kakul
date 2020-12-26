@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/myColor.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class NewsInCompany extends StatelessWidget {
   List<New> news;
   String companyName;
@@ -15,7 +15,7 @@ class NewsInCompany extends StatelessWidget {
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          ' اخبار $companyName',
+            translator.translate('News'),
         ),
       ),
       body: Directionality(

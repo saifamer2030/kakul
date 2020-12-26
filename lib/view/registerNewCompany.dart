@@ -10,7 +10,7 @@ import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
 import 'package:location/location.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../myColor.dart';
 
 class NewCompany extends StatefulWidget {
@@ -92,7 +92,7 @@ class _NewCompanyState extends State<NewCompany> {
             },
           ),
           title:
-              Text('تسجيل شركة جديدة', style: TextStyle(color: Colors.black54)),
+              Text(translator.translate('RegisterANewCompany'), style: TextStyle(color: Colors.black54)),
         ),
         body: SafeArea(
           child: Container(
@@ -115,7 +115,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: nameController,
                             decoration: InputDecoration(
-                              hintText: 'اسم الشركة',
+                              hintText: translator.translate('TheCompanyname'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -147,7 +147,7 @@ class _NewCompanyState extends State<NewCompany> {
                             controller: mailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'البريد الالكتروني',
+                              hintText: translator.translate('E-mail'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -179,7 +179,7 @@ class _NewCompanyState extends State<NewCompany> {
                             controller: passController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              hintText: 'كلمة المرور',
+                              hintText: translator.translate('password'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -211,7 +211,7 @@ class _NewCompanyState extends State<NewCompany> {
                             controller: confirmPassController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              hintText: 'اعادة ادخال كلمة المرور',
+                              hintText: translator.translate('ReenterPassword'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -246,7 +246,7 @@ class _NewCompanyState extends State<NewCompany> {
                               hint: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Text(
-                                  'القسم الرئيسي',
+    translator.translate('TheMainSection'),
                                   style: TextStyle(fontFamily: 'jareda'),
                                 ),
                               ),
@@ -294,7 +294,7 @@ class _NewCompanyState extends State<NewCompany> {
                             hint: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                'القسم الفرعي',
+    translator.translate('Subsection'),
                                 style: TextStyle(fontFamily: 'jareda'),
                               ),
                             ),
@@ -335,7 +335,7 @@ class _NewCompanyState extends State<NewCompany> {
                             controller: desctionController,
                             maxLines: 4,
                             decoration: InputDecoration(
-                              hintText: 'الوصف',
+                              hintText: translator.translate('TheDescription'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -367,7 +367,7 @@ class _NewCompanyState extends State<NewCompany> {
                             keyboardType: TextInputType.phone,
                             controller: phoneController,
                             decoration: InputDecoration(
-                              hintText: 'رقم الهاتف',
+                              hintText: translator.translate('TelephoneNumber'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -398,7 +398,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: commericalController,
                             decoration: InputDecoration(
-                              hintText: 'رقم السجل التجاري',
+                              hintText: translator.translate('CommercialRegistrationNo'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -430,7 +430,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: titleController,
                             decoration: InputDecoration(
-                              hintText: 'عنوان الشركة',
+                              hintText: translator.translate('CompanyAddress'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -474,10 +474,10 @@ class _NewCompanyState extends State<NewCompany> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          Text('تم ارفاق صورة البروفايل')
+                                          Text(translator.translate('ProfilePictureHasBeenAttached'),)
                                         ],
                                       )
-                                    : Text('ارفاق صورة البروفايل'),
+                                    : Text(translator.translate('AttachAProfilePicture'),),
                               )),
                         )),
                         Container(
@@ -522,7 +522,7 @@ class _NewCompanyState extends State<NewCompany> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          Text('تم تحديد العنوان على الخريطة'),
+                                          Text(translator.translate('TheAddressWasSpecifiedOnTheMap'),),
                                         ],
                                       )
                                     : Image.asset('assets/loc.jpg')),
@@ -564,10 +564,10 @@ class _NewCompanyState extends State<NewCompany> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          Text('تم ارفاق صورة الغلاف')
+                                          Text(translator.translate('ACoverPhotoHasBeenAttached'),),
                                         ],
                                       )
-                                    : Text('ارفاق صورة الغلاف'),
+                                    : Text(translator.translate('AttachACoverPhoto'),),
                               )),
                         )),
                         Container(
@@ -593,7 +593,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: faceController,
                             decoration: InputDecoration(
-                              hintText: 'رابط صفحة الفيس بوك',
+                              hintText: translator.translate('FacebookPageLink'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -624,7 +624,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: twitterController,
                             decoration: InputDecoration(
-                              hintText: 'رابط صفحة تويتر',
+                              hintText: translator.translate('TwitterPageLink'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -655,7 +655,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: instaController,
                             decoration: InputDecoration(
-                              hintText: 'رابط صفحة انستجرام',
+                              hintText: translator.translate('InstagramPageLink'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -686,7 +686,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: youtubeController,
                             decoration: InputDecoration(
-                              hintText: 'رابط قناة اليوتيوب',
+                              hintText: translator.translate('YoutubeChannelLink'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -718,7 +718,7 @@ class _NewCompanyState extends State<NewCompany> {
                           child: TextField(
                             controller: snapController,
                             decoration: InputDecoration(
-                              hintText: 'رابط سناب شات',
+                              hintText: translator.translate('SnapchatLink'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -749,7 +749,7 @@ class _NewCompanyState extends State<NewCompany> {
                           activeColor: MyColor.customColor,
                         ),
                         Text(
-                            'بالنقر على هذا الزر أكون قد وافقت على شروط الاستخدام'),
+    translator.translate('ByClickingOnThisButtonIAgreeToTheTermsOfuse'),),
                       ],
                     ),
                     RaisedButton(
@@ -771,7 +771,7 @@ class _NewCompanyState extends State<NewCompany> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text('جاري تسجيل الشركة')
+                                  Text(translator.translate('CompanyRegistrationInProgress'),)
                                 ],
                               ),
                             ),
@@ -798,7 +798,7 @@ class _NewCompanyState extends State<NewCompany> {
                                   youtube: youtubeController.text)
                               .then((v) {
                             Fluttertoast.showToast(
-                                msg: "تم التسجيل بنجاح",
+                                msg: translator.translate('SuccessfullyRegistered'),
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIos: 1,
@@ -814,7 +814,7 @@ class _NewCompanyState extends State<NewCompany> {
                           }).then((v) {});
                         }
                       },
-                      child: Text('سجل الان'),
+                      child: Text(translator.translate('RegisterNow'),),
                     ),
                     SizedBox(
                       height: 10,
@@ -872,22 +872,22 @@ class _NewCompanyState extends State<NewCompany> {
         phoneController.text.isEmpty ||
         titleController.text.isEmpty ||
         commericalController.text.isEmpty) {
-      showSnackMsg('من فضلك املأ الفراغات المطلوبة');
+      showSnackMsg(translator.translate('PleaseFillInTheRequiredSpaces'),);
       return false;
     } else if (passController.text != confirmPassController.text) {
-      showSnackMsg('كلمة المرور غير مطابقة');
+      showSnackMsg(translator.translate('passwordsDoNotMatch'),);
       return false;
     } else if (selectedSubSection == null || selectedSection == null) {
-      showSnackMsg('قم باختيار الأقسام كاملة');
+      showSnackMsg(translator.translate('SelectTheFullSections'),);
       return false;
     } else if (profileImg == null || coverImg == null) {
-      showSnackMsg('قم بأرفاق الصور المطلوبة');
+      showSnackMsg(translator.translate('AttachTheRequiredPhotos'),);
       return false;
     } else if (companyLatLng == null) {
-      showSnackMsg('قم بتحديد موقع الشركة على الخريطة');
+      showSnackMsg(translator.translate('LocateTheCompanyOnTheMap'),);
       return false;
     } else if (checkBoxVal == false) {
-      showSnackMsg('لم يتم الموافقة على شروط الأستخدام');
+      showSnackMsg(translator.translate('TheTermsOfUseHaveNotBeenApproved'),);
       return false;
     }
     return true;
@@ -953,7 +953,7 @@ class _MyDialogState extends State<MyDialog> {
         FlatButton(
           color: Colors.white,
           textColor: Colors.red[800],
-          child: Text('الغاء'),
+          child: Text(translator.translate('Cancellation'),),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -961,7 +961,7 @@ class _MyDialogState extends State<MyDialog> {
         FlatButton(
           color: Colors.white,
           textColor: Colors.green[800],
-          child: Text('تأكيد'),
+          child: Text(translator.translate('emphasis'),),
           onPressed: () {
             Navigator.pop(context, currentLoc);
           },

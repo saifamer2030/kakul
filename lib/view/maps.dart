@@ -11,7 +11,7 @@ import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class Maps extends StatefulWidget {
   List<Company> companies = [];
   SectionProvider secProv;
@@ -166,7 +166,7 @@ class _MapsState extends State<Maps> {
                             child: TextField(
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'ابحث...',
+                                  hintText: translator.translate('Search...'),
                                   fillColor: Colors.grey[200],
                                   filled: true,
                                   suffixIcon: Icon(Icons.search)),
@@ -193,7 +193,7 @@ class _MapsState extends State<Maps> {
                                   width: 50,
                                   child: Center(
                                       child: Text(
-                                    'الكل',
+                                          translator.translate('All'),
                                     style: TextStyle(
                                         color: (selectedID == null)
                                             ? MyColor.customColor

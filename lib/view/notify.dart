@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../myColor.dart';
 
 class Notify extends StatelessWidget {
@@ -26,7 +26,7 @@ class Notify extends StatelessWidget {
                     backgroundColor: MyColor.customColor,
                     child: Image.asset('assets/profile2.png'),
                   ),
-                  title: Text('تنبيه جديد من عضو اخر'),
+                  title: Text(translator.translate('NewAlertFromAnotherMember'),),
                 ));
               },
             ),
@@ -49,7 +49,7 @@ class Notify extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text('التنبيهات'),
+                  Text(translator.translate('Alerts'),),
                 ],
               ),
             ),

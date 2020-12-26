@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/view/sectionDetails.dart';
 import 'package:kul_last/view/sections.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class AllSections extends StatelessWidget {
   List<Section> sections = [];
   AllSections(this.sections);
@@ -14,7 +14,7 @@ class AllSections extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'الأقسام',
+            translator.translate('sections'),
           style: TextStyle(color: Colors.black54),
         ),
         leading: IconButton(

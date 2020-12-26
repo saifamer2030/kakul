@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kul_last/model/userModel.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class Account extends StatelessWidget {
   User user;
   Account(this.user);

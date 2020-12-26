@@ -12,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../myColor.dart';
 import 'newsInCompany.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class CompanyDetails extends StatefulWidget {
   Company company;
@@ -248,8 +249,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                             EdgeInsets.all(10),
                                                         border:
                                                             InputBorder.none,
-                                                        hintText:
-                                                            'موضوع الرسالة',
+                                                        hintText: translator
+                                                            .translate(
+                                                                'MessageSubject'),
                                                         hintStyle: TextStyle(
                                                             color: Colors
                                                                 .grey[400]),
@@ -284,7 +286,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                                 .grey[400]),
                                                         border:
                                                             InputBorder.none,
-                                                        hintText: 'الرسالة',
+                                                        hintText: translator
+                                                            .translate(
+                                                                'TheMessage'),
                                                       ),
                                                     ),
                                                   ),
@@ -295,7 +299,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                     children: <Widget>[
                                                       InkWell(
                                                         child: Text(
-                                                          'الغاء',
+                                                          translator.translate(
+                                                              'Cancellation'),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.red),
@@ -310,7 +315,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                       ),
                                                       InkWell(
                                                         child: Text(
-                                                          'تأكيد',
+                                                          translator.translate(
+                                                              'emphasis'),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.green),
@@ -319,8 +325,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                           if (bodyCont
                                                               .text.isEmpty) {
                                                             Fluttertoast.showToast(
-                                                                msg:
-                                                                    "من فضلك اكتب رسالة",
+                                                                msg: translator
+                                                                    .translate(
+                                                                        'PleaseWriteAMessage'),
                                                                 toastLength: Toast
                                                                     .LENGTH_SHORT,
                                                                 gravity:
@@ -355,7 +362,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                                               SizedBox(
                                                                                 width: 25,
                                                                               ),
-                                                                              Text('جاري ارسال الرسالة')
+                                                                              Text(
+                                                                                translator.translate('SendingMessage ...'),
+                                                                              )
                                                                             ],
                                                                           ),
                                                                         ));
@@ -393,7 +402,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('ارسل رسالة')
+                                    Text(
+                                      translator.translate('SendAMessage'),
+                                    )
                                   ],
                                 ),
                               )
@@ -432,7 +443,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'عن الشركة',
+                        translator.translate('AboutCompany'),
                       ),
                       Divider(),
                       Text(
@@ -455,7 +466,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'معلومات الاتصال',
+                        translator.translate('ContactInformation'),
                       ),
                       Divider(),
                       Column(
@@ -525,7 +536,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'الوظائف المتاحة',
+                                  translator.translate('AvailableJobs'),
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -538,7 +549,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                 )));
                                   },
                                   child: Text(
-                                    'تصفح المزيد',
+                                    translator.translate('BrowseMore'),
                                     style:
                                         TextStyle(color: MyColor.customColor),
                                   ),
@@ -604,7 +615,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                 children: [
                                                   TableRow(children: [
                                                     Text(
-                                                      'مستوى الخبرة',
+                                                      translator.translate(
+                                                          'ExperienceLevel'),
                                                       style: TextStyle(
                                                           fontSize: 12,
                                                           color:
@@ -612,7 +624,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                     ),
                                                     Center(
                                                       child: Text(
-                                                        'حديث التخرج',
+                                                        translator.translate(
+                                                            'RecentGraduate'),
                                                         style: TextStyle(
                                                             color: MyColor
                                                                 .customColor,
@@ -620,7 +633,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                       ),
                                                     ),
                                                     Center(
-                                                      child: Text('نوع العمل',
+                                                      child: Text(
+                                                          translator.translate(
+                                                              'TypeOfEmployment'),
                                                           style: TextStyle(
                                                               fontSize: 12,
                                                               color: Colors
@@ -639,7 +654,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                   TableRow(children: [
                                                     Center(
                                                       child: Text(
-                                                          'المستوى التعليمي',
+                                                          translator.translate(
+                                                              'TypeOfEmployment'),
                                                           style: TextStyle(
                                                               fontSize: 12,
                                                               color: Colors
@@ -647,7 +663,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                     ),
                                                     Center(
                                                       child: Text(
-                                                        'بكالوريوس',
+                                                        translator
+                                                            .translate('BA'),
                                                         style: TextStyle(
                                                             color: MyColor
                                                                 .customColor,
@@ -655,7 +672,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                       ),
                                                     ),
                                                     Center(
-                                                      child: Text('نوع المعلن',
+                                                      child: Text(
+                                                          translator.translate(
+                                                              'AdvertiserType'),
                                                           style: TextStyle(
                                                               fontSize: 12,
                                                               color: Colors
@@ -663,7 +682,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                     ),
                                                     Center(
                                                       child: Text(
-                                                        'باحث عن موظف',
+                                                        translator.translate(
+                                                            'LookingForAnEmployee'),
                                                         style: TextStyle(
                                                             color: MyColor
                                                                 .customColor,
@@ -699,7 +719,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                         child: RaisedButton(
                                           color: MyColor.customColor,
                                           textColor: Colors.white,
-                                          child: Text('اظهار الرقم'),
+                                          child: Text(
+                                            translator
+                                                .translate('ShowTheNumber'),
+                                          ),
                                           onPressed: () {
                                             showDialog(
                                                 context: context,
@@ -733,7 +756,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                         height: 60,
                                         child: Center(
                                           child: Text(
-                                            'وظائف اخرى مشابهة',
+                                            translator.translate(
+                                                'OtherSimilarFunctions'),
                                             style: TextStyle(
                                                 color: Colors.grey[600]),
                                           ),
@@ -763,7 +787,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'احدث الاخبار',
+                                  translator.translate('LatestNews'),
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -776,7 +800,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                 )));
                                   },
                                   child: Text(
-                                    'تصفح المزيد',
+                                    translator.translate('BrowseMore'),
                                     style:
                                         TextStyle(color: MyColor.customColor),
                                   ),
@@ -859,7 +883,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             : Wrap(
                                 spacing: 10,
                                 runSpacing: 10,
-                                children:getCompanyImgWidget(),
+                                children: getCompanyImgWidget(),
                               )),
                 SizedBox(
                   height: 40,

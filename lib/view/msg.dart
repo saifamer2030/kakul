@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../myColor.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class Msg extends StatelessWidget {
   @override
@@ -26,8 +26,8 @@ class Msg extends StatelessWidget {
                     backgroundColor: MyColor.customColor,
                     child: Image.asset('assets/profile.png'),
                   ),
-                  title: Text('محمد مصطفى'),
-                  subtitle: Text('اكيد مافي مشكلة في انتظارك'),
+                  title: Text(translator.translate('MohammedMustafa'),),
+                  subtitle: Text(translator.translate('Sure,NoproblemAwaitsYou'),),
                   trailing: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -57,7 +57,7 @@ class Msg extends StatelessWidget {
                   Image.asset('assets/message.png',scale: 3,)
                   
                   ,SizedBox(width: 10,),
-                  Text('الرسائل'),
+                  Text(translator.translate('Messages'),),
                 ],
               ),
             ),

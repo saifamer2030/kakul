@@ -4,7 +4,7 @@ import 'package:kul_last/model/section.dart';
 import 'package:kul_last/view/companyDetails.dart';
 import 'package:kul_last/view/sectionDetails.dart';
 import 'package:kul_last/view/sections.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class AllSuggestedCompanies extends StatelessWidget {
   List<Company> companies = [];
   AllSuggestedCompanies(this.companies);
@@ -16,7 +16,7 @@ class AllSuggestedCompanies extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'الشركات المقترحة',
+            translator.translate('TheProposedCompanies'),
           style: TextStyle(color: Colors.black54),
         ),
         leading: IconButton(
