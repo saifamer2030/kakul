@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kul_last/model/companyInSection.dart';
+import 'package:kul_last/model/companyInmap.dart';
 import 'package:kul_last/model/map_helper.dart';
 import 'package:kul_last/model/map_marker.dart';
 import 'package:kul_last/myColor.dart';
@@ -14,9 +15,10 @@ import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 class MapCluster extends StatefulWidget {
-  List<Company> companies = [];
+  List<CompanyMap> companies = [];
   SectionProvider secProv;
   MapCluster(this.companies, this.secProv);
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -32,9 +34,12 @@ class _MapClusterState extends State<MapCluster> {
   final Completer<GoogleMapController> _mapController = Completer();
   final markerKey = GlobalKey();
   String selectedID = null;
+  String search = "";
+
   /// Set of displayed markers and cluster markers on the map
   final Set<Marker> _markers = Set();
-
+  //Set<Marker> markers = Set.from([]);
+  List<Marker> markers = [];
   /// Minimum zoom at which the markers will cluster
   final int _minClusterZoom = 0;
 
@@ -110,78 +115,120 @@ class _MapClusterState extends State<MapCluster> {
   }
 
   /// Inits [Fluster] and all the markers with network images and updates the loading state.
+  // void _initMarkers() async {
+  //   setState(() {
+  //     _areMarkersLoading = true;
+  //   });
+  //  // final List<Marker> markers = [];
+  //   BitmapDescriptor markerImage;
+  //   int count = 0;
+  //   markers.clear();
+  //   for (CompanyMap company in widget.companies) {
+  //     if (selectedID != null) {
+  //       if (selectedID == company.secID) {
+  //         count++;
+  //         markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
+  //         markers.add(
+  //           Marker(
+  //             markerId: MarkerId(
+  //               company.id,
+  //             ),
+  //             position: LatLng(double.parse(company.lat.toString()), double.parse(company.lng.toString())),
+  //             icon: markerImage,
+  //             infoWindow: InfoWindow(title: company.name),
+  //           ),
+  //         );
+  //       }
+  //     } else {
+  //       count++;
+  //       markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
+  //       markers.add(
+  //         Marker(
+  //           markerId: MarkerId(
+  //             company.id,
+  //           ),
+  //           position: LatLng(double.parse(company.lat.toString()), double.parse(company.lng.toString())),
+  //           icon: markerImage,
+  //           infoWindow: InfoWindow(title: company.name),
+  //         ),
+  //
+  //       );
+  //     }
+  //
+  //   }
+  //   // _clusterManager = await MapHelper.initClusterManager(
+  //   //   markers,
+  //   //   _minClusterZoom,
+  //   //   _maxClusterZoom,
+  //   // );
+  //   setState(() {
+  //     _areMarkersLoading = false;
+  //   });
+  // //  await _updateMarkers();
+  // }
   void _initMarkers() async {
     setState(() {
       _areMarkersLoading = true;
     });
-    final List<MapMarker> markers = [];
+    // final List<Marker> markers = [];
     BitmapDescriptor markerImage;
     int count = 0;
     markers.clear();
-    for (Company company in widget.companies) {
+    for (CompanyMap company in globals.companies) {
+      if (company.name.contains(search)) {
       if (selectedID != null) {
         if (selectedID == company.secID) {
           count++;
-          markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
-          markers.add(
-            MapMarker(
-              id: company.id.toString(),
-              position: LatLng(double.parse(company.lat.toString()), double.parse(company.lng.toString())),
-              icon: markerImage,
-            ),
-          );
+          // markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
+          markers.add(company.marker);
         }
       } else {
         count++;
-        markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
-        markers.add(
-          MapMarker(
-            id: company.id.toString(),
-            position: LatLng(double.parse(company.lat.toString()), double.parse(company.lng.toString())),
-            icon: markerImage,
-          ),
-        );
+        // markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
+        markers.add(company.marker);
       }
-
     }
-    _clusterManager = await MapHelper.initClusterManager(
-      markers,
-      _minClusterZoom,
-      _maxClusterZoom,
-    );
-
-    await _updateMarkers();
+    }
+    // _clusterManager = await MapHelper.initClusterManager(
+    //   markers,
+    //   _minClusterZoom,
+    //   _maxClusterZoom,
+    // );
+    setState(() {
+      _areMarkersLoading = false;
+    });
+    //  await _updateMarkers();
   }
 
   /// Gets the markers and clusters to be displayed on the map for the current zoom level and
   /// updates state.
-  Future<void> _updateMarkers([double updatedZoom]) async {
-    if (_clusterManager == null || updatedZoom == _currentZoom) return;
-
-    if (updatedZoom != null) {
-      _currentZoom = updatedZoom;
-    }
-
-    // setState(() {
-    //   _areMarkersLoading = true;
-    // });
-
-    final updatedMarkers = await MapHelper.getClusterMarkers(
-      _clusterManager,
-      _currentZoom,
-      _clusterColor,
-      _clusterTextColor,
-      80,
-    );
-
-    _markers
-      ..clear()
-      ..addAll(updatedMarkers);
-
-    setState(() {
-      _areMarkersLoading = false;
-    });
-  }
+  // Future<void> _updateMarkers([double updatedZoom]) async {
+  //   if (_clusterManager == null || updatedZoom == _currentZoom) return;
+  //
+  //   if (updatedZoom != null) {
+  //     _currentZoom = updatedZoom;
+  //   }
+  //
+  //   // setState(() {
+  //   //   _areMarkersLoading = true;
+  //   // });
+  //
+  //   final updatedMarkers = await MapHelper.getClusterMarkers(
+  //     _clusterManager,
+  //     _currentZoom,
+  //     _clusterColor,
+  //     _clusterTextColor,
+  //     80,
+  //   );
+  //
+  //   _markers
+  //     ..clear()
+  //     ..addAll(updatedMarkers);
+  //
+  //   setState(() {
+  //     _areMarkersLoading = false;
+  //   });
+  // }
   Location loc = Location();
   getMyLoc() async {
     loc.getLocation().then((data) {
@@ -226,9 +273,9 @@ class _MapClusterState extends State<MapCluster> {
                       target: LatLng(24.781518, 46.701888),
                       zoom: 12,
                     ),
-                    markers: _markers,
+                    markers: Set<Marker>.of(markers),
                     onMapCreated: (controller) => _onMapCreated(controller),
-                    onCameraMove: (position) => _updateMarkers(position.zoom),
+                  //  onCameraMove: (position) => _updateMarkers(position.zoom),
                   ),
                 ),
               ),
@@ -288,6 +335,13 @@ class _MapClusterState extends State<MapCluster> {
 
                               ),
                               child: TextField(
+                                onSubmitted: (text) {
+                                //  print("First text field: $text");
+                                  setState(() {
+                                    search=text;
+                                    _initMarkers();
+                                  });
+                                },
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'ابحث...',
@@ -335,6 +389,78 @@ class _MapClusterState extends State<MapCluster> {
                         ),
                       )
                     ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  color: Colors.grey[200].withAlpha(200),
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  height: 50,
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("عروض"),
+                       SizedBox(width: 2,),
+                        Container(
+                          width:20,height: 20,
+
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                border: Border.all(
+                                  color: Colors.green,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(20))
+                            ),
+                        ),
+                      SizedBox(width: 7,),
+                        Text("وظائف للجميع"),
+                      //  SizedBox(width: 4,),
+                        Container(
+                          width:20,height: 20,
+
+                          decoration: BoxDecoration(
+                              color: Colors.orange,
+                              border: Border.all(
+                                color: Colors.orange,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                        ),
+                        SizedBox(width: 7,),
+                        Text("وظائف نساء"),
+                       // SizedBox(width: 4,),
+                        Container(
+                          width:20,height: 20,
+
+                          decoration: BoxDecoration(
+                              color: Colors.pink,
+                              border: Border.all(
+                                color: Colors.pink,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                        ),
+                        SizedBox(width: 7,),
+                        Text("وظائف رجال"),
+                        SizedBox(width: 4,),
+                        Container(
+                          width:20,height: 20,
+
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              border: Border.all(
+                                color: Colors.blue,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                        ),
+
+                      ],
+                    ),
                   ),
                 ),
               )

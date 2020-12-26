@@ -22,12 +22,11 @@ import 'map_marker.dart';
 /// and to show clusters using the [Fluster] package.
 class MapHelper {
 
-  static Future<BitmapDescriptor> getMarkerIcon(String url, double size) async {
+  static Future<BitmapDescriptor> getMarkerIcon(String url, double size, int type, int offers) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
 
     final Radius radius = Radius.circular(size / 2);
-
     // final Paint tagPaint =  Paint()
     // ..shader = ui.Gradient.linear(
     //   Offset.fromDirection(10.0),
@@ -37,10 +36,21 @@ class MapHelper {
     //   Colors.red,
     // ],
     // );
-    final Paint jobsPaint = Paint()..color = Colors.blue;//jobs
+     Paint jobsPaint = Paint()..color = Colors.blue;//jobs
+    if(type==1){
+      jobsPaint = Paint()..color = Colors.blue;
+    }else if(type==2){
+      jobsPaint = Paint()..color = Colors.pink;
+    }else{
+      jobsPaint = Paint()..color = Colors.orange;
+    }
     final Paint offerPaint = Paint()..color = Colors.green;//offers
-    final double jobsWidth = 40.0;
-    final double offersWidth = 40.0;
+     double jobsWidth = 40.0;
+    if(type==0){jobsWidth=0;}else{jobsWidth=40;}
+     double offersWidth = 40.0;
+    if(offers==0){offersWidth = 0.0;}else{offersWidth = 40.0;}
+
+
 
      final Paint shadowPaint = Paint()..color = Colors.blue.withAlpha(100);
    // final Paint shadowPaint = Paint()..color = Colors.green;
@@ -147,6 +157,7 @@ class MapHelper {
 
     var cache = MapCache<String, ui.Image>();
     try {
+      print('image12: ');
 
       ui.Image image = await cache.get(url, ifAbsent: (uri) {
         print('getting not cached image from $uri');
