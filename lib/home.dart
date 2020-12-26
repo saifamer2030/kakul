@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
@@ -7,13 +9,16 @@ import 'package:kul_last/model/userModel.dart';
 import 'package:kul_last/view/companies.dart';
 
 import 'package:kul_last/view/jobs.dart';
+import 'package:kul_last/view/mapcluster.dart';
 import 'package:kul_last/view/maps.dart';
 import 'package:kul_last/view/menu.dart';
 import 'package:kul_last/view/msg.dart';
 import 'package:kul_last/view/notify.dart';
 import 'package:kul_last/view/sections.dart';
 import 'package:kul_last/viewModel/companies.dart';
+import 'package:kul_last/viewModel/companiesmap.dart';
 import 'package:kul_last/viewModel/sections.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 import 'package:provider/provider.dart';
 
@@ -39,6 +44,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Timer(Duration(seconds: 0), () async {
+      getAllCompaniesmap(context).then((v) async {
+        print('iddd'+v);
+      });
+      print("hhh1");
+    });
     if (user != null) {
       getUserCompany(user.id).then((v) {
         userCompany = v;
@@ -73,7 +84,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var compPro = Provider.of<CompanyProvider>(context);
      var secProv=Provider.of<SectionProvider>(context);
-  
+    var compmapPro = Provider.of<CompanyMapProvider>(context);
+
+
     return Scaffold(
       key: scaffoldKey,
       endDrawer: MyMenu(user, userCompany),
@@ -124,8 +137,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         color: Colors.orange[200],
                       ),
                       onPressed: () {
+                        print("ooooo"+compmapPro.companiesmap.length.toString()+compmapPro.companiesmap.toString());
                          Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Maps(compPro.companies,secProv)));
+                        builder: (context) => MapCluster(globals.companies,secProv)));
                 },
                     ),
      ],

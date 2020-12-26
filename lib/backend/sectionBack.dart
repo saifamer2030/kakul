@@ -1,15 +1,24 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:kul_last/model/companyInSection.dart';
+import 'package:kul_last/model/companyInmap.dart';
 import 'package:kul_last/model/jobs.dart';
+import 'package:kul_last/model/jobtype.dart';
+import 'package:kul_last/model/map_helper.dart';
+import 'package:kul_last/model/map_marker.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
+import 'package:kul_last/view/companyDetails.dart';
 import 'package:mime/mime.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 Future<dynamic> getAllSections() async {
   List<Section> sections = [];
@@ -90,7 +99,6 @@ Future<dynamic> getCompanySection(String secID) async {
 
   return translator.translate('AConnectionErrorHasOccurred');
 }
-
 Future<dynamic> getAllCompanies() async {
   List<Company> companies = [];
   String baseURL = "http://kk.vision.com.sa/API/GetAllCompanies.php";
@@ -108,7 +116,125 @@ Future<dynamic> getAllCompanies() async {
 
   return translator.translate('AConnectionErrorHasOccurred');
 }
+Future<dynamic> getCompanyJobstype(String companyID) async {
+  String baseURL = "http://kk.vision.com.sa/API/GetJob.php?Spid=$companyID";
+  var client = Client();
+  List<Job> jobs = [];
+  JobType jobtype;
+  bool m=false;
+  bool f=false;
+int checkoffers;
+  Response response = await client.get(baseURL);
 
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.body);
+    if (json['success'] == 1) {
+      List jsonList = json["Job"];
+      checkoffers= await getCompanyNewslength(companyID).then((offerlen) {
+
+      });
+      jsonList.forEach((item) {
+        if(item['Sex']=="ذكر"){
+         m=true;
+        }else{
+         f=true;
+        }
+       // jobs.add(Job.fromMap(i));
+      });
+      return JobType(m,f,checkoffers);
+    }
+    return JobType(m,f,checkoffers);
+  }
+
+  return translator.translate('AConnectionErrorHasOccurred');
+}
+Future<int> getCompanyNewslength(String companyID) async {
+  String baseURL = "http://kk.vision.com.sa/API/GetNews.php?Spid=$companyID";
+  var client = Client();
+  List<New> news = [];
+int length=0;
+  Response response = await client.get(baseURL);
+
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.body);
+    if (json['success'] == 1) {
+      List jsonList = json["News"];
+      jsonList.forEach((i) {
+        news.add(New.fromMap(i));
+      });
+      return news.length;
+    } else {
+      return 0;
+    }
+  }
+
+  return 0;
+}
+
+Future<dynamic> getAllCompaniesmap(BuildContext context) async {
+  List<CompanyMap> companies = [];
+  print("hhh4");
+  JobType jobtype;int checkoffers;
+  String baseURL = "http://kk.vision.com.sa/API/GetAllCompanies.php";
+  var client = Client();
+  Response response = await client.get(baseURL);
+
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.body);
+    List jsonSecList = json['Companies'];
+    int jobcolor=0;
+    int i=-1;
+    jsonSecList.forEach((item) async {
+      globals.companies.clear();
+i++;
+      Timer(Duration(seconds: 0), () async {
+        jobtype=await  getCompanyJobstype(item['id']).then((value) {
+          if(value.male&&value.fmale){
+            jobcolor=3;
+          }else if(value.male==true&&value.fmale==false){
+            jobcolor=1;
+          }else if(value.male==false&&value.fmale==true){
+            jobcolor=2;
+          }else{jobcolor=0;}
+          print("ppppp"+value.male.toString());
+          Timer(Duration(seconds: 0), () async {
+          // checkoffers= await getCompanyNewslength(item['id']).then((offerlen) {
+          //   Timer(Duration(seconds: 0), () async {
+
+              var markerImage = await MapHelper.getMarkerIcon(item['Image'],125.0,jobcolor,value.offers);
+              item['marker']= Marker(
+                markerId: MarkerId(
+                  item['id'],
+                ),
+                position: LatLng(double.parse(item['lat'].toString()), double.parse(item['lon'].toString())),
+                icon: markerImage,
+                infoWindow: InfoWindow(title: item['Name'],
+                    onTap: (){
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             CompanyDetails(jsonSecList[i])));
+                }),
+              );
+              companies.add(CompanyMap.fromMap(item));
+              globals.companies.addAll(companies);
+            });
+          // });
+          // });
+        });
+
+
+      });
+      });
+
+
+
+    return companies;
+  }
+
+  return translator.translate('AConnectionErrorHasOccurred');
+}
 Future<dynamic> getFeaturedCompanies() async {
   List<Company> companies = [];
   String baseURL = "http://kk.vision.com.sa/API/GetAllCompaniesSP.php";

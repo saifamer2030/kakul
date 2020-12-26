@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kul_last/splash.dart';
 import 'package:kul_last/viewModel/companies.dart';
+import 'package:kul_last/viewModel/companiesmap.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
 
 main(List<String> args) async {
   // if your flutter > 1.7.8 :  ensure flutter activated
@@ -30,8 +32,12 @@ main(List<String> args) async {
               lazy: true,
             ),
             ChangeNotifierProvider(
+              create: (context) => CompanyMapProvider(),
+            ),
+            ChangeNotifierProvider(
               create: (context) => CompanyProvider(),
             ),
+
           ],
           child: Splash(),
         ),

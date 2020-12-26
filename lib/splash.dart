@@ -5,6 +5,7 @@ import 'package:kul_last/model/userModel.dart';
 
 import 'package:kul_last/view/login.dart';
 import 'package:kul_last/viewModel/companies.dart';
+import 'package:kul_last/viewModel/companiesmap.dart';
 import 'package:kul_last/viewModel/featuredCompanies.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:kul_last/viewModel/sections.dart';
@@ -57,6 +58,9 @@ class _SplashState extends State<Splash> {
                           ),
                           ChangeNotifierProvider<JobsProvider>.value(
                             value: JobsProvider(),
+                          ),
+                          ChangeNotifierProvider<CompanyMapProvider>.value(
+                            value: CompanyMapProvider(),
                           ),
                         ],
                         child: Home(v),
