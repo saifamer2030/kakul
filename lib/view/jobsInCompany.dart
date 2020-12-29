@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/myColor.dart';
+import 'package:kul_last/view/similarjobs.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:localize_and_translate/localize_and_translate.dart';
 class JobsInCompany extends StatelessWidget {
   List<Job> jobs;
@@ -29,13 +32,14 @@ class JobsInCompany extends StatelessWidget {
               ),
               title: ListTile(
                 contentPadding: EdgeInsets.all(0),
-                leading: Container(
+                leading:Container(
                   child: ClipOval(
-                    child: Image.asset(
-                      'assets/cover.png',
-                      fit: BoxFit.fill,
+                    child:FadeInImage.assetNetwork(
+                      image: jobs[index].Image,
+                      placeholder:  'assets/cover.png',
                       width: 60,
                       height: 80,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -57,65 +61,88 @@ class JobsInCompany extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(left: 20, right: 20),
+                        margin: EdgeInsets.only(
+                            left: 20, right: 20),
                         child: Table(
-                          defaultColumnWidth: FlexColumnWidth(1),
+                          defaultColumnWidth:
+                          FlexColumnWidth(1),
                           border: TableBorder(
-                            horizontalInside:
-                                BorderSide(width: 1, color: Colors.grey),
-                            verticalInside:
-                                BorderSide(width: 1, color: Colors.grey),
+                            horizontalInside: BorderSide(
+                                width: 1,
+                                color: Colors.grey),
+                            verticalInside: BorderSide(
+                                width: 1,
+                                color: Colors.grey),
                           ),
                           children: [
                             TableRow(children: [
                               Text(
                             translator.translate('ExperienceLevel'),
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[600]),
+                                    fontSize: 12,
+                                    color:
+                                    Colors.grey[600]),
                               ),
                               Center(
                                 child: Text(
-            translator.translate('RecentGraduate'),
+                                  jobs[index].Experience,
+
                                   style: TextStyle(
-                                      color: MyColor.customColor, fontSize: 12),
+                                      color: MyColor
+                                          .customColor,
+                                      fontSize: 12),
                                 ),
                               ),
                               Center(
                                 child: Text(translator.translate('TypeOfEmployment'),
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600])),
+                                        fontSize: 12,
+                                        color: Colors
+                                            .grey[600])),
                               ),
                               Center(
                                 child: Text(
                                   jobs[index].workHours,
                                   style: TextStyle(
-                                      color: MyColor.customColor, fontSize: 12),
+                                      color: MyColor
+                                          .customColor,
+                                      fontSize: 12),
                                 ),
                               )
                             ]),
                             TableRow(children: [
                               Center(
+
                                 child: Text(translator.translate('EducationalLevel'),
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600])),
+                                        fontSize: 12,
+                                        color: Colors
+                                            .grey[600])),
                               ),
                               Center(
                                 child: Text(
-            translator.translate('BA'),
+                                  jobs[index].Education,
+
                                   style: TextStyle(
-                                      color: MyColor.customColor, fontSize: 12),
+                                      color: MyColor
+                                          .customColor,
+                                      fontSize: 12),
                                 ),
                               ),
                               Center(
                                 child: Text(translator.translate('AdvertiserType'),
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600])),
+                                        fontSize: 12,
+                                        color: Colors
+                                            .grey[600])),
                               ),
                               Center(
                                 child: Text(
             translator.translate('LookingForAnEmployee'),
                                   style: TextStyle(
-                                      color: MyColor.customColor, fontSize: 11),
+                                      color: MyColor
+                                          .customColor,
+                                      fontSize: 11),
                                 ),
                               )
                             ])
@@ -131,15 +158,18 @@ class JobsInCompany extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: EdgeInsets.only(
+                      left: 20, right: 20),
                   child: Text(
                     jobs[index].details,
                     textAlign: TextAlign.right,
-                    style: TextStyle(color: Colors.grey[600]),
+                    style: TextStyle(
+                        color: Colors.grey[600]),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: EdgeInsets.only(
+                      left: 20, right: 20),
                   width: double.infinity,
                   child: RaisedButton(
                     color: MyColor.customColor,
@@ -148,15 +178,25 @@ class JobsInCompany extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
+                          builder: (context) =>
+                              AlertDialog(
                                 content: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment
+                                      .spaceBetween,
                                   children: <Widget>[
-                                    Text('01093138717'),
-                                    Icon(
-                                      Icons.call,
-                                      textDirection: TextDirection.rtl,
+                                    Text(jobs[index].Mobile,),
+                                    InkWell(
+                                      onTap: () {
+                                        launch("tel://${jobs[index].Mobile}");
+
+                                      },
+                                      child: Icon(
+                                        Icons.call,
+                                        textDirection:
+                                        TextDirection
+                                            .rtl,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -165,17 +205,28 @@ class JobsInCompany extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin:
-                      EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 10),
-                  color: Colors.grey[300],
                   height: 60,
-                  child: Center(
-                    child: Text(
-            translator.translate('OtherSimilarFunctions'),
-                      style: TextStyle(color: Colors.grey[600]),
+                  margin: EdgeInsets.only(
+                      left: 20, right: 20),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    color:    Colors.grey[300],
+                    //  textColor: Colors.white,
+                    child:  Text(
+                    translator.translate('OtherSimilarFunctions'),
+                      style: TextStyle(
+                          color: Colors.grey[600]),
+
                     ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SimilarJobs(jobs[index].IdSections,jobs[index].IdSubSection)));
+                    },
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             );
           },

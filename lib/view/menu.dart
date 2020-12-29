@@ -54,7 +54,7 @@ class MyMenu extends StatelessWidget {
                                         CompanyDetails(userCompany)));
                         },
                         leading: Icon(Icons.assessment),
-                        title: Text(translator.translate('MyCompany'),),
+                        title: Text('شركتي'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -76,7 +76,7 @@ class MyMenu extends StatelessWidget {
                                     builder: (context) => Account(user)));
                         },
                         leading: Icon(Icons.perm_contact_calendar),
-                        title: Text(translator.translate('Arithmetic'),),
+                        title: Text('حسابي'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -92,7 +92,7 @@ class MyMenu extends StatelessWidget {
                                   builder: (context) => AllNews()));
                         },
                         leading: Image.asset('assets/news.png', scale: 3.5),
-                        title: Text(translator.translate('News'),),
+                        title: Text('الأخبار'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -101,13 +101,13 @@ class MyMenu extends StatelessWidget {
                       /*Divider(),
                       ListTile(
                         leading: Icon(Icons.receipt),
-                        title: Text(translator.translate('Articles'),),
+                        title: Text('المقالات'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
                         ),
                       ),
-                     
+
                      */
                       Divider(),
                       ListTile(
@@ -119,7 +119,7 @@ class MyMenu extends StatelessWidget {
                                   builder: (context) => NewCompany()));
                         },
                         leading: Image.asset('assets/tag2.png', scale: 3.5),
-                        title: Text(translator.translate('CompanyRegistration'),),
+                        title: Text('تسجيل شركة'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -132,7 +132,7 @@ class MyMenu extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Login()));
                         },
                         leading: Icon(Icons.exit_to_app),
-                        title: Text(translator.translate('Logoff'),),
+                        title: Text(user == null?'تسجيل دخول':'تسجيل خروج'),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,

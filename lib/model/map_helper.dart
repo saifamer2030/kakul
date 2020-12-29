@@ -48,7 +48,7 @@ class MapHelper {
      double jobsWidth = 40.0;
     if(type==0){jobsWidth=0;}else{jobsWidth=40;}
      double offersWidth = 40.0;
-    if(offers==0){offersWidth = 0.0;}else{offersWidth = 40.0;}
+    if(offers==0||offers==null){offersWidth = 0.0;}else{offersWidth = 40.0;}
 
 
 

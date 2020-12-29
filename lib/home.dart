@@ -4,8 +4,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kul_last/backend/others.dart';
+import 'package:kul_last/model/advertisment.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/userModel.dart';
+import 'package:kul_last/view/alloffers.dart';
 import 'package:kul_last/view/companies.dart';
 
 import 'package:kul_last/view/jobs.dart';
@@ -48,7 +52,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
+
     Timer(Duration(seconds: 0), () async {
+      getAllCompanies1();
+      LatLng latlng= await getCurrentLocation();
+
       getAllCompaniesmap(context).then((v) async {
         print('iddd' + v);
       });
@@ -57,11 +67,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     if (user != null) {
       getUserCompany(user.id).then((v) {
         userCompany = v;
+        globals.myCompany=v;
         setState(() {});
         //updateMyCompanyDistance(userCompany);
       });
     }
-    controller = new TabController(length: 3, vsync: this, initialIndex: 2);
+    controller = new TabController(length: 4, vsync: this, initialIndex: 3);
 
     controller.addListener(() {
       setState(() {
@@ -88,8 +99,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var compPro = Provider.of<CompanyProvider>(context);
+<<<<<<< HEAD
     var secProv = Provider.of<SectionProvider>(context);
     // var compmapPro = Provider.of<CompanyMapProvider>(context);
+=======
+     var secProv=Provider.of<SectionProvider>(context);
+   // var compmapPro = Provider.of<CompanyMapProvider>(context);
+
+>>>>>>> 9bd6600ecd0a62c1d03c074228d6b1546541c879
 
     return Scaffold(
       key: scaffoldKey,
@@ -115,9 +132,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.monetization_on,
+                  color: (controller.index) == 1
+                      ? MyColor.customColor
+                      : Colors.grey),
+              title: Text(translator.translate('offers'),),
+            ),
+            BottomNavigationBarItem(
               icon: Image.asset('assets/company.png',
                   scale: 3,
-                  color: (controller.index) == 1
+                  color: (controller.index) == 2
                       ? MyColor.customColor
                       : Colors.grey),
               title: Text(
@@ -127,7 +151,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             BottomNavigationBarItem(
               icon: Image.asset('assets/tag2.png',
                   scale: 3,
-                  color: (controller.index) == 2
+                  color: (controller.index) ==3
                       ? MyColor.customColor
                       : Colors.grey),
               title: Text(
@@ -135,6 +159,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
           ]),
+<<<<<<< HEAD
       floatingActionButton: Row(
         children: <Widget>[
           SizedBox(
@@ -157,6 +182,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ],
       ),
       /*  floatingActionButton: SpeedDial(
+=======
+    
+   floatingActionButton:  Row(
+     children: <Widget>[
+       SizedBox(width: 30,),
+       FloatingActionButton(
+                      backgroundColor: Colors.black87,
+                      child: Icon(
+                        Icons.clear_all,
+                        size: 30,
+                        color: Colors.orange[200],
+                      ),
+                      onPressed: () {
+                       // print("ooooo"+compmapPro.companiesmap.length.toString()+compmapPro.companiesmap.toString());
+                         Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MapCluster(globals.companies,secProv)));
+                },
+                    ),
+     ],
+   ),
+    /*  floatingActionButton: SpeedDial(
+>>>>>>> 9bd6600ecd0a62c1d03c074228d6b1546541c879
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(color: Colors.orange[200]),
         marginRight: MediaQuery.of(context).size.width - 70,
@@ -222,13 +269,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Image.asset(
-                            'assets/search.png',
-                            scale: 1.8,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
+                          // Image.asset(
+                          //   'assets/search.png',
+                          //   scale: 1.8,
+                          // ),
+                          // SizedBox(
+                          //   width: 15,
+                          // ),
                           InkWell(
                               onTap: () {
                                 setState(() {
@@ -297,6 +344,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   text: translator.translate('Main'),
                 ),
               ],
+<<<<<<< HEAD
             ),*/
 
             Expanded(
@@ -307,6 +355,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           children: <Widget>[
                             //jobs
                             Jobs(),
+=======
+            ),
+          
+          */
+          Expanded(
+            child:
+            (homeIndex == 0)
+                ? Container(
+                
+                  child: TabBarView(
+                      controller: controller,
+                      children: <Widget>[
+                        //jobs
+                        Jobs(),
+                        AllOffers(),
+                        //  RegisterCompany(),
+>>>>>>> 9bd6600ecd0a62c1d03c074228d6b1546541c879
 
                             //  RegisterCompany(),
 

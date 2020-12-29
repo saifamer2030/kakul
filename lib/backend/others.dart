@@ -1,11 +1,14 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kul_last/model/companyInSection.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 Future<LatLng> getCurrentLocation() async {
   Position position = await Geolocator()
       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
+  globals.lat=(position.latitude);
+  globals.lng=( position.longitude);
+print("bbb${position.latitude}///${ globals.lat}");
   return LatLng(position.latitude, position.longitude);
 }
 
@@ -46,6 +49,6 @@ updateMyCompanyDistance(Company company) async {
       fromLng: latlng.longitude,
       toLat: double.parse(company.lat),
       toLng: double.parse(company.lng));
-  company.distanceBetween = distance.toString();
+//  company.distanceBetween = distance.toString();
  // print('MyDis:${company.distanceBetween}');
 }

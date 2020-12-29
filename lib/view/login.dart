@@ -3,6 +3,7 @@ import 'package:kul_last/backend/auh.dart';
 import 'package:kul_last/home.dart';
 import 'package:kul_last/model/userModel.dart';
 import 'package:kul_last/view/registerNewCompany.dart';
+import 'package:kul_last/view/registerNewuser.dart';
 import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/featuredCompanies.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
@@ -12,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../myColor.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 class Login extends StatefulWidget {
   @override
@@ -153,6 +155,7 @@ class _LoginState extends State<Login> {
                                     saveUserTosharedPref(mailController.text,
                                         passController.text);
                                   }
+                                  globals.myuser=v;
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -200,7 +203,7 @@ class _LoginState extends State<Login> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => NewCompany()));
+                                    builder: (context) => RegisterNewUser()));
                           },
                           child: Text(
                             translator
