@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kul_last/view/similarjobs.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../myColor.dart';
 
@@ -27,18 +29,19 @@ class Jobs extends StatelessWidget {
                           ),
                           title: ListTile(
                             contentPadding: EdgeInsets.all(0),
-                            leading: Container(
+                            leading:Container(
                               child: ClipOval(
-                                child: Image.asset(
-                                  'assets/cover.png',
-                                  fit: BoxFit.fill,
+                                child:FadeInImage.assetNetwork(
+                                  image: jobPro.jobs[index].Image,
+                                  placeholder:  'assets/cover.png',
                                   width: 60,
                                   height: 80,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
                             title: Text(
-                             jobPro.jobs[index].name,
+                              jobPro.jobs[index].name,
                               style: TextStyle(color: Colors.black87),
                             ),
                             subtitle: Text(
@@ -55,15 +58,18 @@ class Jobs extends StatelessWidget {
                               child: Column(
                                 children: <Widget>[
                                   Container(
-                                    margin:
-                                        EdgeInsets.only(left: 20, right: 20),
+                                    margin: EdgeInsets.only(
+                                        left: 20, right: 20),
                                     child: Table(
-                                      defaultColumnWidth: FlexColumnWidth(1),
+                                      defaultColumnWidth:
+                                      FlexColumnWidth(1),
                                       border: TableBorder(
                                         horizontalInside: BorderSide(
-                                            width: 1, color: Colors.grey),
+                                            width: 1,
+                                            color: Colors.grey),
                                         verticalInside: BorderSide(
-                                            width: 1, color: Colors.grey),
+                                            width: 1,
+                                            color: Colors.grey),
                                       ),
                                       children: [
                                         TableRow(children: [
@@ -71,13 +77,15 @@ class Jobs extends StatelessWidget {
                                             'مستوى الخبرة',
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.grey[600]),
+                                                color:
+                                                Colors.grey[600]),
                                           ),
                                           Center(
                                             child: Text(
-                                              'حديث التخرج',
+                                              jobPro.jobs[index].Experience,
                                               style: TextStyle(
-                                                  color: MyColor.customColor,
+                                                  color: MyColor
+                                                      .customColor,
                                                   fontSize: 12),
                                             ),
                                           ),
@@ -85,29 +93,34 @@ class Jobs extends StatelessWidget {
                                             child: Text('نوع العمل',
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    color: Colors.grey[600])),
+                                                    color: Colors
+                                                        .grey[600])),
                                           ),
                                           Center(
                                             child: Text(
-                                             jobPro.jobs[index].workHours,
+                                              jobPro.jobs[index].workHours,
                                               style: TextStyle(
-                                                  color: MyColor.customColor,
+                                                  color: MyColor
+                                                      .customColor,
                                                   fontSize: 12),
                                             ),
                                           )
                                         ]),
                                         TableRow(children: [
                                           Center(
-                                            child: Text('المستوى التعليمي',
+                                            child: Text(
+                                                'المستوى التعليمي',
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    color: Colors.grey[600])),
+                                                    color: Colors
+                                                        .grey[600])),
                                           ),
                                           Center(
                                             child: Text(
-                                              'بكالوريوس',
+                                              jobPro.jobs[index].Education,
                                               style: TextStyle(
-                                                  color: MyColor.customColor,
+                                                  color: MyColor
+                                                      .customColor,
                                                   fontSize: 12),
                                             ),
                                           ),
@@ -115,13 +128,15 @@ class Jobs extends StatelessWidget {
                                             child: Text('نوع المعلن',
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    color: Colors.grey[600])),
+                                                    color: Colors
+                                                        .grey[600])),
                                           ),
                                           Center(
                                             child: Text(
                                               'باحث عن موظف',
                                               style: TextStyle(
-                                                  color: MyColor.customColor,
+                                                  color: MyColor
+                                                      .customColor,
                                                   fontSize: 11),
                                             ),
                                           )
@@ -138,15 +153,18 @@ class Jobs extends StatelessWidget {
                               color: Colors.grey,
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 20, right: 20),
+                              margin: EdgeInsets.only(
+                                  left: 20, right: 20),
                               child: Text(
                                 jobPro.jobs[index].details,
                                 textAlign: TextAlign.right,
-                                style: TextStyle(color: Colors.grey[600]),
+                                style: TextStyle(
+                                    color: Colors.grey[600]),
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 20, right: 20),
+                              margin: EdgeInsets.only(
+                                  left: 20, right: 20),
                               width: double.infinity,
                               child: RaisedButton(
                                 color: MyColor.customColor,
@@ -155,17 +173,25 @@ class Jobs extends StatelessWidget {
                                 onPressed: () {
                                   showDialog(
                                       context: context,
-                                      builder: (context) => AlertDialog(
+                                      builder: (context) =>
+                                          AlertDialog(
                                             content: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              MainAxisAlignment
+                                                  .spaceBetween,
                                               children: <Widget>[
-                                                Text('01093138717'),
-                                                Icon(
-                                                  Icons.call,
-                                                  textDirection:
-                                                      TextDirection.rtl,
+                                                Text(jobPro.jobs[index].Mobile,),
+                                                InkWell(
+                                                  onTap: () {
+                                                    launch("tel://${jobPro.jobs[index].Mobile}");
+
+                                                  },
+                                                  child: Icon(
+                                                    Icons.call,
+                                                    textDirection:
+                                                    TextDirection
+                                                        .rtl,
+                                                  ),
                                                 )
                                               ],
                                             ),
@@ -174,17 +200,27 @@ class Jobs extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(
-                                  left: 20, right: 20, top: 5, bottom: 10),
-                              color: Colors.grey[300],
                               height: 60,
-                              child: Center(
-                                child: Text(
-                                  'وظائف اخرى مشابهة',
-                                  style: TextStyle(color: Colors.grey[600]),
+                              margin: EdgeInsets.only(
+                                  left: 20, right: 20),
+                              width: double.infinity,
+                              child: RaisedButton(
+                                color:    Colors.grey[300],
+                                //  textColor: Colors.white,
+                                child:  Text(
+                                  'عروض اخرى مشابهة',
+                                  style: TextStyle(
+                                      color: Colors.grey[600]),
                                 ),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => SimilarJobs(jobPro.jobs[index].IdSections,jobPro.jobs[index].IdSubSection)));
+                                },
                               ),
-                            )
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                           ],
                         );
                       },

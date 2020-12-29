@@ -167,7 +167,7 @@ class _AddNewNewsState extends State<AddNewNews> {
                           await addnews(
                               globals.myCompany.id,
                               globals.myCompany.name,
-                              globals.myCompany.imgURL,
+                              globals.myCompany.imgURL.replaceAll("http://kk.vision.com.sa/uploads/", ""),
                               globals.myCompany.phone,
                            detailsController.text,
                             titleController.text,

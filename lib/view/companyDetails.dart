@@ -6,9 +6,14 @@ import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/news.dart';
+import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/view/addNewjob.dart';
 import 'package:kul_last/view/addNewnews.dart';
+import 'package:kul_last/view/addnewoffer.dart';
 import 'package:kul_last/view/jobsInCompany.dart';
+import 'package:kul_last/view/offersInCompany.dart';
+import 'package:kul_last/view/similarjobs.dart';
+import 'package:kul_last/view/similaroffers.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,6 +39,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
   List<String> urls = [];
   List<Job> jobs = [];
   List<New> news = [];
+  List<Offer> offers = [];
+
+
 
   List<Widget> getCompanyImgWidget() {
     List<Widget> items = [];
@@ -111,6 +119,14 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           news = null;
         else
           news.addAll(v);
+      });
+    });
+    getCompanyoffers(companyID: company.id).then((v) {
+      setState(() {
+        if (v == null)
+          offers = null;
+        else
+          offers.addAll(v);
       });
     });
   }
@@ -459,7 +475,11 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         color: MyColor.customColor,
                         textColor: Colors.white,
                         onPressed: () {
-
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNewOffer()));
                         },
                         child: Row(
                           children: <Widget>[
@@ -585,7 +605,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(
                   height: 10,
                 ),
-                (jobs == null)
+                (offers == null)
                     ? Container()
                     : Container(
                         margin: EdgeInsets.only(left: 10, right: 10),
@@ -601,15 +621,15 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'الوظائف المتاحة',
+                                  'العروض الحالية',
                                 ),
                                 InkWell(
                                   onTap: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => JobsInCompany(
-                                                  jobs: jobs,
+                                            builder: (context) => OffersInCompany(
+                                                  offers: offers,
                                                   companyName: company.name,
                                                 )));
                                   },
@@ -622,7 +642,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               ],
                             ),
                             Divider(),
-                            (jobs.length == 0)
+                            (offers.length == 0)
                                 ? Container(
                                     height: 100,
                                     child: Center(
@@ -636,22 +656,23 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     ),
                                     title: ListTile(
                                       contentPadding: EdgeInsets.all(0),
-                                      leading: Container(
+                                      leading:Container(
                                         child: ClipOval(
-                                          child: Image.asset(
-                                            'assets/cover.png',
-                                            fit: BoxFit.fill,
+                                          child:FadeInImage.assetNetwork(
+                                            image: offers[0].company_image,
+                                            placeholder:  'assets/cover.png',
                                             width: 60,
                                             height: 80,
+                                            fit: BoxFit.fill,
                                           ),
                                         ),
                                       ),
                                       title: Text(
-                                        jobs[0].name,
+                                        offers[0].title,
                                         style: TextStyle(color: Colors.black87),
                                       ),
                                       subtitle: Text(
-                                        jobs[0].dateAt.split(' ')[0],
+                                        offers[0].create_date.split(' ')[0],
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                       trailing: Icon(
@@ -661,95 +682,42 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     ),
                                     children: <Widget>[
                                       Container(
-                                        child: Column(
+                                        child: Stack(
                                           children: <Widget>[
                                             Container(
-                                              margin: EdgeInsets.only(
-                                                  left: 20, right: 20),
-                                              child: Table(
-                                                defaultColumnWidth:
-                                                    FlexColumnWidth(1),
-                                                border: TableBorder(
-                                                  horizontalInside: BorderSide(
-                                                      width: 1,
-                                                      color: Colors.grey),
-                                                  verticalInside: BorderSide(
-                                                      width: 1,
-                                                      color: Colors.grey),
-                                                ),
-                                                children: [
-                                                  TableRow(children: [
-                                                    Text(
-                                                      'مستوى الخبرة',
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color:
-                                                              Colors.grey[600]),
-                                                    ),
-                                                    Center(
-                                                      child: Text(
-                                                        'حديث التخرج',
-                                                        style: TextStyle(
-                                                            color: MyColor
-                                                                .customColor,
-                                                            fontSize: 12),
-                                                      ),
-                                                    ),
-                                                    Center(
-                                                      child: Text('نوع العمل',
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: Colors
-                                                                  .grey[600])),
-                                                    ),
-                                                    Center(
-                                                      child: Text(
-                                                        jobs[0].workHours,
-                                                        style: TextStyle(
-                                                            color: MyColor
-                                                                .customColor,
-                                                            fontSize: 12),
-                                                      ),
-                                                    )
-                                                  ]),
-                                                  TableRow(children: [
-                                                    Center(
-                                                      child: Text(
-                                                          'المستوى التعليمي',
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: Colors
-                                                                  .grey[600])),
-                                                    ),
-                                                    Center(
-                                                      child: Text(
-                                                        'بكالوريوس',
-                                                        style: TextStyle(
-                                                            color: MyColor
-                                                                .customColor,
-                                                            fontSize: 12),
-                                                      ),
-                                                    ),
-                                                    Center(
-                                                      child: Text('نوع المعلن',
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: Colors
-                                                                  .grey[600])),
-                                                    ),
-                                                    Center(
-                                                      child: Text(
-                                                        'باحث عن موظف',
-                                                        style: TextStyle(
-                                                            color: MyColor
-                                                                .customColor,
-                                                            fontSize: 11),
-                                                      ),
-                                                    )
-                                                  ])
-                                                ],
+                                              height:150,
+                                              width:  double.infinity,
+                                              child: FadeInImage.assetNetwork(
+                                                image: offers[0].image,
+                                                placeholder:  'assets/cover.png',
+                                                width: 60,
+                                                height: 80,
+                                                fit: BoxFit.fill,
                                               ),
-                                            )
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                '${ offers[0].old_price} ريال',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.red[200],
+                                                  fontFamily: 'El Messiri',
+                                                  decoration: TextDecoration.lineThrough,
+                                                ),
+                                                //  textDirection: TextDirection.rtl,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${offers[0].new_price} ريال',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.green[200],
+                                                fontFamily: 'El Messiri',
+                                                //  decoration: TextDecoration.lineThrough,
+                                              ),
+                                              //  textDirection: TextDirection.ltr,
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -762,7 +730,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                         margin: EdgeInsets.only(
                                             left: 20, right: 20),
                                         child: Text(
-                                          jobs[0].details,
+                                          offers[0].text,
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                               color: Colors.grey[600]),
@@ -786,12 +754,17 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: <Widget>[
-                                                          Text('01093138717'),
-                                                          Icon(
-                                                            Icons.call,
-                                                            textDirection:
-                                                                TextDirection
-                                                                    .rtl,
+                                                          Text(offers[0].Mobile),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              launch("tel://${offers[0].Mobile}");
+                                                            },
+                                                            child: Icon(
+                                                              Icons.call,
+                                                              textDirection:
+                                                                  TextDirection
+                                                                      .rtl,
+                                                            ),
                                                           )
                                                         ],
                                                       ),
@@ -800,26 +773,283 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(
-                                            left: 20,
-                                            right: 20,
-                                            top: 5,
-                                            bottom: 10),
-                                        color: Colors.grey[300],
                                         height: 60,
-                                        child: Center(
-                                          child: Text(
-                                            'وظائف اخرى مشابهة',
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        width: double.infinity,
+                                        child: RaisedButton(
+                                          color:    Colors.grey[300],
+                                        //  textColor: Colors.white,
+                                          child:  Text(
+                                            'عروض اخرى مشابهة',
                                             style: TextStyle(
                                                 color: Colors.grey[600]),
                                           ),
+                                          onPressed: () {
+                                            Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => SimilarOffers(offers[0].IdSections,offers[0].IdSubSection)));
+                                          },
                                         ),
-                                      )
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                     ],
                                   )
                           ],
                         ),
                       ),
+                SizedBox(
+                  height: 10,
+                ),
+                (jobs == null)
+                    ? Container()
+                    : Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: .5, color: Colors.grey)),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'الوظائف المتاحة',
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => JobsInCompany(
+                                        jobs: jobs,
+                                        companyName: company.name,
+                                      )));
+                            },
+                            child: Text(
+                              'تصفح المزيد',
+                              style:
+                              TextStyle(color: MyColor.customColor),
+                            ),
+                          )
+                        ],
+                      ),
+                      Divider(),
+                      (jobs.length == 0)
+                          ? Container(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                          : ExpansionTile(
+                        trailing: Container(
+                          width: 0,
+                          height: 0,
+                        ),
+                        title: ListTile(
+                          contentPadding: EdgeInsets.all(0),
+                          leading:Container(
+                            child: ClipOval(
+                              child:FadeInImage.assetNetwork(
+                                image: jobs[0].Image,
+                                placeholder:  'assets/cover.png',
+                                width: 60,
+                                height: 80,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            jobs[0].name,
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                          subtitle: Text(
+                            jobs[0].dateAt.split(' ')[0],
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          trailing: Icon(
+                            Icons.details,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: 20, right: 20),
+                                  child: Table(
+                                    defaultColumnWidth:
+                                    FlexColumnWidth(1),
+                                    border: TableBorder(
+                                      horizontalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey),
+                                      verticalInside: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey),
+                                    ),
+                                    children: [
+                                      TableRow(children: [
+                                        Text(
+                                          'مستوى الخبرة',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color:
+                                              Colors.grey[600]),
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            jobs[0].Experience,
+                                            style: TextStyle(
+                                                color: MyColor
+                                                    .customColor,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                        Center(
+                                          child: Text('نوع العمل',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors
+                                                      .grey[600])),
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            jobs[0].workHours,
+                                            style: TextStyle(
+                                                color: MyColor
+                                                    .customColor,
+                                                fontSize: 12),
+                                          ),
+                                        )
+                                      ]),
+                                      TableRow(children: [
+                                        Center(
+                                          child: Text(
+                                              'المستوى التعليمي',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors
+                                                      .grey[600])),
+                                        ),
+                                        Center(
+                                          child: Text(
+                                              jobs[0].Education,
+                                            style: TextStyle(
+                                                color: MyColor
+                                                    .customColor,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                        Center(
+                                          child: Text('نوع المعلن',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors
+                                                      .grey[600])),
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            'باحث عن موظف',
+                                            style: TextStyle(
+                                                color: MyColor
+                                                    .customColor,
+                                                fontSize: 11),
+                                          ),
+                                        )
+                                      ])
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            endIndent: 20,
+                            indent: 20,
+                            color: Colors.grey,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            child: Text(
+                              jobs[0].details,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.grey[600]),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            width: double.infinity,
+                            child: RaisedButton(
+                              color: MyColor.customColor,
+                              textColor: Colors.white,
+                              child: Text('اظهار الرقم'),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        AlertDialog(
+                                          content: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: <Widget>[
+                                              Text(  jobs[0].Mobile,),
+                                              InkWell(
+                                                onTap: () {
+                                                  launch("tel://${jobs[0].Mobile}");
+
+                                                },
+                                                child: Icon(
+                                                  Icons.call,
+                                                  textDirection:
+                                                  TextDirection
+                                                      .rtl,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ));
+                              },
+                            ),
+                          ),
+                          Container(
+                            height: 60,
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            width: double.infinity,
+                            child: RaisedButton(
+                              color:    Colors.grey[300],
+                              //  textColor: Colors.white,
+                              child:  Text(
+                                'عروض اخرى مشابهة',
+                                style: TextStyle(
+                                    color: Colors.grey[600]),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SimilarJobs(jobs[0].IdSections,jobs[0].IdSubSection)));
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),

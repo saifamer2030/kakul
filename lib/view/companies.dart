@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../myColor.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 class Companies extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class Companies extends StatefulWidget {
 
 class _CompaniesState extends State<Companies> {
   List<Section> sections = [];
+  List<Company> companies = [];
 
   Section selectedSection;
 
@@ -35,13 +37,23 @@ class _CompaniesState extends State<Companies> {
         sections.addAll(v);
       });
     });
+    if(globals.allcompanies.length==0){}else{ companies.addAll(globals.allcompanies);}
+
+   // print("iii${globals.allcompanies[0].distanceBetween}");
+    //
+    // getAllCompanies().then((v) async {
+    //   print("ggg${companies.length}");
+    //   // print('id'+companies[10].id);
+    //   //await updateDistanceBetween(companies);
+    // //  notifyListeners();
+    // });
   }
 
   bool filter = false;
 
   @override
   Widget build(BuildContext context) {
-    var comPro = Provider.of<CompanyProvider>(context);
+   // var comPro = Provider.of<CompanyProvider>(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: RefreshIndicator(
@@ -156,15 +168,15 @@ class _CompaniesState extends State<Companies> {
                           }).toList(),
                         ),
                       )),
-                
+
                 */
                   Container(
                     height: 48,
                     width: 60,
                     child: RaisedButton(
                       onPressed: () {
-                        print("uuu/${comPro.companies.length}///${selectedSection.name}///${selectedSubSection.name}");
-                        fileterData(comPro.companies, selectedSection,
+                        print("uuu/${companies.length}///${selectedSection.name}///${selectedSubSection.name}");
+                        fileterData(companies, selectedSection,
                             selectedSubSection);
                       },
                       color: MyColor.customColor,
@@ -179,7 +191,7 @@ class _CompaniesState extends State<Companies> {
               height: 20,
             ),
             Expanded(
-                child: (comPro.companies.length == 0)
+                child: (companies.length == 0)
                     ? Center(
                         child: CircularProgressIndicator(
                           valueColor: new AlwaysStoppedAnimation<Color>(
@@ -246,7 +258,7 @@ class _CompaniesState extends State<Companies> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
-                                                  Text('بناء')
+                                                  Text(filteredList[index].secID)
                                                 ],
                                               ),
                                               Row(
@@ -354,7 +366,7 @@ class _CompaniesState extends State<Companies> {
                             },
                           )
                         : ListView.builder(
-                            itemCount: comPro.companies.length,
+                            itemCount: companies.length,
                             itemBuilder: (context, index) {
                               return Container(
                                 margin: EdgeInsets.only(
@@ -369,8 +381,7 @@ class _CompaniesState extends State<Companies> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    CompanyDetails(comPro
-                                                        .companies[index])));
+                                                    CompanyDetails(companies[index])));
                                       },
                                       child: Container(
                                           padding: EdgeInsets.only(
@@ -384,7 +395,7 @@ class _CompaniesState extends State<Companies> {
                                           height: double.infinity,
                                           child: FadeInImage.assetNetwork(
                                             image:
-                                                comPro.companies[index].imgURL,
+                                            companies[index].imgURL,
                                             placeholder: 'assets/t1.png',
                                             width: 100,
                                             fit: BoxFit.fill,
@@ -403,7 +414,7 @@ class _CompaniesState extends State<Companies> {
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                  comPro.companies[index].name),
+                                                  companies[index].name),
                                               Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
@@ -414,7 +425,7 @@ class _CompaniesState extends State<Companies> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
-                                                  Text('بناء')
+                                                  Text( companies[index].secID)
                                                 ],
                                               ),
                                               Row(
@@ -427,10 +438,10 @@ class _CompaniesState extends State<Companies> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
-                                                  Text((comPro.companies[index]
+                                                  Text((companies[index]
                                                               .distanceBetween !=
                                                           null)
-                                                      ? '${comPro.companies[index].distanceBetween} كيلو'
+                                                      ? '${companies[index].distanceBetween} كيلو'
                                                       : '')
                                                 ],
                                               ),
@@ -448,12 +459,11 @@ class _CompaniesState extends State<Companies> {
                                                   ),
                                                   Flexible(
                                                     child: Text(
-                                                      (comPro.companies[index]
+                                                      (companies[index]
                                                                   .locationName
                                                                   .toString() !=
                                                               "null")
-                                                          ? comPro
-                                                              .companies[index]
+                                                          ? companies[index]
                                                               .locationName
                                                               .toString()
                                                           : '',
@@ -501,8 +511,7 @@ class _CompaniesState extends State<Companies> {
                                           RaisedButton(
                                             onPressed: () {
                                               contactCompany(
-                                                  phone: comPro
-                                                      .companies[index].phone);
+                                                  phone: companies[index].phone);
                                             },
                                             textColor: Colors.white,
                                             color: MyColor.customColor,

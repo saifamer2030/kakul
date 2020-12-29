@@ -27,7 +27,13 @@ class _AddNewJobState extends State<AddNewJob> {
   var workhoursController = TextEditingController();
   var detailsController = TextEditingController();
   List<String> sextype = ["ذكر","انثى","غير محدد"];
- String selectedsextype;
+  List<String> experlist = ["حديث التخرج","خبرة 1-3 سنوات","خبرة 3-5 سنوات","خبرة 5-10 سنوات","خبرة 10 سنوات فأكثر","مستشار"];
+  List<String> edulist = ["بدون تعليم","تعليم فنى","تعليم متوسط","تعليم جامعى","ماجستير","دكتوراة"];
+
+  String selectedsextype;
+  String selectedexpertype;
+  String selectededutype;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -126,8 +132,106 @@ class _AddNewJobState extends State<AddNewJob> {
                     SizedBox(
                       height: 10,
                     ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: Container(
+                              height: 48,
+                              color: Colors.white,
+                              child: DropdownButton(
+                                isExpanded: true,
+                                value: selectededutype,
+                                hint: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'التعليم',
+                                    style: TextStyle(fontFamily: 'jareda'),
+                                  ),
+                                ),
+                                icon: Icon(Icons.arrow_drop_down),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Colors.black54),
+                                underline: Container(),
+                                onChanged: (sec) {
+                                  setState(() {
+                                    selectededutype = sec;
+                                  });
+                                },
+                                items:  edulist.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
 
+                                      ));
+                                }).toList(),),
+                            )),
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: Container(
+                              height: 48,
+                              color: Colors.white,
+                              child: DropdownButton(
+                                isExpanded: true,
+                                value: selectedexpertype,
+                                hint: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'الخبرة',
+                                    style: TextStyle(fontFamily: 'jareda'),
+                                  ),
+                                ),
+                                icon: Icon(Icons.arrow_drop_down),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Colors.black54),
+                                underline: Container(),
+                                onChanged: (sec) {
+                                  setState(() {
+                                    selectedexpertype = sec;
+                                  });
+                                },
+                                items:  experlist.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
 
+                                      ));
+                                }).toList(),),
+                            )),
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: <Widget>[
                         Container(
@@ -244,7 +348,9 @@ class _AddNewJobState extends State<AddNewJob> {
                            salaryController.text,
                            workhoursController.text,
                            detailsController.text,
-                           selectedsextype
+                           selectedsextype,
+                            selectedexpertype,
+                            selectededutype,
                           )
                               .then((v) {
                             Fluttertoast.showToast(
@@ -292,7 +398,7 @@ class _AddNewJobState extends State<AddNewJob> {
         workhoursController.text.isEmpty) {
       showSnackMsg('من فضلك املأ الفراغات المطلوبة');
       return false;
-    } else if (sextype == null ) {
+    } else if (selectedsextype == null||selectedexpertype == null||selectededutype == null ) {
       showSnackMsg('قم باختيار الأقسام كاملة');
       return false;
     }

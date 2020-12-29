@@ -10,6 +10,7 @@ import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
 import 'package:location/location.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 import '../myColor.dart';
 
@@ -23,11 +24,9 @@ class _NewCompanyState extends State<NewCompany> {
 
   var nameController = TextEditingController();
 
-  var mailController = TextEditingController();
+  var mailController = TextEditingController(text:globals.myCompany.email);
 
-  var passController = TextEditingController();
 
-  var confirmPassController = TextEditingController();
 
   String mainSec;
 
@@ -35,7 +34,7 @@ class _NewCompanyState extends State<NewCompany> {
 
   var desctionController = TextEditingController();
 
-  var phoneController = TextEditingController();
+  var phoneController = TextEditingController(text:globals.myCompany.phone );
   var commericalController = TextEditingController();
 
   var titleController = TextEditingController();
@@ -55,7 +54,6 @@ class _NewCompanyState extends State<NewCompany> {
   var youtubeController = TextEditingController();
   var snapController=TextEditingController();
 
-  bool checkBoxVal = false;
 
   List<Section> sections = [];
   Section selectedSection;
@@ -165,70 +163,7 @@ class _NewCompanyState extends State<NewCompany> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: passController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: 'كلمة المرور',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: confirmPassController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: 'اعادة ادخال كلمة المرور',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+
                     Row(
                       children: <Widget>[
                         Container(
@@ -259,6 +194,7 @@ class _NewCompanyState extends State<NewCompany> {
                                 setState(() {
                                   selectedSection = sec;
                                 });
+                                subSections.clear();
                                 getAllSubSections(selectedSection.id).then((v) {
                                   setState(() {
                                     subSections.addAll(v);
@@ -736,22 +672,6 @@ class _NewCompanyState extends State<NewCompany> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Checkbox(
-                          onChanged: (v) {
-                            setState(() {
-                              checkBoxVal = v;
-                            });
-                          },
-                          value: checkBoxVal,
-                          checkColor: Colors.white,
-                          activeColor: MyColor.customColor,
-                        ),
-                        Text(
-                            'بالنقر على هذا الزر أكون قد وافقت على شروط الاستخدام'),
-                      ],
-                    ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
@@ -777,6 +697,7 @@ class _NewCompanyState extends State<NewCompany> {
                             ),
                           );
                           await registerCompany(
+                              id:globals.myCompany.id,
                                   companyName: nameController.text,
                                   coverImg: coverImg,
                                   description: desctionController.text,
@@ -785,7 +706,6 @@ class _NewCompanyState extends State<NewCompany> {
                                   instagram: instaController.text,
                                   lat: companyLatLng.latitude.toString(),
                                   lng: companyLatLng.longitude.toString(),
-                                  password: passController.text,
                                   phone: phoneController.text,
                                   commRecord: commericalController.text,
                                   profileImage: profileImg,
@@ -867,16 +787,13 @@ class _NewCompanyState extends State<NewCompany> {
   bool validateInputs() {
     if (nameController.text.isEmpty ||
         mailController.text.isEmpty ||
-        passController.text.isEmpty ||
         desctionController.text.isEmpty ||
         phoneController.text.isEmpty ||
         titleController.text.isEmpty ||
         commericalController.text.isEmpty) {
       showSnackMsg('من فضلك املأ الفراغات المطلوبة');
       return false;
-    } else if (passController.text != confirmPassController.text) {
-      showSnackMsg('كلمة المرور غير مطابقة');
-      return false;
+
     } else if (selectedSubSection == null || selectedSection == null) {
       showSnackMsg('قم باختيار الأقسام كاملة');
       return false;
@@ -885,9 +802,6 @@ class _NewCompanyState extends State<NewCompany> {
       return false;
     } else if (companyLatLng == null) {
       showSnackMsg('قم بتحديد موقع الشركة على الخريطة');
-      return false;
-    } else if (checkBoxVal == false) {
-      showSnackMsg('لم يتم الموافقة على شروط الأستخدام');
       return false;
     }
     return true;

@@ -4,9 +4,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kul_last/backend/others.dart';
 import 'package:kul_last/model/advertisment.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/userModel.dart';
+import 'package:kul_last/view/alloffers.dart';
 import 'package:kul_last/view/companies.dart';
 
 import 'package:kul_last/view/jobs.dart';
@@ -49,6 +52,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
 
     Timer(Duration(seconds: 0), () async {
+      getAllCompanies1();
+      LatLng latlng= await getCurrentLocation();
+
       getAllCompaniesmap(context).then((v) async {
         print('iddd'+v);
       });
@@ -62,7 +68,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         //updateMyCompanyDistance(userCompany);
       });
     }
-    controller = new TabController(length: 3, vsync: this, initialIndex: 2);
+    controller = new TabController(length: 4, vsync: this, initialIndex: 3);
 
     controller.addListener(() {
       setState(() {
@@ -114,9 +120,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               title: Text(translator.translate('Jobs'),),
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.monetization_on,
+                  color: (controller.index) == 1
+                      ? MyColor.customColor
+                      : Colors.grey),
+              title: Text(translator.translate('offers'),),
+            ),
+            BottomNavigationBarItem(
               icon: Image.asset('assets/company.png',
                   scale: 3,
-                  color: (controller.index) == 1
+                  color: (controller.index) == 2
                       ? MyColor.customColor
                       : Colors.grey),
               title: Text('الشركات'),
@@ -124,7 +137,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             BottomNavigationBarItem(
               icon: Image.asset('assets/tag2.png',
                   scale: 3,
-                  color: (controller.index) == 2
+                  color: (controller.index) ==3
                       ? MyColor.customColor
                       : Colors.grey),
               title: Text('الرئيسية'),
@@ -304,7 +317,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       children: <Widget>[
                         //jobs
                         Jobs(),
-
+                        AllOffers(),
                         //  RegisterCompany(),
 
                         //Companies

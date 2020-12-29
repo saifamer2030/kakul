@@ -21,7 +21,7 @@ class Company {
       secID,
       subSecID,
       locationName;
-
+  String Accept,  user_only;
   Company(
       {@required this.imgURL,
       @required this.name,
@@ -45,6 +45,10 @@ class Company {
     this.secID=json['IdSections'];
     this.subSecID=json['IdSubSection'];
     this.coverURL=json['Photo'];
-  
+    this.Accept=json['Accept'];
+    this.user_only=json['user_only'];
+
+    this.distanceBetween=json['distanceBetween'];
+    this.locationName=json['locationName'];
   }
 }

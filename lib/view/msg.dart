@@ -1,9 +1,38 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kul_last/backend/sectionBack.dart';
+import 'package:kul_last/model/globals.dart' as globals;
+import 'package:kul_last/model/message.dart';
 
 import '../myColor.dart';
 
+class Msg extends StatefulWidget {
+  @override
+  _MsgState createState() => _MsgState();
+}
 
-class Msg extends StatelessWidget {
+class _MsgState extends State<Msg> {
+  List<Message> message = [];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+
+    Timer(Duration(seconds: 0), () async {
+      getCompanymessage(globals.myCompany.id).then((v) async {
+        setState(() {
+          message.addAll(v);
+        });
+      });
+      print("hhh1");
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -16,8 +45,10 @@ class Msg extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             color: Colors.white,
-            child: ListView.builder(
-              itemCount: 3,
+            child: (message.length == 0)
+                ? Center(child: Text("لا يوجد رسائل بعد"))
+                : ListView.builder(
+              itemCount: message.length,
               itemBuilder: (context,index){
                 return Column(
                   children: <Widget>[
@@ -26,12 +57,13 @@ class Msg extends StatelessWidget {
                     backgroundColor: MyColor.customColor,
                     child: Image.asset('assets/profile.png'),
                   ),
-                  title: Text('محمد مصطفى'),
-                  subtitle: Text('اكيد مافي مشكلة في انتظارك'),
+                  title: Text('Admin'),
+                  subtitle: Text(message[index].text),
                   trailing: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('2:50'),Text('PM')
+
+                      Text(message[index].create_date.split(' ')[1].split('.')[0],),
                     ],
                   ),
                 ),

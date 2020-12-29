@@ -3,6 +3,7 @@ import 'package:kul_last/backend/auh.dart';
 import 'package:kul_last/home.dart';
 import 'package:kul_last/model/userModel.dart';
 import 'package:kul_last/view/registerNewCompany.dart';
+import 'package:kul_last/view/registerNewuser.dart';
 import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/featuredCompanies.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
@@ -199,7 +200,7 @@ class _LoginState extends State<Login> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => NewCompany()));
+                                    builder: (context) => RegisterNewUser()));
                           },
                           child: Text(
                             translator.translate('YouDoNotHaveAnAccountRegisterNow'),
