@@ -86,7 +86,7 @@
     "Search...": "Search...",
     "All": "All",
     "MyCompany": "My Company",
-    "Arithmetic": "Arithmetic",
+    "Arithmetic": "My Profile",
     "News": "News",
     "CompanyRegistration": "Company Registration",
     "Logoff": "Logoff",
@@ -130,5 +130,11 @@
     "TheTermsOfUseHaveNotBeenApproved": "The Terms Of Use Have Not Been Approved",
     "Cancellation": "Cancellation",
     "emphasis": "emphasis",
-    "More": "More"
+    "More": "More",
+    "offers": "offers",
+    "OtherSimilarOffers": "Other similar offers",
+    "PostJob": "Post a job",
+    "AddOffer": "Add an offer",
+    "AddNews": "Add News",
+    "Login" : "Login"
 }

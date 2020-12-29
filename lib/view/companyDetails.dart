@@ -451,13 +451,14 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   height: 10,
                 ),
                 globals.myCompany.id==company.id? Container(
+
                   margin: EdgeInsets.only(left: 10, right: 10),
                   padding: EdgeInsets.all(1),
                   decoration: BoxDecoration(
                       border: Border.all(width: .5, color: Colors.grey)),
-                  width: double.infinity,
+                  width:  MediaQuery.of(context).size.width,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
                         color: MyColor.customColor,
@@ -473,10 +474,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.water_damage_rounded),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text('إضافة وظيفة')
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('PostJob'))
                           ],
                         ),
                       ),
@@ -493,10 +494,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.monetization_on),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text('إضافة عرض')
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('AddOffer'))
                           ],
                         ),
                       ),
@@ -513,10 +514,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.wysiwyg),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text('إضافة خبر')
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('AddNews'))
                           ],
                         ),
                       ),
@@ -790,7 +791,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               color:    Colors.grey[300],
                               //  textColor: Colors.white,
                               child:  Text(
-                                'عروض اخرى مشابهة',
+                                translator.translate('OtherSimilarOffers'),
                                 style: TextStyle(
                                     color: Colors.grey[600]),
                               ),
@@ -827,7 +828,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'الوظائف المتاحة',
+                            translator.translate('AvailableJobs'),
                           ),
                           InkWell(
                             onTap: () {
@@ -840,7 +841,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       )));
                             },
                             child: Text(
-                              'تصفح المزيد',
+                              translator.translate('BrowseMore'),
                               style:
                               TextStyle(color: MyColor.customColor),
                             ),
@@ -907,7 +908,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     children: [
                                       TableRow(children: [
                                         Text(
-                                          'مستوى الخبرة',
+                                          translator.translate('ExperienceLevel'),
                                           style: TextStyle(
                                               fontSize: 12,
                                               color:
@@ -923,7 +924,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                           ),
                                         ),
                                         Center(
-                                          child: Text('نوع العمل',
+                                          child: Text(translator.translate('TypeOfEmployment'),
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors
@@ -942,7 +943,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       TableRow(children: [
                                         Center(
                                           child: Text(
-                                              'المستوى التعليمي',
+                                              translator.translate('EducationalLevel'),
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors
@@ -1042,7 +1043,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               color:    Colors.grey[300],
                               //  textColor: Colors.white,
                               child:  Text(
-                                'عروض اخرى مشابهة',
+                                translator.translate('OtherSimilarOffers'),
                                 style: TextStyle(
                                     color: Colors.grey[600]),
                               ),
@@ -1079,7 +1080,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'احدث الاخبار',
+                            translator.translate('LatestNews'),
                           ),
                           InkWell(
                             onTap: () {
@@ -1092,7 +1093,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       )));
                             },
                             child: Text(
-                              'تصفح المزيد',
+                              translator.translate('BrowseMore'),
                               style:
                               TextStyle(color: MyColor.customColor),
                             ),

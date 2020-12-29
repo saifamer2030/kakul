@@ -54,7 +54,7 @@ class MyMenu extends StatelessWidget {
                                         CompanyDetails(userCompany)));
                         },
                         leading: Icon(Icons.assessment),
-                        title: Text('شركتي'),
+                        title: Text(translator.translate('MyCompany')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -76,7 +76,7 @@ class MyMenu extends StatelessWidget {
                                     builder: (context) => Account(user)));
                         },
                         leading: Icon(Icons.perm_contact_calendar),
-                        title: Text('حسابي'),
+                        title: Text(translator.translate('Arithmetic')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -92,7 +92,7 @@ class MyMenu extends StatelessWidget {
                                   builder: (context) => AllNews()));
                         },
                         leading: Image.asset('assets/news.png', scale: 3.5),
-                        title: Text('الأخبار'),
+                        title: Text(translator.translate('News')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -119,7 +119,7 @@ class MyMenu extends StatelessWidget {
                                   builder: (context) => NewCompany()));
                         },
                         leading: Image.asset('assets/tag2.png', scale: 3.5),
-                        title: Text('تسجيل شركة'),
+                        title: Text(translator.translate('CompanyRegistration')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -132,7 +132,7 @@ class MyMenu extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Login()));
                         },
                         leading: Icon(Icons.exit_to_app),
-                        title: Text(user == null?'تسجيل دخول':'تسجيل خروج'),
+                        title: Text(user == null?translator.translate('Login'):translator.translate('Logoff')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
