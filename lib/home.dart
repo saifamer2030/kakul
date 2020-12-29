@@ -132,7 +132,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   color: (controller.index) == 2
                       ? MyColor.customColor
                       : Colors.grey),
-              title: Text('الشركات'),
+              title: Text(translator.translate('Companies'),),
             ),
             BottomNavigationBarItem(
               icon: Image.asset('assets/tag2.png',
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   color: (controller.index) ==3
                       ? MyColor.customColor
                       : Colors.grey),
-              title: Text('الرئيسية'),
+              title: Text(translator.translate('Main'),),
             ),
           ]),
     
@@ -275,7 +275,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: (controller.index) == 0
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: 'الوظائف',
+                  text: translator.translate('Jobs'),,
                 ),
                 /*   Tab(
                   icon: Image.asset('assets/Construction.png',
@@ -283,7 +283,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: (controller.index) == 1
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: 'المقالات',
+                  text: translator.translate('Articles'),,
                 ),
            
            */
@@ -293,7 +293,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: (controller.index) == 1
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: 'الشركات',
+                  text: translator.translate('Companies'),,
                 ),
                 Tab(
                   icon: Image.asset('assets/tag2.png',
@@ -301,7 +301,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: (controller.index) == 2
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: 'الرئيسية',
+                  text: translator.translate('Main'),,
                 ),
               ],
             ),

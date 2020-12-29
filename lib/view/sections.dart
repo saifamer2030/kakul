@@ -16,6 +16,7 @@ import 'package:kul_last/backend/sectionBack.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../myColor.dart';
 import 'companyDetails.dart';
 class Sections extends StatefulWidget {
@@ -150,11 +151,11 @@ class _SectionsState extends State<Sections>  {
                                 AllFeaturedCompanies(featPro.companies)));
                   },
                   child: Text(
-                    'المزيد',
+                      translator.translate('More'),
                     style: TextStyle(color: MyColor.customColor),
                   ),
                 ),
-                title: Text('الشركات المميزة')),
+                title: Text(translator.translate('FeaturedCompanies'),)),
          
             Container(
               margin: EdgeInsets.only(right: 10, left: 10),
@@ -271,11 +272,11 @@ class _SectionsState extends State<Sections>  {
                                 AllSections(secPro.sections)));
                   },
                     child: Text(
-                    'المزيد',
+                    translator.translate('More'),,
                     style: TextStyle(color: MyColor.customColor),
                   )
                 ),*/
-                title: Text('الأقسام')),
+                title: Text(translator.translate('sections'),)),
 
        
         
@@ -373,11 +374,11 @@ class _SectionsState extends State<Sections>  {
                                 SuggestedCompanyProvider.companies)));
                   },
                   child: Text(
-                    'المزيد',
+                    translator.translate('More'),,
                     style: TextStyle(color: MyColor.customColor),
                   ),
                 ),
-                title: Text('الشركات المقترحة')),
+                title: Text(translator.translate('TheProposedCompanies'),)),
             Consumer<SuggestedCompanyProvider>(
               builder: (context, comp, w) => Container(
                 margin: EdgeInsets.only(right: 10, left: 10),

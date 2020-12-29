@@ -90,7 +90,7 @@ class _NewCompanyState extends State<NewCompany> {
             },
           ),
           title:
-              Text('تسجيل شركة جديدة', style: TextStyle(color: Colors.black54)),
+          Text('تسجيل شركة جديدة', style: TextStyle(color: Colors.black54)),
         ),
         body: SafeArea(
           child: Container(
@@ -109,18 +109,18 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: nameController,
-                            decoration: InputDecoration(
-                              hintText: 'اسم الشركة',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: nameController,
+                                decoration: InputDecoration(
+                                  hintText: 'اسم الشركة',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -140,19 +140,19 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: mailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: 'البريد الالكتروني',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: mailController,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(
+                                  hintText: 'البريد الالكتروني',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -173,39 +173,115 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
+                              height: 48,
+                              color: Colors.white,
+                              child: DropdownButton(
+                                  isExpanded: true,
+                                  value: selectedSection,
+                                  hint: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      'القسم الرئيسي',
+                                      style: TextStyle(fontFamily: 'jareda'),
+                                    ),
+                                  ),
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: Colors.black54),
+                                  underline: Container(),
+                                  onChanged: (sec) {
+                                    setState(() {
+                                      selectedSection = sec;
+                                    });
+                                    subSections.clear();
+                                    getAllSubSections(selectedSection.id).then((v) {
+                                      setState(() {
+                                        subSections.addAll(v);
+                                      });
+                                    });
+                                  },
+                                  items: getSectionsDropDown()),
+                            )),
+                        Container(
+                          width: 3,
                           height: 48,
-                          color: Colors.white,
-                          child: DropdownButton(
-                              isExpanded: true,
-                              value: selectedSection,
-                              hint: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  'القسم الرئيسي',
-                                  style: TextStyle(fontFamily: 'jareda'),
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: Container(
+                              height: 48,
+                              color: Colors.white,
+                              child: DropdownButton(
+                                isExpanded: true,
+                                value: selectedSubSection,
+                                hint: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'القسم الفرعي',
+                                    style: TextStyle(fontFamily: 'jareda'),
+                                  ),
+                                ),
+                                icon: Icon(Icons.arrow_drop_down),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Colors.black54),
+                                underline: Container(),
+                                onChanged: (sec) {
+                                  setState(() {
+                                    selectedSubSection = sec;
+                                  });
+                                },
+                                items: getSubSectionsDropDown(),
+                              ),
+                            )),
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 100,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: Container(
+                              height: 100,
+                              child: TextField(
+                                controller: desctionController,
+                                maxLines: 4,
+                                decoration: InputDecoration(
+                                  hintText: 'الوصف',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
                                 ),
                               ),
-                              icon: Icon(Icons.arrow_drop_down),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: TextStyle(color: Colors.black54),
-                              underline: Container(),
-                              onChanged: (sec) {
-                                setState(() {
-                                  selectedSection = sec;
-                                });
-                                subSections.clear();
-                                getAllSubSections(selectedSection.id).then((v) {
-                                  setState(() {
-                                    subSections.addAll(v);
-                                  });
-                                });
-                              },
-                              items: getSectionsDropDown()),
-                        )),
+                            )),
                         Container(
                           width: 3,
-                          height: 48,
+                          height: 100,
                           color: MyColor.customColor,
                         ),
                       ],
@@ -222,158 +298,19 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          color: Colors.white,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            value: selectedSubSection,
-                            hint: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                'القسم الفرعي',
-                                style: TextStyle(fontFamily: 'jareda'),
+                              height: 48,
+                              child: TextField(
+                                keyboardType: TextInputType.phone,
+                                controller: phoneController,
+                                decoration: InputDecoration(
+                                  hintText: 'رقم الهاتف',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
                               ),
-                            ),
-                            icon: Icon(Icons.arrow_drop_down),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: TextStyle(color: Colors.black54),
-                            underline: Container(),
-                            onChanged: (sec) {
-                              setState(() {
-                                selectedSubSection = sec;
-                              });
-                            },
-                            items: getSubSectionsDropDown(),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 100,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          height: 100,
-                          child: TextField(
-                            controller: desctionController,
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              hintText: 'الوصف',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 100,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          height: 48,
-                          child: TextField(
-                            keyboardType: TextInputType.phone,
-                            controller: phoneController,
-                            decoration: InputDecoration(
-                              hintText: 'رقم الهاتف',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                        Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: commericalController,
-                            decoration: InputDecoration(
-                              hintText: 'رقم السجل التجاري',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                 
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: titleController,
-                            decoration: InputDecoration(
-                              hintText: 'عنوان الشركة',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -392,30 +329,19 @@ class _NewCompanyState extends State<NewCompany> {
                           color: MyColor.customColor,
                         ),
                         Expanded(
-                            child: InkWell(
-                          onTap: () async {
-                            profileImg = await getImage();
-                            setState(() {});
-                          },
-                          child: Container(
-                              color: Colors.white,
+                            child: Container(
                               height: 48,
-                              child: Center(
-                                child: (profileImg != null)
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(Icons.check),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text('تم ارفاق صورة البروفايل')
-                                        ],
-                                      )
-                                    : Text('ارفاق صورة البروفايل'),
-                              )),
-                        )),
+                              child: TextField(
+                                controller: commericalController,
+                                decoration: InputDecoration(
+                                  hintText: 'رقم السجل التجاري',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -426,6 +352,7 @@ class _NewCompanyState extends State<NewCompany> {
                     SizedBox(
                       height: 10,
                     ),
+
                     Row(
                       children: <Widget>[
                         Container(
@@ -434,78 +361,151 @@ class _NewCompanyState extends State<NewCompany> {
                           color: MyColor.customColor,
                         ),
                         Expanded(
-                            child: InkWell(
-                          onTap: () async {
-                            var loc = await showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) => MyDialog());
-                            if (loc != null) {
-                              companyLatLng = loc;
-                              setState(() {});
-                            }
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            height: (companyLatLng != null) ? 48 : 70,
-                            child: Center(
-                                child: (companyLatLng != null)
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(Icons.check),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text('تم تحديد العنوان على الخريطة'),
-                                        ],
-                                      )
-                                    : Image.asset('assets/loc.jpg')),
-                          ),
-                        )),
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 3,
-                          height: 48,
-                          color: MyColor.customColor,
-                        ),
-                        Expanded(
-                            child: InkWell(
-                          onTap: () async {
-                            coverImg = await getImage();
-                            setState(() {});
-                          },
-                          child: Container(
-                              color: Colors.white,
+                            child: Container(
                               height: 48,
-                              child: Center(
-                                child: (coverImg != null)
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(Icons.check),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text('تم ارفاق صورة الغلاف')
-                                        ],
-                                      )
-                                    : Text('ارفاق صورة الغلاف'),
-                              )),
-                        )),
+                              child: TextField(
+                                controller: titleController,
+                                decoration: InputDecoration(
+                                  hintText: 'عنوان الشركة',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: InkWell(
+                              onTap: () async {
+                                profileImg = await getImage();
+                                setState(() {});
+                              },
+                              child: Container(
+                                  color: Colors.white,
+                                  height: 48,
+                                  child: Center(
+                                    child: (profileImg != null)
+                                        ? Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(Icons.check),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('تم ارفاق صورة البروفايل')
+                                      ],
+                                    )
+                                        : Text('ارفاق صورة البروفايل'),
+                                  )),
+                            )),
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: InkWell(
+                              onTap: () async {
+                                var loc = await showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) => MyDialog());
+                                if (loc != null) {
+                                  companyLatLng = loc;
+                                  setState(() {});
+                                }
+                              },
+                              child: Container(
+                                color: Colors.white,
+                                height: (companyLatLng != null) ? 48 : 70,
+                                child: Center(
+                                    child: (companyLatLng != null)
+                                        ? Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(Icons.check),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('تم تحديد العنوان على الخريطة'),
+                                      ],
+                                    )
+                                        : Image.asset('assets/loc.jpg')),
+                              ),
+                            )),
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 3,
+                          height: 48,
+                          color: MyColor.customColor,
+                        ),
+                        Expanded(
+                            child: InkWell(
+                              onTap: () async {
+                                coverImg = await getImage();
+                                setState(() {});
+                              },
+                              child: Container(
+                                  color: Colors.white,
+                                  height: 48,
+                                  child: Center(
+                                    child: (coverImg != null)
+                                        ? Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(Icons.check),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('تم ارفاق صورة الغلاف')
+                                      ],
+                                    )
+                                        : Text('ارفاق صورة الغلاف'),
+                                  )),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -525,18 +525,18 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: faceController,
-                            decoration: InputDecoration(
-                              hintText: 'رابط صفحة الفيس بوك',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: faceController,
+                                decoration: InputDecoration(
+                                  hintText: 'رابط صفحة الفيس بوك',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -556,18 +556,18 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: twitterController,
-                            decoration: InputDecoration(
-                              hintText: 'رابط صفحة تويتر',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: twitterController,
+                                decoration: InputDecoration(
+                                  hintText: 'رابط صفحة تويتر',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -587,18 +587,18 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: instaController,
-                            decoration: InputDecoration(
-                              hintText: 'رابط صفحة انستجرام',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: instaController,
+                                decoration: InputDecoration(
+                                  hintText: 'رابط صفحة انستجرام',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -618,18 +618,18 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: youtubeController,
-                            decoration: InputDecoration(
-                              hintText: 'رابط قناة اليوتيوب',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: youtubeController,
+                                decoration: InputDecoration(
+                                  hintText: 'رابط قناة اليوتيوب',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -637,11 +637,11 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                       ],
                     ),
-                   
+
                     SizedBox(
                       height: 10,
                     ),
-                     Row(
+                    Row(
                       children: <Widget>[
                         Container(
                           width: 3,
@@ -650,18 +650,18 @@ class _NewCompanyState extends State<NewCompany> {
                         ),
                         Expanded(
                             child: Container(
-                          height: 48,
-                          child: TextField(
-                            controller: snapController,
-                            decoration: InputDecoration(
-                              hintText: 'رابط سناب شات',
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
-                        )),
+                              height: 48,
+                              child: TextField(
+                                controller: snapController,
+                                decoration: InputDecoration(
+                                  hintText: 'رابط سناب شات',
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: InputBorder.none,
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                              ),
+                            )),
                         Container(
                           width: 3,
                           height: 48,
@@ -698,24 +698,24 @@ class _NewCompanyState extends State<NewCompany> {
                           );
                           await registerCompany(
                               id:globals.myCompany.id,
-                                  companyName: nameController.text,
-                                  coverImg: coverImg,
-                                  description: desctionController.text,
-                                  email: mailController.text,
-                                  facebook: faceController.text,
-                                  instagram: instaController.text,
-                                  lat: companyLatLng.latitude.toString(),
-                                  lng: companyLatLng.longitude.toString(),
-                                  phone: phoneController.text,
-                                  commRecord: commericalController.text,
-                                  profileImage: profileImg,
-                                  secID: selectedSection.id,
-                                  snapchat: snapController.text,
-                                  subscribtion: "0",
-                                  subSecID: selectedSubSection.id,
-                                  title: titleController.text,
-                                  twitter: twitterController.text,
-                                  youtube: youtubeController.text)
+                              companyName: nameController.text,
+                              coverImg: coverImg,
+                              description: desctionController.text,
+                              email: mailController.text,
+                              facebook: faceController.text,
+                              instagram: instaController.text,
+                              lat: companyLatLng.latitude.toString(),
+                              lng: companyLatLng.longitude.toString(),
+                              phone: phoneController.text,
+                              commRecord: commericalController.text,
+                              profileImage: profileImg,
+                              secID: selectedSection.id,
+                              snapchat: snapController.text,
+                              subscribtion: "0",
+                              subSecID: selectedSubSection.id,
+                              title: titleController.text,
+                              twitter: twitterController.text,
+                              youtube: youtubeController.text)
                               .then((v) {
                             Fluttertoast.showToast(
                                 msg: "تم التسجيل بنجاح",
@@ -851,7 +851,7 @@ class _MyDialogState extends State<MyDialog> {
             _controller.complete(gController);
           },
           initialCameraPosition:
-              CameraPosition(target: LatLng(0.0, 0.0), zoom: 11),
+          CameraPosition(target: LatLng(0.0, 0.0), zoom: 11),
           markers: Set.from(markers),
           onTap: (v) {
             currentLoc = v;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/viewModel/newsProvider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 
 class AllNews extends StatefulWidget {
@@ -37,7 +37,7 @@ class _AllNewsState extends State<AllNews> {
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
-          title: Text('الأخبار',style: TextStyle(
+          title: Text(translator.translate('News'),style: TextStyle(
             color: Colors.black54
           ),),
         ),

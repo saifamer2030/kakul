@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/myColor.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'companyDetails.dart';
 
 class SectionDetails extends StatefulWidget {

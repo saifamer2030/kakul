@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kul_last/view/similarjobs.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 import '../myColor.dart';
 
@@ -74,7 +76,7 @@ class Jobs extends StatelessWidget {
                                       children: [
                                         TableRow(children: [
                                           Text(
-                                            'مستوى الخبرة',
+                                        translator.translate('ExperienceLevel'),
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color:
@@ -83,6 +85,7 @@ class Jobs extends StatelessWidget {
                                           Center(
                                             child: Text(
                                               jobPro.jobs[index].Experience,
+
                                               style: TextStyle(
                                                   color: MyColor
                                                       .customColor,
@@ -90,7 +93,7 @@ class Jobs extends StatelessWidget {
                                             ),
                                           ),
                                           Center(
-                                            child: Text('نوع العمل',
+                                            child: Text(translator.translate('TypeOfEmployment'),
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors
@@ -108,8 +111,8 @@ class Jobs extends StatelessWidget {
                                         ]),
                                         TableRow(children: [
                                           Center(
-                                            child: Text(
-                                                'المستوى التعليمي',
+
+                                            child: Text(translator.translate('EducationalLevel'),
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors
@@ -118,6 +121,7 @@ class Jobs extends StatelessWidget {
                                           Center(
                                             child: Text(
                                               jobPro.jobs[index].Education,
+
                                               style: TextStyle(
                                                   color: MyColor
                                                       .customColor,
@@ -125,7 +129,7 @@ class Jobs extends StatelessWidget {
                                             ),
                                           ),
                                           Center(
-                                            child: Text('نوع المعلن',
+                                            child: Text(translator.translate('AdvertiserType'),
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors
@@ -133,7 +137,7 @@ class Jobs extends StatelessWidget {
                                           ),
                                           Center(
                                             child: Text(
-                                              'باحث عن موظف',
+                        translator.translate('LookingForAnEmployee'),
                                               style: TextStyle(
                                                   color: MyColor
                                                       .customColor,
@@ -169,7 +173,7 @@ class Jobs extends StatelessWidget {
                               child: RaisedButton(
                                 color: MyColor.customColor,
                                 textColor: Colors.white,
-                                child: Text('اظهار الرقم'),
+                                child: Text(translator.translate('ShowTheNumber'),),
                                 onPressed: () {
                                   showDialog(
                                       context: context,
@@ -208,9 +212,10 @@ class Jobs extends StatelessWidget {
                                 color:    Colors.grey[300],
                                 //  textColor: Colors.white,
                                 child:  Text(
-                                  'عروض اخرى مشابهة',
+                                translator.translate('OtherSimilarFunctions'),
                                   style: TextStyle(
                                       color: Colors.grey[600]),
+
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -241,7 +246,7 @@ Card(
                   title: ListTile(
                       contentPadding: EdgeInsets.all(0),
                       title: Text(
-                        'مطلوب مسوق سوشيال ميديا من المنزل',
+                        translator.translate('SocialMediaMarketerWantedFromHome'),,
                         style: TextStyle(fontSize: 15, color: Colors.grey),
                       ),
                       subtitle: Container(
@@ -258,7 +263,7 @@ Card(
                                   color: Colors.black87,
                                 ),
                                 Text(
-                                  'شركة الرائد',
+                                  translator.translate('AlRaedCompany'),,
                                   style: TextStyle(color: Colors.black87),
                                 ),
                                 SizedBox(
@@ -270,7 +275,7 @@ Card(
                                   color: Colors.black87,
                                 ),
                                 Text(
-                                  'الرياض-السعوديه',
+                                  translator.translate('AlRiyadh,SaudiArabia'),,
                                   style: TextStyle(color: Colors.black87),
                                 ),
                                 SizedBox(
@@ -322,27 +327,27 @@ Card(
                               children: [
                                 TableRow(children: [
                                   Text(
-                                    'مستوى الخبرة',
+                                    translator.translate('ExperienceLevel'),,
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey[600]),
                                   ),
                                   Center(
                                     child: Text(
-                                      'حديث التخرج',
+                                      translator.translate('RecentGraduate'),,
                                       style: TextStyle(
                                           color: MyColor.customColor,
                                           fontSize: 12),
                                     ),
                                   ),
                                   Center(
-                                    child: Text('نوع العمل',
+                                    child: Text(translator.translate('TypeOfEmployment'),,
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.grey[600])),
                                   ),
                                   Center(
                                     child: Text(
-                                      'عمل حر',
+                                      translator.translate('FreeWork'),,
                                       style: TextStyle(
                                           color: MyColor.customColor,
                                           fontSize: 12),
@@ -351,28 +356,28 @@ Card(
                                 ]),
                                 TableRow(children: [
                                   Center(
-                                    child: Text('المستوى التعليمي',
+                                    child: Text(translator.translate('EducationalLevel'),,
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.grey[600])),
                                   ),
                                   Center(
                                     child: Text(
-                                      'بكالوريوس',
+                                      translator.translate('BA'),
                                       style: TextStyle(
                                           color: MyColor.customColor,
                                           fontSize: 12),
                                     ),
                                   ),
                                   Center(
-                                    child: Text('نوع المعلن',
+                                    child: Text(translator.translate('AdvertiserType'),
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors.grey[600])),
                                   ),
                                   Center(
                                     child: Text(
-                                      'باحث عن موظف',
+                                      translator.translate('LookingForAnEmployee'),
                                       style: TextStyle(
                                           color: MyColor.customColor,
                                           fontSize: 11),
@@ -393,7 +398,7 @@ Card(
                     Container(
                       margin: EdgeInsets.only(left: 20, right: 20),
                       child: Text(
-                        'هنا يتم وضع وصف عن الوظيفة المعروضة هنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضة',
+                        'هنا يتم وضع وصف عن الوظيفة المعروضة هنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضةهنا يتم وضع وصف عن الوظيفة المعروضة'translator.translate('HereIsADescriptionOfTheJobOffered')
                         textAlign: TextAlign.right,
                         style: TextStyle(color: Colors.grey[600]),
                       ),
@@ -404,7 +409,7 @@ Card(
                       child: RaisedButton(
                         color: MyColor.customColor,
                         textColor: Colors.white,
-                        child: Text('اظهار الرقم'),
+                        child: Text(translator.translate('ShowTheNumber')),
                         onPressed: () {},
                       ),
                     ),
@@ -415,7 +420,7 @@ Card(
                       height: 60,
                       child: Center(
                         child: Text(
-                          'وظائف اخرى مشابهة',
+                          translator.translate('OtherSimilarFunctions'),
                           style: TextStyle(color: Colors.grey[600]),
                         ),
                       ),

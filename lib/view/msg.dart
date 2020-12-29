@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/globals.dart' as globals;
 import 'package:kul_last/model/message.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../myColor.dart';
 
@@ -59,6 +60,7 @@ class _MsgState extends State<Msg> {
                   ),
                   title: Text('Admin'),
                   subtitle: Text(message[index].text),
+
                   trailing: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -89,7 +91,7 @@ class _MsgState extends State<Msg> {
                   Image.asset('assets/message.png',scale: 3,)
                   
                   ,SizedBox(width: 10,),
-                  Text('الرسائل'),
+                  Text(translator.translate('Messages'),),
                 ],
               ),
             ),

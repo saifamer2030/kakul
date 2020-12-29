@@ -9,7 +9,7 @@ import 'package:kul_last/viewModel/companies.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../myColor.dart';
 import 'package:kul_last/model/globals.dart' as globals;
 
@@ -83,7 +83,7 @@ class _CompaniesState extends State<Companies> {
                             hint: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                'القسم الرئيسي',
+                                  translator.translate('TheMainSection'),
                                 style: TextStyle(fontFamily: 'jareda'),
                               ),
                             ),
@@ -118,7 +118,7 @@ class _CompaniesState extends State<Companies> {
                           hint: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              'القسم الفرعي',
+                                translator.translate('Subsection'),
                               style: TextStyle(fontFamily: 'jareda'),
                             ),
                           ),
@@ -148,7 +148,7 @@ class _CompaniesState extends State<Companies> {
                           hint: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              'المدينة',
+                              translator.translate('City'),,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 11),
                             ),
@@ -181,7 +181,7 @@ class _CompaniesState extends State<Companies> {
                       },
                       color: MyColor.customColor,
                       textColor: Colors.white,
-                      child: Text('عرض'),
+                      child: Text(translator.translate('Show'),),
                     ),
                   )
                 ],
@@ -259,6 +259,7 @@ class _CompaniesState extends State<Companies> {
                                                     width: 5,
                                                   ),
                                                   Text(filteredList[index].secID)
+
                                                 ],
                                               ),
                                               Row(
@@ -273,7 +274,7 @@ class _CompaniesState extends State<Companies> {
                                                   ),
                                                   Text(
                                                     (filteredList[index].distanceBetween!=null)?
-                                                      '${filteredList[index].distanceBetween} كيلو'
+                                                      '${filteredList[index].distanceBetween}${translator.translate('kilo')}'
                                                       :'')
                                                 ],
                                               ),
@@ -353,7 +354,7 @@ class _CompaniesState extends State<Companies> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Text('اتصال')
+                                                Text(translator.translate('Contact'),)
                                               ],
                                             ),
                                           )
@@ -425,7 +426,9 @@ class _CompaniesState extends State<Companies> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
+
                                                   Text( companies[index].secID)
+
                                                 ],
                                               ),
                                               Row(
@@ -441,7 +444,8 @@ class _CompaniesState extends State<Companies> {
                                                   Text((companies[index]
                                                               .distanceBetween !=
                                                           null)
-                                                      ? '${companies[index].distanceBetween} كيلو'
+
+                                                      ? '${companies[index].distanceBetween}${translator.translate('kilo')}'
                                                       : '')
                                                 ],
                                               ),
@@ -521,7 +525,7 @@ class _CompaniesState extends State<Companies> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Text('اتصال')
+                                                Text(translator.translate('Contact'),)
                                               ],
                                             ),
                                           )

@@ -14,6 +14,7 @@ import 'package:kul_last/view/jobsInCompany.dart';
 import 'package:kul_last/view/offersInCompany.dart';
 import 'package:kul_last/view/similarjobs.dart';
 import 'package:kul_last/view/similaroffers.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,23 +52,23 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           showDialog(
               context: this.context,
               builder: (context) => AlertDialog(
-                    backgroundColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    content: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              i,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ));
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                content: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          i,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ));
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -232,176 +233,184 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       context: context,
                                       barrierDismissible: false,
                                       builder: (context) => AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            content: SingleChildScrollView(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(8)),
+                                        content: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.mail,
+                                                size: 45,
+                                              ),
+                                              SizedBox(
+                                                height: 25,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(8),
+                                                    border: Border.all(
+                                                        width: .5,
+                                                        color:
+                                                        Colors.grey)),
+                                                child: TextField(
+                                                  controller: subCont,
+                                                  textAlign:
+                                                  TextAlign.right,
+                                                  textDirection:
+                                                  TextDirection.rtl,
+                                                  decoration:
+                                                  InputDecoration(
+                                                    contentPadding:
+                                                    EdgeInsets.all(10),
+                                                    border:
+                                                    InputBorder.none,
+                                                    hintText:
+                                                    translator
+                                                        .translate(
+                                                        'MessageSubject'),
+                                                    hintStyle: TextStyle(
+                                                        color: Colors
+                                                            .grey[400]),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 25,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(8),
+                                                    border: Border.all(
+                                                        width: .5,
+                                                        color:
+                                                        Colors.grey)),
+                                                child: TextField(
+                                                  controller: bodyCont,
+                                                  maxLines: 4,
+                                                  textAlign:
+                                                  TextAlign.right,
+                                                  textDirection:
+                                                  TextDirection.rtl,
+                                                  decoration:
+                                                  InputDecoration(
+                                                    contentPadding:
+                                                    EdgeInsets.all(10),
+                                                    hintStyle: TextStyle(
+                                                        color: Colors
+                                                            .grey[400]),
+                                                    border:
+                                                    InputBorder.none,
+                                                    hintText: translator
+                                                        .translate(
+                                                        'TheMessage'),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 25,
+                                              ),
+                                              Row(
                                                 children: <Widget>[
-                                                  Icon(
-                                                    Icons.mail,
-                                                    size: 45,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 25,
-                                                  ),
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        border: Border.all(
-                                                            width: .5,
-                                                            color:
-                                                                Colors.grey)),
-                                                    child: TextField(
-                                                      controller: subCont,
-                                                      textAlign:
-                                                          TextAlign.right,
-                                                      textDirection:
-                                                          TextDirection.rtl,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.all(10),
-                                                        border:
-                                                            InputBorder.none,
-                                                        hintText:
-                                                            'موضوع الرسالة',
-                                                        hintStyle: TextStyle(
-                                                            color: Colors
-                                                                .grey[400]),
-                                                      ),
+                                                  InkWell(
+                                                    child: Text(
+                                                      translator.translate(
+                                                          'Cancellation'),
+                                                      style: TextStyle(
+                                                          color:
+                                                          Colors.red),
                                                     ),
+                                                    onTap: () {
+                                                      Navigator.pop(
+                                                          context);
+                                                    },
                                                   ),
                                                   SizedBox(
-                                                    height: 25,
+                                                    width: 25,
                                                   ),
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        border: Border.all(
-                                                            width: .5,
-                                                            color:
-                                                                Colors.grey)),
-                                                    child: TextField(
-                                                      controller: bodyCont,
-                                                      maxLines: 4,
-                                                      textAlign:
-                                                          TextAlign.right,
-                                                      textDirection:
-                                                          TextDirection.rtl,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.all(10),
-                                                        hintStyle: TextStyle(
-                                                            color: Colors
-                                                                .grey[400]),
-                                                        border:
-                                                            InputBorder.none,
-                                                        hintText: 'الرسالة',
-                                                      ),
+                                                  InkWell(
+                                                    child: Text(
+                                                      translator.translate(
+                                                          'emphasis'),
+                                                      style: TextStyle(
+                                                          color:
+                                                          Colors.green),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 25,
-                                                  ),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      InkWell(
-                                                        child: Text(
-                                                          'الغاء',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.red),
-                                                        ),
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                      ),
-                                                      SizedBox(
-                                                        width: 25,
-                                                      ),
-                                                      InkWell(
-                                                        child: Text(
-                                                          'تأكيد',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.green),
-                                                        ),
-                                                        onTap: () async {
-                                                          if (bodyCont
-                                                              .text.isEmpty) {
-                                                            Fluttertoast.showToast(
-                                                                msg:
-                                                                    "من فضلك اكتب رسالة",
-                                                                toastLength: Toast
-                                                                    .LENGTH_SHORT,
-                                                                gravity:
-                                                                    ToastGravity
-                                                                        .CENTER,
-                                                                timeInSecForIos:
-                                                                    1,
-                                                                backgroundColor:
-                                                                    MyColor
-                                                                        .customColor,
-                                                                textColor:
-                                                                    Colors
-                                                                        .white,
-                                                                fontSize: 16.0);
-                                                          } else {
-                                                            Navigator.pop(
-                                                                context);
-                                                            showDialog(
-                                                                context:
-                                                                    context,
-                                                                barrierDismissible:
-                                                                    false,
-                                                                builder:
-                                                                    (context) =>
-                                                                        AlertDialog(
-                                                                          content:
-                                                                              Row(
-                                                                            textDirection:
-                                                                                TextDirection.rtl,
-                                                                            children: <Widget>[
-                                                                              CircularProgressIndicator(),
-                                                                              SizedBox(
-                                                                                width: 25,
-                                                                              ),
-                                                                              Text('جاري ارسال الرسالة')
-                                                                            ],
-                                                                          ),
-                                                                        ));
-                                                            await sendMsgToMail(
-                                                                    body: bodyCont
-                                                                        .text,
-                                                                    subject:
-                                                                        subCont
-                                                                            .text,
-                                                                    mail: widget
-                                                                        .company
-                                                                        .email)
-                                                                .whenComplete(
-                                                                    () {
+                                                    onTap: () async {
+                                                      if (bodyCont
+                                                          .text.isEmpty) {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                            translator
+                                                                .translate(
+                                                                'PleaseWriteAMessage'),
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                            ToastGravity
+                                                                .CENTER,
+                                                            timeInSecForIos:
+                                                            1,
+                                                            backgroundColor:
+                                                            MyColor
+                                                                .customColor,
+                                                            textColor:
+                                                            Colors
+                                                                .white,
+                                                            fontSize: 16.0);
+                                                      } else {
+                                                        Navigator.pop(
+                                                            context);
+                                                        showDialog(
+                                                            context:
+                                                            context,
+                                                            barrierDismissible:
+                                                            false,
+                                                            builder:
+                                                                (context) =>
+                                                                AlertDialog(
+                                                                  content:
+                                                                  Row(
+                                                                    textDirection:
+                                                                    TextDirection.rtl,
+                                                                    children: <Widget>[
+                                                                      CircularProgressIndicator(),
+                                                                      SizedBox(
+                                                                        width: 25,
+                                                                      ),
+                                                                      Text(  translator.translate('SendingMessage ...'),)
+                                                                    ],
+                                                                  ),
+                                                                ));
+                                                        await sendMsgToMail(
+                                                            body: bodyCont
+                                                                .text,
+                                                            subject:
+                                                            subCont
+                                                                .text,
+                                                            mail: widget
+                                                                .company
+                                                                .email)
+                                                            .whenComplete(
+                                                                () {
                                                               Navigator.pop(
                                                                   context);
                                                             });
-                                                          }
-                                                          //Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  )
+                                                      }
+                                                      //Navigator.pop(context);
+                                                    },
+                                                  ),
                                                 ],
-                                              ),
-                                            ),
-                                          ));
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ));
                                 },
                                 child: Row(
                                   children: <Widget>[
@@ -412,7 +421,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text('ارسل رسالة')
+                                    Text( translator.translate('SendAMessage'),)
                                   ],
                                 ),
                               )
@@ -441,7 +450,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(
                   height: 10,
                 ),
-            globals.myCompany.id==company.id? Container(
+                globals.myCompany.id==company.id? Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
                   padding: EdgeInsets.all(1),
                   decoration: BoxDecoration(
@@ -528,7 +537,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'عن الشركة',
+                          translator.translate('AboutCompany')
                       ),
                       Divider(),
                       Text(
@@ -551,7 +560,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'معلومات الاتصال',
+                          translator.translate('ContactInformation'),
                       ),
                       Divider(),
                       Column(
@@ -608,197 +617,197 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 (offers == null)
                     ? Container()
                     : Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.grey)),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: .5, color: Colors.grey)),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            translator.translate('AvailableJobs'),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OffersInCompany(
+                                        offers: offers,
+                                        companyName: company.name,
+                                      )));
+                            },
+                            child: Text(
+                              translator.translate('BrowseMore'),
+                              style:
+                              TextStyle(color: MyColor.customColor),
+                            ),
+                          )
+                        ],
+                      ),
+                      Divider(),
+                      (offers.length == 0)
+                          ? Container(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                          : ExpansionTile(
+                        trailing: Container(
+                          width: 0,
+                          height: 0,
+                        ),
+                        title: ListTile(
+                          contentPadding: EdgeInsets.all(0),
+                          leading:Container(
+                            child: ClipOval(
+                              child:FadeInImage.assetNetwork(
+                                image: offers[0].company_image,
+                                placeholder:  'assets/cover.png',
+                                width: 60,
+                                height: 80,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            offers[0].title,
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                          subtitle: Text(
+                            offers[0].create_date.split(' ')[0],
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          trailing: Icon(
+                            Icons.details,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        children: <Widget>[
+                          Container(
+                            child: Stack(
                               children: <Widget>[
-                                Text(
-                                  'العروض الحالية',
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => OffersInCompany(
-                                                  offers: offers,
-                                                  companyName: company.name,
-                                                )));
-                                  },
-                                  child: Text(
-                                    'تصفح المزيد',
-                                    style:
-                                        TextStyle(color: MyColor.customColor),
+                                Container(
+                                  height:150,
+                                  width:  double.infinity,
+                                  child: FadeInImage.assetNetwork(
+                                    image: offers[0].image,
+                                    placeholder:  'assets/cover.png',
+                                    width: 60,
+                                    height: 80,
+                                    fit: BoxFit.fill,
                                   ),
-                                )
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    '${ offers[0].old_price} ريال',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.red[200],
+                                      fontFamily: 'El Messiri',
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                    //  textDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                                Text(
+                                  '${offers[0].new_price} ريال',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.green[200],
+                                    fontFamily: 'El Messiri',
+                                    //  decoration: TextDecoration.lineThrough,
+                                  ),
+                                  //  textDirection: TextDirection.ltr,
+                                ),
                               ],
                             ),
-                            Divider(),
-                            (offers.length == 0)
-                                ? Container(
-                                    height: 100,
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  )
-                                : ExpansionTile(
-                                    trailing: Container(
-                                      width: 0,
-                                      height: 0,
-                                    ),
-                                    title: ListTile(
-                                      contentPadding: EdgeInsets.all(0),
-                                      leading:Container(
-                                        child: ClipOval(
-                                          child:FadeInImage.assetNetwork(
-                                            image: offers[0].company_image,
-                                            placeholder:  'assets/cover.png',
-                                            width: 60,
-                                            height: 80,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        offers[0].title,
-                                        style: TextStyle(color: Colors.black87),
-                                      ),
-                                      subtitle: Text(
-                                        offers[0].create_date.split(' ')[0],
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      trailing: Icon(
-                                        Icons.details,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    children: <Widget>[
-                                      Container(
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Container(
-                                              height:150,
-                                              width:  double.infinity,
-                                              child: FadeInImage.assetNetwork(
-                                                image: offers[0].image,
-                                                placeholder:  'assets/cover.png',
-                                                width: 60,
-                                                height: 80,
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Text(
-                                                '${ offers[0].old_price} ريال',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.red[200],
-                                                  fontFamily: 'El Messiri',
-                                                  decoration: TextDecoration.lineThrough,
+                          ),
+                          Divider(
+                            endIndent: 20,
+                            indent: 20,
+                            color: Colors.grey,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            child: Text(
+                              offers[0].text,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.grey[600]),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            width: double.infinity,
+                            child: RaisedButton(
+                              color: MyColor.customColor,
+                              textColor: Colors.white,
+                              child: Text('اظهار الرقم'),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        AlertDialog(
+                                          content: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: <Widget>[
+                                              Text(offers[0].Mobile),
+                                              InkWell(
+                                                onTap: () {
+                                                  launch("tel://${offers[0].Mobile}");
+                                                },
+                                                child: Icon(
+                                                  Icons.call,
+                                                  textDirection:
+                                                  TextDirection
+                                                      .rtl,
                                                 ),
-                                                //  textDirection: TextDirection.rtl,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${offers[0].new_price} ريال',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.green[200],
-                                                fontFamily: 'El Messiri',
-                                                //  decoration: TextDecoration.lineThrough,
-                                              ),
-                                              //  textDirection: TextDirection.ltr,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Divider(
-                                        endIndent: 20,
-                                        indent: 20,
-                                        color: Colors.grey,
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: 20, right: 20),
-                                        child: Text(
-                                          offers[0].text,
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                              color: Colors.grey[600]),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: 20, right: 20),
-                                        width: double.infinity,
-                                        child: RaisedButton(
-                                          color: MyColor.customColor,
-                                          textColor: Colors.white,
-                                          child: Text('اظهار الرقم'),
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    AlertDialog(
-                                                      content: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: <Widget>[
-                                                          Text(offers[0].Mobile),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              launch("tel://${offers[0].Mobile}");
-                                                            },
-                                                            child: Icon(
-                                                              Icons.call,
-                                                              textDirection:
-                                                                  TextDirection
-                                                                      .rtl,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ));
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 60,
-                                        margin: EdgeInsets.only(
-                                            left: 20, right: 20),
-                                        width: double.infinity,
-                                        child: RaisedButton(
-                                          color:    Colors.grey[300],
-                                        //  textColor: Colors.white,
-                                          child:  Text(
-                                            'عروض اخرى مشابهة',
-                                            style: TextStyle(
-                                                color: Colors.grey[600]),
+                                              )
+                                            ],
                                           ),
-                                          onPressed: () {
-                                            Navigator.of(context).push(MaterialPageRoute(
-                                                builder: (context) => SimilarOffers(offers[0].IdSections,offers[0].IdSubSection)));
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  )
-                          ],
-                        ),
-                      ),
+                                        ));
+                              },
+                            ),
+                          ),
+                          Container(
+                            height: 60,
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            width: double.infinity,
+                            child: RaisedButton(
+                              color:    Colors.grey[300],
+                              //  textColor: Colors.white,
+                              child:  Text(
+                                'عروض اخرى مشابهة',
+                                style: TextStyle(
+                                    color: Colors.grey[600]),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SimilarOffers(offers[0].IdSections,offers[0].IdSubSection)));
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -941,7 +950,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                         ),
                                         Center(
                                           child: Text(
-                                              jobs[0].Education,
+                                            jobs[0].Education,
                                             style: TextStyle(
                                                 color: MyColor
                                                     .customColor,
@@ -993,7 +1002,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             child: RaisedButton(
                               color: MyColor.customColor,
                               textColor: Colors.white,
-                              child: Text('اظهار الرقم'),
+                              child: Text(translator
+                                  .translate('ShowTheNumber'),),
                               onPressed: () {
                                 showDialog(
                                     context: context,
@@ -1056,117 +1066,117 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 (news == null)
                     ? Container()
                     : Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.grey)),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'احدث الاخبار',
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => NewsInCompany(
-                                                  news: news,
-                                                  companyName: company.name,
-                                                )));
-                                  },
-                                  child: Text(
-                                    'تصفح المزيد',
-                                    style:
-                                        TextStyle(color: MyColor.customColor),
-                                  ),
-                                )
-                              ],
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: .5, color: Colors.grey)),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'احدث الاخبار',
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NewsInCompany(
+                                        news: news,
+                                        companyName: company.name,
+                                      )));
+                            },
+                            child: Text(
+                              'تصفح المزيد',
+                              style:
+                              TextStyle(color: MyColor.customColor),
                             ),
-                            Divider(),
-                            (news.length == 0)
-                                ? Container(
-                                    height: 100,
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  )
-                                : ExpansionTile(
-                                    trailing: Container(
-                                      width: 0,
-                                      height: 0,
-                                    ),
-                                    title: ListTile(
-                                      contentPadding: EdgeInsets.all(0),
-                                      leading: Container(
-                                        child: ClipOval(
-                                          child: FadeInImage.assetNetwork(
-                                            image: news[0].imgURL,
-                                            placeholder: 'assets/cover.png',
-                                            width: 60,
-                                            height: 80,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        news[0].name,
-                                        style: TextStyle(color: Colors.black87),
-                                      ),
-                                      subtitle: Text(
-                                        news[0].date.split(' ')[0],
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      trailing: Icon(
-                                        Icons.details,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    children: <Widget>[
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: 20, right: 20),
-                                        child: Text(
-                                          news[0].topic,
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                              color: Colors.grey[600]),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
+                      Divider(),
+                      (news.length == 0)
+                          ? Container(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                          : ExpansionTile(
+                        trailing: Container(
+                          width: 0,
+                          height: 0,
+                        ),
+                        title: ListTile(
+                          contentPadding: EdgeInsets.all(0),
+                          leading: Container(
+                            child: ClipOval(
+                              child: FadeInImage.assetNetwork(
+                                image: news[0].imgURL,
+                                placeholder: 'assets/cover.png',
+                                width: 60,
+                                height: 80,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            news[0].name,
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                          subtitle: Text(
+                            news[0].date.split(' ')[0],
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          trailing: Icon(
+                            Icons.details,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 20, right: 20),
+                            child: Text(
+                              news[0].topic,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.grey[600]),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 (urls == null)
                     ? Container()
                     : Container(
-                        // margin: EdgeInsets.only(left: 10, right: 10),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            border: Border.all(width: .5, color: Colors.grey)),
-                        child: (urls.length == 0)
-                            ? Container(
-                                width: double.infinity,
-                                height: 100,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              )
-                            : Wrap(
-                                spacing: 10,
-                                runSpacing: 10,
-                                children:getCompanyImgWidget(),
-                              )),
+                  // margin: EdgeInsets.only(left: 10, right: 10),
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: Colors.grey)),
+                    child: (urls.length == 0)
+                        ? Container(
+                      width: double.infinity,
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                        : Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children:getCompanyImgWidget(),
+                    )),
                 SizedBox(
                   height: 40,
                 ),

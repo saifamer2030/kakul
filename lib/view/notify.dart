@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:provider/provider.dart';
 
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../myColor.dart';
 
 class Notify extends StatelessWidget {
@@ -42,6 +43,7 @@ class Notify extends StatelessWidget {
                         ));
                   },
                 );
+
               },
             ),
 
@@ -65,7 +67,7 @@ class Notify extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text('التنبيهات'),
+                  Text(translator.translate('Alerts'),),
                 ],
               ),
             ),
