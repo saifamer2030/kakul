@@ -26,8 +26,10 @@ import 'package:kul_last/backend/sectionBack.dart';
 
 import 'myColor.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+
 class Home extends StatefulWidget {
   User user;
+
   Home(this.user);
 
   @override
@@ -36,7 +38,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   User user;
+
   _HomeState(this.user);
+
   TabController controller;
   Company userCompany;
 
@@ -46,7 +50,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
     Timer(Duration(seconds: 0), () async {
       getAllCompaniesmap(context).then((v) async {
-        print('iddd'+v);
+        print('iddd' + v);
       });
       print("hhh1");
     });
@@ -80,12 +84,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   int homeIndex = 0;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     var compPro = Provider.of<CompanyProvider>(context);
-     var secProv=Provider.of<SectionProvider>(context);
-    var compmapPro = Provider.of<CompanyMapProvider>(context);
-
+    var secProv = Provider.of<SectionProvider>(context);
+    // var compmapPro = Provider.of<CompanyMapProvider>(context);
 
     return Scaffold(
       key: scaffoldKey,
@@ -106,7 +110,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   color: (controller.index) == 0
                       ? MyColor.customColor
                       : Colors.grey),
-              title: Text(translator.translate('Jobs'),),
+              title: Text(
+                translator.translate('Jobs'),
+              ),
             ),
             BottomNavigationBarItem(
               icon: Image.asset('assets/company.png',
@@ -114,7 +120,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   color: (controller.index) == 1
                       ? MyColor.customColor
                       : Colors.grey),
-              title: Text(translator.translate('Companies'),),
+              title: Text(
+                translator.translate('Companies'),
+              ),
             ),
             BottomNavigationBarItem(
               icon: Image.asset('assets/tag2.png',
@@ -122,29 +130,33 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   color: (controller.index) == 2
                       ? MyColor.customColor
                       : Colors.grey),
-              title: Text(translator.translate('Main'),),
+              title: Text(
+                translator.translate('Main'),
+              ),
             ),
           ]),
-    
-   floatingActionButton:  Row(
-     children: <Widget>[
-       SizedBox(width: 30,),
-       FloatingActionButton(
-                      backgroundColor: Colors.black87,
-                      child: Icon(
-                        Icons.clear_all,
-                        size: 30,
-                        color: Colors.orange[200],
-                      ),
-                      onPressed: () {
-                        print("ooooo"+compmapPro.companiesmap.length.toString()+compmapPro.companiesmap.toString());
-                         Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MapCluster(globals.companies,secProv)));
-                },
-                    ),
-     ],
-   ),
-    /*  floatingActionButton: SpeedDial(
+      floatingActionButton: Row(
+        children: <Widget>[
+          SizedBox(
+            width: 30,
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.black87,
+            child: Icon(
+              Icons.clear_all,
+              size: 30,
+              color: Colors.orange[200],
+            ),
+            onPressed: () {
+              // print("ooooo"+compmapPro.companiesmap.length.toString()+compmapPro.companiesmap.toString());
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      MapCluster(globals.companies, secProv)));
+            },
+          ),
+        ],
+      ),
+      /*  floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(color: Colors.orange[200]),
         marginRight: MediaQuery.of(context).size.width - 70,
@@ -175,7 +187,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ],
       ),
      */
-     
+
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -245,7 +257,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             Divider(),
-            /*  TabBar(
+/*              TabBar(
               labelColor: MyColor.customColor,
               unselectedLabelColor: Colors.grey,
               indicatorWeight: 5,
@@ -257,25 +269,24 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: (controller.index) == 0
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: translator.translate('Jobs'),,
+                  text: translator.translate('Jobs'),
                 ),
-                /*   Tab(
+            Tab(
                   icon: Image.asset('assets/Construction.png',
                       scale: 3,
                       color: (controller.index) == 1
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: translator.translate('Articles'),,
+                  text: translator.translate('Articles'),
                 ),
-           
-           */
+
                 Tab(
                   icon: Image.asset('assets/company.png',
                       scale: 3,
                       color: (controller.index) == 1
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: translator.translate('Companies'),,
+                  text: translator.translate('Companies'),
                 ),
                 Tab(
                   icon: Image.asset('assets/tag2.png',
@@ -283,35 +294,33 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: (controller.index) == 2
                           ? MyColor.customColor
                           : Colors.grey),
-                  text: translator.translate('Main'),,
+                  text: translator.translate('Main'),
                 ),
               ],
-            ),
-          
-          */
-          Expanded(
-            child:
-            (homeIndex == 0)
-                ? Container(
-                
-                  child: TabBarView(
-                      controller: controller,
-                      children: <Widget>[
-                        //jobs
-                        Jobs(),
+            ),*/
 
-                        //  RegisterCompany(),
+            Expanded(
+                child: (homeIndex == 0)
+                    ? Container(
+                        child: TabBarView(
+                          controller: controller,
+                          children: <Widget>[
+                            //jobs
+                            Jobs(),
 
-                        //Companies
-                        Companies(),
+                            //  RegisterCompany(),
 
-                        //Sections
-                        Sections()
-                      ],
-                    ),
-                )
-                : (homeIndex == 1) ? Msg() : Notify()
-          )
+                            //Companies
+                            Companies(),
+
+                            //Sections
+                            Sections()
+                          ],
+                        ),
+                      )
+                    : (homeIndex == 1)
+                        ? Msg()
+                        : Notify())
           ],
         ),
       ),
@@ -319,17 +328,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 }
 /**
- * 
+ *
  *   FloatingActionButton(
-                  backgroundColor: Colors.black87,
-                  child: Icon(
-                    Icons.clear_all,
-                    size: 30,
-                    color: Colors.orange[200],
-                  ),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Maps()));
-                  },
-                ),
+    backgroundColor: Colors.black87,
+    child: Icon(
+    Icons.clear_all,
+    size: 30,
+    color: Colors.orange[200],
+    ),
+    onPressed: () {
+    Navigator.of(context)
+    .push(MaterialPageRoute(builder: (context) => Maps()));
+    },
+    ),
  */

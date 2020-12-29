@@ -44,29 +44,28 @@ class _LoginState extends State<Login> {
                   child: InkWell(
                     onTap: () {
                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MultiProvider(
-                                    providers: [
-                                      ChangeNotifierProvider<
-                                          SectionProvider>.value(
-                                        value: SectionProvider(),
-                                      ),
-                                      ChangeNotifierProvider<
-                                          FeaturedCompanyProvider>.value(
-                                        value: FeaturedCompanyProvider(),
-                                      ),
-                                      ChangeNotifierProvider<
-                                          CompanyProvider>.value(
-                                        value: CompanyProvider(),
-                                      ),
-                                      ChangeNotifierProvider<
-                                          JobsProvider>.value(
-                                        value: JobsProvider(),
-                                      ),
-                                    ],
-                                    child: Home(null),
-                                  )));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MultiProvider(
+                            providers: [
+                              ChangeNotifierProvider<SectionProvider>.value(
+                                value: SectionProvider(),
+                              ),
+                              ChangeNotifierProvider<
+                                  FeaturedCompanyProvider>.value(
+                                value: FeaturedCompanyProvider(),
+                              ),
+                              ChangeNotifierProvider<CompanyProvider>.value(
+                                value: CompanyProvider(),
+                              ),
+                              ChangeNotifierProvider<JobsProvider>.value(
+                                value: JobsProvider(),
+                              ),
+                            ],
+                            child: Home(null),
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       translator.translate('loginDircte'),
@@ -126,7 +125,9 @@ class _LoginState extends State<Login> {
                               activeColor: MyColor.customColor,
                               value: rememberMe,
                             ),
-                            Text(translator.translate('RememberMe'),)
+                            Text(
+                              translator.translate('RememberMe'),
+                            )
                           ],
                         ),
                         Container(
@@ -186,7 +187,9 @@ class _LoginState extends State<Login> {
                                 });
                               });
                             },
-                            child: Text(translator.translate('login'),),
+                            child: Text(
+                              translator.translate('login'),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -200,7 +203,8 @@ class _LoginState extends State<Login> {
                                     builder: (context) => NewCompany()));
                           },
                           child: Text(
-                            translator.translate('YouDoNotHaveAnAccountRegisterNow'),
+                            translator
+                                .translate('YouDoNotHaveAnAccountRegisterNow'),
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontSize: 16,
