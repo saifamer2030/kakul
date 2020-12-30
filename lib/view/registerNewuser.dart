@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:location/location.dart';
 
 import '../myColor.dart';
@@ -65,7 +66,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
             },
           ),
           title:
-              Text('تسجيل حساب جديد', style: TextStyle(color: Colors.black54)),
+              Text(translator.translate('RegisterNewAccount'), style: TextStyle(color: Colors.black54)),
         ),
         body: SafeArea(
           child: Container(
@@ -90,7 +91,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                             controller: mailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'البريد الالكتروني',
+                              hintText: translator.translate('E-mail'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -122,7 +123,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                             controller: passController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              hintText: 'كلمة المرور',
+                              hintText: translator.translate('password'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -154,7 +155,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                             controller: confirmPassController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              hintText: 'اعادة ادخال كلمة المرور',
+                              hintText: translator.translate('ReenterPassword'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -186,7 +187,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                             keyboardType: TextInputType.phone,
                             controller: phoneController,
                             decoration: InputDecoration(
-                              hintText: 'رقم الهاتف',
+                              hintText: translator.translate('TelephoneNumber'),
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
@@ -217,7 +218,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                           activeColor: MyColor.customColor,
                         ),
                         Text(
-                            'بالنقر على هذا الزر أكون قد وافقت على شروط الاستخدام'),
+                            translator.translate('ByClickingOnThisButtonIAgreeToTheTermsOfuse')),
                       ],
                     ),
                     RaisedButton(
@@ -239,13 +240,13 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text('جاري تسجيل الشركة')
+                                  Text(translator.translate('CompanyRegistrationInProgress'))
                                 ],
                               ),
                             ),
                           );
                           await registeruser(
-                                  companyName: "لا يوجد",
+                                  companyName: translator.translate('ThereIsNo'),
                                   coverImg: null,
                                   description: "",
                                   email: mailController.text,
@@ -266,7 +267,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                                   youtube: "")
                               .then((v) {
                             Fluttertoast.showToast(
-                                msg: "تم التسجيل بنجاح",
+                                msg: translator.translate('SuccessfullyRegistered'),
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIos: 1,
@@ -282,7 +283,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                           }).then((v) {});
                         }
                       },
-                      child: Text('سجل الان'),
+                      child: Text(translator.translate('RegisterNow')),
                     ),
                     SizedBox(
                       height: 10,
@@ -309,13 +310,13 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
         mailController.text.isEmpty ||
         passController.text.isEmpty ||
         phoneController.text.isEmpty) {
-      showSnackMsg('من فضلك املأ الفراغات المطلوبة');
+      showSnackMsg(translator.translate('PleaseFillInTheRequiredSpaces'));
       return false;
     } else if (passController.text != confirmPassController.text) {
-      showSnackMsg('كلمة المرور غير مطابقة');
+      showSnackMsg(translator.translate('passwordsDoNotMatch'));
       return false;
     } else if (checkBoxVal == false) {
-      showSnackMsg('لم يتم الموافقة على شروط الأستخدام');
+      showSnackMsg(translator.translate('TheTermsOfUseHaveNotBeenApproved'));
       return false;
     }
     return true;

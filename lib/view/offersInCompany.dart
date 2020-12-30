@@ -3,6 +3,7 @@ import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/myColor.dart';
 import 'package:kul_last/view/similaroffers.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OffersInCompany extends StatelessWidget {
@@ -17,7 +18,7 @@ class OffersInCompany extends StatelessWidget {
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          ' وظائف $companyName',
+          ' ${translator.translate('Jobs')} $companyName',
         ),
       ),
       body: Directionality(
@@ -119,7 +120,7 @@ class OffersInCompany extends StatelessWidget {
                   child: RaisedButton(
                     color: MyColor.customColor,
                     textColor: Colors.white,
-                    child: Text('اظهار الرقم'),
+                    child: Text(translator.translate('ShowTheNumber')),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -157,7 +158,7 @@ class OffersInCompany extends StatelessWidget {
                     color:    Colors.grey[300],
                     //  textColor: Colors.white,
                     child:  Text(
-                      'عروض اخرى مشابهة',
+                      translator.translate('OtherSimilarOffers'),
                       style: TextStyle(
                           color: Colors.grey[600]),
                     ),

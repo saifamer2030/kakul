@@ -32,8 +32,8 @@
     "Contact": "Contact",
     "MessageSubject": "Message Subject",
     "TheMessage": "The Message",
-    "Cancellation": "Cancellation",
-    "emphasis": "emphasis",
+    "Cancellation": "Cancel",
+    "emphasis": "confirmation",
     "PleaseWriteAMessage": "Please Write A Message",
     "SendingMessage ...": "Sending Message ...",
     "SendAMessage": "Send A Message",
@@ -119,7 +119,7 @@
     "YoutubeChannelLink": "Youtube Channe lLink",
     "SnapchatLink": "Snapchat Link",
     "ByClickingOnThisButtonIAgreeToTheTermsOfuse": "By Clicking On This Button I Agree To The Terms Of use",
-    "CompanyRegistrationInProgress": "Company Registration In Progress",
+    "CompanyRegistrationInProgress": " Registration In Progress",
     "SuccessfullyRegistered": "Successfully Registered",
     "RegisterNow": "Register Now",
     "PleaseFillInTheRequiredSpaces": "Please Fill In The Required Spaces",
@@ -136,5 +136,8 @@
     "PostJob": "Post a job",
     "AddOffer": "Add an offer",
     "AddNews": "Add News",
-    "Login" : "Login"
+    "Login" : "Login",
+    "NewJobAlertFromCompany": "New job alert from a company",
+    "RegisterNewAccount": "Register a new account",
+    "ThereIsNo": "There is no"
 }

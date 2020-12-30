@@ -3,6 +3,7 @@ import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:kul_last/viewModel/offersProvider.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,7 +49,7 @@ similarsubsec=widget.sec;
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          'عروض مشابهة',
+          translator.translate('OtherSimilarOffers'),
         ),
       ),
       body: Container(
@@ -152,7 +153,7 @@ similarsubsec=widget.sec;
                       child: RaisedButton(
                         color: MyColor.customColor,
                         textColor: Colors.white,
-                        child: Text('اظهار الرقم'),
+                        child: Text(translator.translate('ShowTheNumber')),
                         onPressed: () {
                           showDialog(
                               context: context,
