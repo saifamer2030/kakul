@@ -360,33 +360,40 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
    // int i=-1;
     var jobcolor = new List<int>.generate(jsonSecList.length, (i) => 0);
 
-    for(int j=0;j<jsonSecList.length;j++){
+    for(int j=0;j<jsonSecList.length;j++) {
+       if((jsonSecList[j]['Accept']=="1")&&(jsonSecList[j]['user_only']=="0")){
+
       globals.companies.clear();
-    //  i++;
+      //  i++;
       Timer(Duration(seconds: 0), () async {
-        jobtype=await  getCompanyJobstype(jsonSecList[j]['id']).then((value) {
-          if(value.male&&value.fmale){
-            jobcolor[j]=3;
-          }else if(value.male==true&&value.fmale==false){
-            jobcolor[j]=1;
-          }else if(value.male==false&&value.fmale==true){
-            jobcolor[j]=2;
-          }else{jobcolor[j]=0;}
-          print("ppppp"+jobcolor.toString());
+        jobtype = await getCompanyJobstype(jsonSecList[j]['id']).then((value) {
+          if (value.male && value.fmale) {
+            jobcolor[j] = 3;
+          } else if (value.male == true && value.fmale == false) {
+            jobcolor[j] = 1;
+          } else if (value.male == false && value.fmale == true) {
+            jobcolor[j] = 2;
+          } else {
+            jobcolor[j] = 0;
+          }
+          print("ppppp" + jobcolor.toString());
           Timer(Duration(seconds: 0), () async {
-            checkoffers= await getCompanyofferlength(jsonSecList[j]['id']).then((offerlen) {
+            checkoffers =
+            await getCompanyofferlength(jsonSecList[j]['id']).then((offerlen) {
               Timer(Duration(seconds: 0), () async {
-
-                var markerImage = await MapHelper.getMarkerIcon(jsonSecList[j]['Image'],125.0,jobcolor[j],offerlen).then((value) {
-
-                  jsonSecList[j]['marker']= Marker(
+                var markerImage = await MapHelper.getMarkerIcon(
+                    jsonSecList[j]['Image'], 125.0, jobcolor[j], offerlen)
+                    .then((value) {
+                  jsonSecList[j]['marker'] = Marker(
                     markerId: MarkerId(
                       jsonSecList[j]['id'],
                     ),
-                    position: LatLng(double.parse(jsonSecList[j]['lat'].toString()), double.parse(jsonSecList[j]['lon'].toString())),
+                    position: LatLng(
+                        double.parse(jsonSecList[j]['lat'].toString()),
+                        double.parse(jsonSecList[j]['lon'].toString())),
                     icon: value,
                     infoWindow: InfoWindow(title: jsonSecList[j]['Name'],
-                        onTap: (){
+                        onTap: () {
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -401,9 +408,8 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
             });
           });
         });
-
-
       });
+    }
     }
 //     jsonSecList.forEach((item) async {
 //       globals.companies.clear();

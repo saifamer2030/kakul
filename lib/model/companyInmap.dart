@@ -21,7 +21,9 @@ class CompanyMap {
       secID,
       subSecID,
       locationName;
-Marker marker;
+  String Accept,  user_only;
+
+  Marker marker;
   CompanyMap(
       {@required this.imgURL,
       @required this.name,
@@ -47,5 +49,7 @@ Marker marker;
     this.subSecID=json['subSecID'];
     this.coverURL=json['Photo'];
     this.marker=json['marker'];
+    this.Accept=json['Accept'];
+    this.user_only=json['user_only'];
   }
 }
