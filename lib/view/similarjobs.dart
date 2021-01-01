@@ -4,6 +4,7 @@ import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:kul_last/viewModel/offersProvider.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,7 +50,7 @@ similarsubsec=widget.sec;
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          'وظائف مشابهة',
+          translator.translate('OtherSimilarFunctions'),
         ),
       ),
       body: Container(
@@ -114,7 +115,7 @@ similarsubsec=widget.sec;
                               children: [
                                 TableRow(children: [
                                   Text(
-                                    'مستوى الخبرة',
+                                    translator.translate('ExperienceLevel'),
                                     style: TextStyle(
                                         fontSize: 12,
                                         color:
@@ -130,7 +131,7 @@ similarsubsec=widget.sec;
                                     ),
                                   ),
                                   Center(
-                                    child: Text('نوع العمل',
+                                    child: Text(translator.translate('TypeOfEmployment'),
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors
@@ -149,7 +150,7 @@ similarsubsec=widget.sec;
                                 TableRow(children: [
                                   Center(
                                     child: Text(
-                                        'المستوى التعليمي',
+                                        translator.translate('EducationalLevel'),
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors
@@ -165,7 +166,7 @@ similarsubsec=widget.sec;
                                     ),
                                   ),
                                   Center(
-                                    child: Text('نوع المعلن',
+                                    child: Text(translator.translate('AdvertiserType'),
                                         style: TextStyle(
                                             fontSize: 12,
                                             color: Colors
@@ -173,7 +174,7 @@ similarsubsec=widget.sec;
                                   ),
                                   Center(
                                     child: Text(
-                                      'باحث عن موظف',
+                                      translator.translate('LookingForAnEmployee'),
                                       style: TextStyle(
                                           color: MyColor
                                               .customColor,
@@ -209,7 +210,7 @@ similarsubsec=widget.sec;
                       child: RaisedButton(
                         color: MyColor.customColor,
                         textColor: Colors.white,
-                        child: Text('اظهار الرقم'),
+                        child: Text(translator.translate('ShowTheNumber')),
                         onPressed: () {
                           showDialog(
                               context: context,

@@ -35,7 +35,7 @@ class Notify extends StatelessWidget {
                             backgroundColor: MyColor.customColor,
                             child: Image.asset('assets/profile2.png'),
                           ),
-                          title: Text('تنبيه بوظيفة جديدة من شركة  ${jobPro.jobs[index].name}'),
+                          title: Text('${translator.translate('NewJobAlertFromCompany')}${jobPro.jobs[index].name}'),
                           subtitle: Text(
                             jobPro.jobs[index].dateAt.split(' ')[0],
                             style: TextStyle(color: Colors.grey),

@@ -107,7 +107,7 @@
     "TheMainSection": "القسم الرئيسي",
     "Subsection": "القسم الفرعي",
     "TheDescription": "الوصف",
-    "TelephoneNumber": "رقم الهاتف",
+    "TelephoneNumber": "رقم الجوال",
     "CommercialRegistrationNo": "رقم السجل التجاري",
     "CompanyAddress": "عنوان الشركة",
     "ProfilePictureHasBeenAttached": "تم ارفاق صورة البروفايل'",
@@ -121,7 +121,7 @@
     "YoutubeChannelLink": "رابط قناة اليوتيوب",
     "SnapchatLink": "رابط سناب شات",
     "ByClickingOnThisButtonIAgreeToTheTermsOfuse": "بالنقر على هذا الزر أكون قد وافقت على شروط الاستخدام",
-    "CompanyRegistrationInProgress": "جاري تسجيل الشركة",
+    "CompanyRegistrationInProgress": "جاري تسجيل ",
     "SuccessfullyRegistered": "تم التسجيل بنجاح",
     "RegisterNow": "سجل الان",
     "PleaseFillInTheRequiredSpaces": "من فضلك املأ الفراغات المطلوبة",
@@ -141,7 +141,10 @@
     "PostJob": "إضافة وظيفة",
     "AddOffer": "إضافة عرض",
     "AddNews": "إضافة خبر",
-    "Login" : "تسجيل دخول"
+    "Login" : "تسجيل دخول",
+    "NewJobAlertFromCompany": "تنبيه بوظيفة جديدة من شركة ",
+    "RegisterNewAccount": "تسجيل حساب جديد",
+    "ThereIsNo": "لا يوجد"
 
 
 
