@@ -99,7 +99,9 @@ Future<dynamic> getCompanySection(String secID) async {
     var json = jsonDecode(response.body);
     List jsonSecList = json['Companies'];
     jsonSecList.forEach((item) {
-      companies.add(Company.fromMap(item));
+      if((item['Accept']=="1")&&(item['user_only']=="0")){
+
+        companies.add(Company.fromMap(item));}
     });
     return companies;
   }
@@ -226,7 +228,7 @@ Future<dynamic> getAllCompanies() async {
     String Address="aaaa";  String distance="22222";
   //  for(int j=0;j<jsonSecList.length;j++){}
     jsonSecList.forEach((item)    {
-if((item['Accept']=="0")&&(item['user_only']=="0")){
+if((item['Accept']=="1")&&(item['user_only']=="0")){
       companies.add(Company.fromMap(item));
 }
 //  String Accept,  user_only;
@@ -474,7 +476,10 @@ Future<dynamic> getFeaturedCompanies() async {
     var json = jsonDecode(response.body);
     List jsonSecList = json['Companies'];
     jsonSecList.forEach((item) {
-      companies.add(Company.fromMap(item));
+    //  if((item['Accept']=="1")&&(item['user_only']=="0")){
+
+        companies.add(Company.fromMap(item));
+      //}
     });
     return companies;
   }

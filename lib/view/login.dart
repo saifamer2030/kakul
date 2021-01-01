@@ -7,6 +7,7 @@ import 'package:kul_last/view/registerNewuser.dart';
 import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/featuredCompanies.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
+import 'package:kul_last/viewModel/offersProvider.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,6 +63,9 @@ class _LoginState extends State<Login> {
                               ),
                               ChangeNotifierProvider<JobsProvider>.value(
                                 value: JobsProvider(),
+                              ),
+                              ChangeNotifierProvider<OffersProvider>.value(
+                                value: OffersProvider(),
                               ),
                             ],
                             child: Home(null),
@@ -177,6 +181,9 @@ class _LoginState extends State<Login> {
                                                   ChangeNotifierProvider<
                                                       JobsProvider>.value(
                                                     value: JobsProvider(),
+                                                  ),
+                                                  ChangeNotifierProvider<OffersProvider>.value(
+                                                    value: OffersProvider(),
                                                   ),
                                                 ],
                                                 child: Home(v),

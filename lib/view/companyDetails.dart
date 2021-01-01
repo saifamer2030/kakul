@@ -450,7 +450,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(
                   height: 10,
                 ),
-                (( globals.myCompany.id==company.id)&&(globals.myCompany.Accept=="1"))? Container(
+                (( globals.myCompany.id==company.id)&&(globals.myCompany.Accept=="1"))?
+                Container(
 
                   margin: EdgeInsets.only(left: 10, right: 10),
                   padding: EdgeInsets.all(1),
@@ -524,7 +525,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
                     ],
                   ),
-                ):Container(),
+                )
+                    :Container(),
                 SizedBox(
                   height: 10,
                 ),

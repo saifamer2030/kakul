@@ -377,7 +377,9 @@ class _CompaniesState extends State<Companies> {
                                 child: Row(
                                   children: <Widget>[
                                     InkWell(
+
                                       onTap: () {
+                                        print("aaa${companies[index].id}");
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
