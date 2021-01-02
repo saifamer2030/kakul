@@ -21,6 +21,7 @@ import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
 import 'package:kul_last/view/companyDetails.dart';
+import 'package:kul_last/view/companyDetailsmap.dart';
 import 'package:mime/mime.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:kul_last/model/globals.dart' as globals;
@@ -396,11 +397,11 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
                     icon: value,
                     infoWindow: InfoWindow(title: jsonSecList[j]['Name'],
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //             CompanyDetails(jsonSecList[i])));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CompanyDetailsMap(CompanyMap.fromMap(jsonSecList[j]))));
                         }),
                   );
                   companies.add(CompanyMap.fromMap(jsonSecList[j]));
