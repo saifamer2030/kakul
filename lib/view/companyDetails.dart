@@ -1,12 +1,19 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kul_last/backend/others.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/offer.dart';
+import 'package:kul_last/model/photo.dart';
 import 'package:kul_last/view/addNewjob.dart';
 import 'package:kul_last/view/addNewnews.dart';
 import 'package:kul_last/view/addnewoffer.dart';
@@ -15,6 +22,7 @@ import 'package:kul_last/view/offersInCompany.dart';
 import 'package:kul_last/view/similarjobs.dart';
 import 'package:kul_last/view/similaroffers.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,14 +41,18 @@ class CompanyDetails extends StatefulWidget {
 
 class _CompanyDetailsState extends State<CompanyDetails> {
   Company company;
-
+  List<Asset> images = List<Asset>();
+  String _error = 'No Error Dectected';
+  int picno = 0;
   _CompanyDetailsState(this.company);
+  File coverImg;
 
   String address = '';
   List<String> urls = [];
   List<Job> jobs = [];
   List<New> news = [];
   List<Offer> offers = [];
+  List<Photo> photos = [];
 
 
 
@@ -89,7 +101,14 @@ class _CompanyDetailsState extends State<CompanyDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    Timer(Duration(seconds: 0), () async {
+      getCompanyphoto(company.id).then((v) async {
+        setState(() {
+          photos.addAll(v);
+        });
+      });
+      print("hhh1");
+    });
     getLocName(company.lat, company.lng).then((v) {
       setState(() {
         address = v;
@@ -147,11 +166,64 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      FadeInImage.assetNetwork(
-                        image: company.coverURL,
-                        placeholder: 'assets/cover.png',
-                        fit: BoxFit.cover,
+                      Container(
+                          width: double.infinity,
+                          height: 180,
+
+                          child: (photos == null||photos.length==0)
+                              ?  FadeInImage.assetNetwork(
+                            image: company.coverURL,
+                            placeholder: 'assets/cover.png',
+                            fit: BoxFit.cover,
+                          )
+                              : Swiper(
+                            loop: false,
+                            duration: 1000,
+                            autoplay: true,
+                            autoplayDelay: 15000,
+                            itemCount: photos.length,
+                            pagination: new SwiperPagination(
+                              margin: new EdgeInsets.fromLTRB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              builder: new DotSwiperPaginationBuilder(
+                                  color: Colors.grey,
+                                  activeColor: const Color(0xff171732),
+                                  size: 8.0,
+                                  activeSize: 8.0),
+                            ),
+                            control: new SwiperControl(),
+                            viewportFraction: 1,
+                            scale: 0.1,
+                            outer: true,
+                            itemBuilder:
+                                (BuildContext context, int index) {
+
+                              return  InkWell(
+                                onTap: () async {
+                                  if ( globals.myCompany.id==company.id){
+                                    showAlertDialog(context,photos[index].id);
+                                  }
+
+                                },
+                                child: Image.network(photos[index].Url,
+                                    fit: BoxFit.fill,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent loadingProgress) {
+                                      if (loadingProgress == null)
+                                        return child;
+                                      return SpinKitThreeBounce(
+                                        color: const Color(0xff171732),
+                                        size: 35,
+                                      );
+                                    }),
+                              );
+                            },
+                          )
                       ),
+
+
+
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
@@ -443,7 +515,62 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      ( globals.myCompany.id==company.id)? Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+
+                    color: Colors.grey.withOpacity(0.7),
+                          margin: EdgeInsets.only(left: 15, bottom: 60),
+                          child: IconButton(
+                            icon: Icon(Icons.add_a_photo_rounded,size: 40,),
+                            color: Colors.black,
+                            onPressed: () async{
+                             // loadAssets();
+                              coverImg = await getImage().then((value) {
+    if(value==null){
+  Fluttertoast.showToast(
+      msg: "برجاء اختيار صورة واحدة على الاقل",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      backgroundColor: MyColor.customColor,
+      textColor: Colors.white,
+      fontSize: 16.0);
+      }else{
+        Future.delayed(const Duration(milliseconds: 0), () async {
+  await registerCompanyphotos(
+      id:globals.myCompany.id,
+      coverImg: value,
+   )
+          .then((v) {
+      Fluttertoast.showToast(
+      msg: translator.translate('SuccessfullyRegistered'),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      backgroundColor: MyColor.customColor,
+      textColor: Colors.white,
+      fontSize: 16.0);
+      // Navigator.pop(context);
+      }).whenComplete(() {
+      Navigator.pop(this.context);
+      }).catchError((e) {
+     // showSnackMsg(e.toString());
+      print('ErrorRegCompany:$e');
+      }).then((v) {});
+  });
+
+
+
+    }
+                              });
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                      ):Container(),
+
                     ],
                   ),
                 ),
@@ -1219,4 +1346,141 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       return false;
     }
   }
+
+  Future<File> getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    return image;
+  }
+  showAlertDialog(BuildContext context,String id) {
+
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed:  () {
+        Navigator.pop(
+            context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("تأكيد"),
+      onPressed:  () {
+        Timer(Duration(seconds: 0), () async {
+          await deletCompanyphoto(id).then((value) {
+            Fluttertoast.showToast(
+                msg:
+                "تم الحذف بنجاح",
+                toastLength: Toast
+                    .LENGTH_SHORT,
+                gravity:
+                ToastGravity
+                    .CENTER,
+                timeInSecForIos:
+                1,
+                backgroundColor:
+                MyColor
+                    .customColor,
+                textColor:
+                Colors
+                    .white,
+                fontSize: 16.0);
+          });
+          Navigator.pop(
+              context);
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("حذف الصورة"),
+      content: Text("هل انت متاكد من انك تريد حذف الصورة؟"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+//   Future<void> loadAssets() async {
+//     List<Asset> resultList = List<Asset>();
+//     String error = 'No Error Dectected';
+// //print("hhhhhhhhh");
+//     try {
+//       resultList = await MultiImagePicker.pickImages(
+//         maxImages: 10,
+//         enableCamera: false,
+//         selectedAssets: images,
+//         cupertinoOptions: CupertinoOptions(takePhotoIcon: "الصور"),
+//         materialOptions: MaterialOptions(
+//           statusBarColor: "#000000",
+//           actionBarColor: "#000000",
+//           actionBarTitle: "ككل",
+//           allViewTitle: "كل الصور",
+//           useDetailsView: false,
+//           selectCircleStrokeColor: "#000000",
+//         ),
+//       );
+//     } on Exception catch (e) {
+//       error = e.toString();
+//       // print("hhh$e");
+//     }
+//
+//     // If the widget was removed from the tree while the asynchronous platform
+//     // message was in flight, we want to discard the reply rather than calling
+//     // setState to update our non-existent appearance.
+//     if (!mounted) return;
+//
+//     setState(()  {
+//       images = resultList;
+//       _error = error;
+//      // picno = images.length;
+// if(images.length==0){
+//   Fluttertoast.showToast(
+//       msg: "برجاء اختيار صورة واحدة على الاقل",
+//       toastLength: Toast.LENGTH_SHORT,
+//       gravity: ToastGravity.CENTER,
+//       timeInSecForIos: 1,
+//       backgroundColor: MyColor.customColor,
+//       textColor: Colors.white,
+//       fontSize: 16.0);
+// }else{
+//   Future.delayed(const Duration(milliseconds: 0), () async {
+//   await registerCompanyphotos(
+//       id:globals.myCompany.id,
+//       coverImg: images,
+//    )
+//           .then((v) {
+//       Fluttertoast.showToast(
+//       msg: translator.translate('SuccessfullyRegistered'),
+//       toastLength: Toast.LENGTH_SHORT,
+//       gravity: ToastGravity.CENTER,
+//       timeInSecForIos: 1,
+//       backgroundColor: MyColor.customColor,
+//       textColor: Colors.white,
+//       fontSize: 16.0);
+//       // Navigator.pop(context);
+//       }).whenComplete(() {
+//       Navigator.pop(this.context);
+//       }).catchError((e) {
+//      // showSnackMsg(e.toString());
+//       print('ErrorRegCompany:$e');
+//       }).then((v) {});
+//   });
+//
+//
+//
+// }
+//       //    print("hhhh$images");
+//     });
+//   }
+
 }

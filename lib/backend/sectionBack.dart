@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
@@ -18,13 +19,16 @@ import 'package:kul_last/model/map_marker.dart';
 import 'package:kul_last/model/message.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/offer.dart';
+import 'package:kul_last/model/photo.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
 import 'package:kul_last/view/companyDetails.dart';
 import 'package:kul_last/view/companyDetailsmap.dart';
+import 'package:kul_last/view/photoswiper.dart';
 import 'package:mime/mime.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:kul_last/model/globals.dart' as globals;
+import 'package:multi_image_picker/multi_image_picker.dart';
 
 import 'others.dart';
 
@@ -401,7 +405,12 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CompanyDetailsMap(CompanyMap.fromMap(jsonSecList[j]))));
+                                      PhotoSwiper(CompanyMap.fromMap(jsonSecList[j]))));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             CompanyDetailsMap(CompanyMap.fromMap(jsonSecList[j]))));
                         }),
                   );
                   companies.add(CompanyMap.fromMap(jsonSecList[j]));
@@ -592,14 +601,7 @@ edutype,
       .then((value){
     print("lll${value.body}//${Companyname}///$salary//$sextype");
   });
-  // http.Response response = await http.get(baseURL,
-  //     headers: {
-  //       'Content-type': 'application/json',
-  //       'Accept': 'application/json'
-  //     }).then((value){
-  //   //print("lll${value.body}//${widget.orderID}///$lat//$long");
-  // });
- // print("lll${response.body}//${widget.orderID}$lat//$long");
+
 }
 
 Future<dynamic> addnews(
@@ -962,6 +964,89 @@ Future<dynamic> getSimilarJobs(String similarsec,String similarsubsec) async {
   }
 
   return translator.translate('AConnectionErrorHasOccurred');
+}
+
+
+
+Future<dynamic> registerCompanyphotos1(
+    {String id,
+      List<Asset>  coverImg}) async {
+  List<dio.MultipartFile> images = [];
+  for (int i = 0; i < coverImg.length; i++) {
+    var path = await FlutterAbsolutePath.getAbsolutePath(coverImg[i].identifier);
+dio.MultipartFile a =await dio.MultipartFile.fromFile(path,
+    contentType: MediaType("image", "jpg"));
+    images.add(a);
+    String url = 'http://kk.vision.com.sa/API/UpdateUser.php';
+    Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
+    var formData = dio.FormData.fromMap({
+      "Spid": id,
+      "Image": a,
+
+    });
+    // print('FormData:${formData.fields}');
+    dio.Response response = await dio.Dio()
+        .post(url, data: formData, options: dio.Options(headers: headers));
+    print('Status:${response.statusCode}');
+    print('Response:${response.data.toString()}');
+  }
+
+
+}
+
+Future<dynamic> registerCompanyphotos(
+    {String id,
+       File coverImg,
+    }) async {
+
+  var coverMediaType = {
+    lookupMimeType(coverImg.path).split('/')[0]:
+    lookupMimeType(coverImg.path).split('/')[1]
+  };
+  String url = 'http://kk.vision.com.sa/API/AddImage.php';
+  Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
+  var formData = dio.FormData.fromMap({
+    "Spid": id,
+    "Image": await dio.MultipartFile.fromFile(coverImg.path,
+        contentType: MediaType(coverMediaType.keys.elementAt(0),
+            coverMediaType.values.elementAt(0))),
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response = await dio.Dio()
+      .post(url, data: formData, options: dio.Options(headers: headers));
+  print('Status:${response.statusCode}');
+  print('Response:${response.data.toString()}');
+}
+Future<dynamic> getCompanyphoto(String companyID) async {
+  String baseURL = "http://kk.vision.com.sa/API/GetImage.php?Spid=${companyID}";
+  var client = Client();
+  List<Photo> photo = [];
+
+  Response response = await client.get(baseURL);
+
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.body);
+    if (json['success'] == 1) {
+      List jsonList = json["Images"];
+      jsonList.forEach((i) {
+        photo.add(Photo.fromMap(i));
+      });
+      return photo;
+    } else {
+      return null;
+    }
+  }
+
+  return translator.translate('AConnectionErrorHasOccurred');
+}
+Future<dynamic> deletCompanyphoto(String photoID) async {
+  String baseURL = "http://kk.vision.com.sa/API/DeleteImage.php?id=${photoID}";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+
 }
 
 
