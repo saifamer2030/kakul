@@ -13,6 +13,7 @@ import 'package:kul_last/view/companyDetailsmap.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../myColor.dart';
+import 'package:story_view/story_view.dart';
 
 class PhotoSwiper extends StatefulWidget {
   CompanyMap company;
@@ -25,7 +26,8 @@ class PhotoSwiper extends StatefulWidget {
 
 class _PhotoSwiperState extends State<PhotoSwiper> {
   List<Photo> photos = [];
-
+  final storyController = StoryController();
+  List<StoryItem> storyItems = [];
 
   @override
   void initState() {
@@ -38,6 +40,23 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
       getCompanyphoto(widget.company.id).then((v) async {
         setState(() {
           photos.addAll(v);
+          if((photos==null)||(photos.length==0)){
+            storyItems.add(StoryItem.pageImage(
+              url:widget.company.coverURL,
+              caption: "",
+              controller: storyController,
+            ));
+          }else{
+            for(int j=0;j<photos.length;j++){
+              storyItems.add(StoryItem.pageImage(
+                url: photos[j].Url,
+                caption: "",
+                controller: storyController,
+              ));
+
+            }
+          }
+
         });
       });
       print("hhh1");
@@ -50,7 +69,8 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
           width: double.infinity,
           height: double.infinity,
 
-          child: (photos == null||photos.length==0)
+          child:
+          (photos == null||photos.length==0)
               ?  Stack(
                 children: [
                   Container(
@@ -89,61 +109,108 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
                 ],
               )
               :
-          new PageView.builder(
-            scrollDirection: Axis.vertical,
-            pageSnapping:false,
-            onPageChanged:(num){
-              print("currentpage$num" );
+          StoryView(
+            storyItems: storyItems,
+            // [
+            //   StoryItem.text(
+            //     title: "I guess you'd love to see more of our food. That's great.",
+            //     backgroundColor: Colors.blue,
+            //   ),
+            //   StoryItem.text(
+            //     title: "Nice!\n\nTap to continue.",
+            //     backgroundColor: Colors.red,
+            //     textStyle: TextStyle(
+            //       fontFamily: 'Dancing',
+            //       fontSize: 40,
+            //     ),
+            //   ),
+            //   StoryItem.pageImage(
+            //     url:
+            //     "https://image.ibb.co/cU4WGx/Omotuo-Groundnut-Soup-braperucci-com-1.jpg",
+            //     caption: "Still sampling",
+            //     controller: storyController,
+            //   ),
+            //   StoryItem.pageImage(
+            //       url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
+            //       caption: "Working with gifs",
+            //       controller: storyController),
+            //   StoryItem.pageImage(
+            //     url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
+            //     caption: "Hello, from the other side",
+            //     controller: storyController,
+            //   ),
+            //   StoryItem.pageImage(
+            //     url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
+            //     caption: "Hello, from the other side2",
+            //     controller: storyController,
+            //   ),
+            // ],
+            onStoryShow: (s) {
+              print("Showing a story");
             },
-            key: PageStorageKey(""),
-            itemCount: photos.length,
-            itemBuilder: (context,index){
-              return Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Image.network(photos[index].Url,
-                        fit: BoxFit.fill,
-                        loadingBuilder: (BuildContext context,
-                            Widget child,
-                            ImageChunkEvent loadingProgress) {
-                          if (loadingProgress == null)
-                            return child;
-                          return SpinKitThreeBounce(
-                            color: const Color(0xff171732),
-                            size: 35,
-                          );
-                        }),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      margin: EdgeInsets.only(right: 15, top: 35),
-                      child: ClipOval(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CompanyDetailsMap(widget.company)));
-                                    },
-                          child: FadeInImage.assetNetwork(
-                            image: widget.company.imgURL,
-                            placeholder: 'assets/picture2.png',
-                            fit: BoxFit.cover,
-                            width: 70,
-                            height: 70,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
+            onComplete: () {
+              Navigator.pop(context);
             },
-          )
+            progressPosition: ProgressPosition.top,
+            repeat: true,
+            controller: storyController,
+          ),
+    //  )
+          // new PageView.builder(
+          //   scrollDirection: Axis.vertical,
+          //   pageSnapping:false,
+          //   onPageChanged:(num){
+          //     print("currentpage$num" );
+          //   },
+          //   key: PageStorageKey(""),
+          //   itemCount: photos.length,
+          //   itemBuilder: (context,index){
+          //     return Stack(
+          //       children: [
+          //         Container(
+          //           width: double.infinity,
+          //           height: double.infinity,
+          //           child: Image.network(photos[index].Url,
+          //               fit: BoxFit.fill,
+          //               loadingBuilder: (BuildContext context,
+          //                   Widget child,
+          //                   ImageChunkEvent loadingProgress) {
+          //                 if (loadingProgress == null)
+          //                   return child;
+          //                 return SpinKitThreeBounce(
+          //                   color: const Color(0xff171732),
+          //                   size: 35,
+          //                 );
+          //               }),
+          //         ),
+          //         Align(
+          //           alignment: Alignment.topRight,
+          //           child: Container(
+          //             margin: EdgeInsets.only(right: 15, top: 35),
+          //             child: ClipOval(
+          //               child: InkWell(
+          //                 onTap: () {
+          //                   Navigator.push(
+          //                       context,
+          //                       MaterialPageRoute(
+          //                           builder: (context) =>
+          //                               CompanyDetailsMap(widget.company)));
+          //                           },
+          //                 child: FadeInImage.assetNetwork(
+          //                   image: widget.company.imgURL,
+          //                   placeholder: 'assets/picture2.png',
+          //                   fit: BoxFit.cover,
+          //                   width: 70,
+          //                   height: 70,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     );
+          //   },
+          // )
 
 
           // Swiper(
