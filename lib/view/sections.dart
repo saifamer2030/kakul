@@ -196,7 +196,7 @@ class _SectionsState extends State<Sections>  {
                                         child: FadeInImage.assetNetwork(
                                           image:
                                               featPro.companies[index].imgURL,
-                                          placeholder: 'assets/picture2.png',
+                                          placeholder: 'assets/logo.png',
                                           imageScale: 3,
                                           fit: BoxFit.fill,
                                         ),
@@ -317,7 +317,7 @@ class _SectionsState extends State<Sections>  {
                                       ClipOval(
                                         child: FadeInImage.assetNetwork(
                                           image: secPro.sections[index].imgURL,
-                                          placeholder: 'assets/picture3.png',
+                                          placeholder: 'assets/logo.png',
                                           fit: BoxFit.cover,
                                           width: 70,
                                           height: 70,

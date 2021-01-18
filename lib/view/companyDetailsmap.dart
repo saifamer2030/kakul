@@ -136,6 +136,10 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: MyColor.customColor,
+      ),
       body: Container(
         child: Directionality(
           textDirection: TextDirection.rtl,

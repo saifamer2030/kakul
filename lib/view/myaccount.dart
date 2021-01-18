@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kul_last/model/userModel.dart';
+import 'package:kul_last/myColor.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 class Account extends StatelessWidget {
   User user;
@@ -8,6 +9,11 @@ class Account extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: MyColor.customColor,
+
+      ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Card(

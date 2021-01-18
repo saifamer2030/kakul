@@ -154,6 +154,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: MyColor.customColor,
+      ),
       body: Container(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -173,7 +177,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           child: (photos == null||photos.length==0)
                               ?  FadeInImage.assetNetwork(
                             image: company.coverURL,
-                            placeholder: 'assets/cover.png',
+                            placeholder: 'assets/logo.png',
                             fit: BoxFit.cover,
                           )
                               : Swiper(
@@ -241,7 +245,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   InkWell(
                                     onTap: () {
                                       //launchURL("");
-                                      launchURL(widget.company.instagram);
+                                      _launchUniversalLinkIos(widget.company.instagram);
                                     },
                                     child: Image.asset(
                                       'assets/insta.png',
@@ -250,7 +254,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchURL(widget.company.youtube);
+                                      _launchUniversalLinkIos(widget.company.youtube);
                                     },
                                     child: Image.asset(
                                       'assets/youtube.png',
@@ -259,7 +263,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchURL(widget.company.twitter);
+                                      _launchUniversalLinkIos(widget.company.twitter);
                                     },
                                     child: Image.asset(
                                       'assets/twitter.png',
@@ -268,7 +272,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchURL(widget.company.face);
+                                      _launchUniversalLinkIos(widget.company.face);
                                     },
                                     child: Image.asset(
                                       'assets/facebook.png',
@@ -280,7 +284,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     height: 30,
                                     child: InkWell(
                                         onTap: () {
-                                          launchURL(widget.company.snapshat);
+                                          _launchUniversalLinkIos(widget.company.snapshat);
                                         },
                                         child: CircleAvatar(
                                           backgroundColor: MyColor.customColor,
@@ -508,7 +512,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           child: ClipOval(
                             child: FadeInImage.assetNetwork(
                               image: company.imgURL,
-                              placeholder: 'assets/picture2.png',
+                              placeholder: 'assets/logo.png',
                               fit: BoxFit.cover,
                               width: 70,
                               height: 70,
@@ -520,50 +524,50 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         alignment: Alignment.bottomLeft,
                         child: Container(
 
-                    color: Colors.grey.withOpacity(0.7),
+                          color: Colors.grey.withOpacity(0.7),
                           margin: EdgeInsets.only(left: 15, bottom: 60),
                           child: IconButton(
                             icon: Icon(Icons.add_a_photo_rounded,size: 40,),
                             color: Colors.black,
                             onPressed: () async{
-                             // loadAssets();
+                              // loadAssets();
                               coverImg = await getImage().then((value) {
-    if(value==null){
-  Fluttertoast.showToast(
-      msg: "برجاء اختيار صورة واحدة على الاقل",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      backgroundColor: MyColor.customColor,
-      textColor: Colors.white,
-      fontSize: 16.0);
-      }else{
-        Future.delayed(const Duration(milliseconds: 0), () async {
-  await registerCompanyphotos(
-      id:globals.myCompany.id,
-      coverImg: value,
-   )
-          .then((v) {
-      Fluttertoast.showToast(
-      msg: translator.translate('SuccessfullyRegistered'),
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      backgroundColor: MyColor.customColor,
-      textColor: Colors.white,
-      fontSize: 16.0);
-      // Navigator.pop(context);
-      }).whenComplete(() {
-      Navigator.pop(this.context);
-      }).catchError((e) {
-     // showSnackMsg(e.toString());
-      print('ErrorRegCompany:$e');
-      }).then((v) {});
-  });
+                                if(value==null){
+                                  Fluttertoast.showToast(
+                                      msg: "برجاء اختيار صورة واحدة على الاقل",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIos: 1,
+                                      backgroundColor: MyColor.customColor,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }else{
+                                  Future.delayed(const Duration(milliseconds: 0), () async {
+                                    await registerCompanyphotos(
+                                      id:globals.myCompany.id,
+                                      coverImg: value,
+                                    )
+                                        .then((v) {
+                                      Fluttertoast.showToast(
+                                          msg: translator.translate('SuccessfullyRegistered'),
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIos: 1,
+                                          backgroundColor: MyColor.customColor,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                      // Navigator.pop(context);
+                                    }).whenComplete(() {
+                                      Navigator.pop(this.context);
+                                    }).catchError((e) {
+                                      // showSnackMsg(e.toString());
+                                      print('ErrorRegCompany:$e');
+                                    }).then((v) {});
+                                  });
 
 
 
-    }
+                                }
                               });
                               setState(() {});
                             },
@@ -690,7 +694,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                          translator.translate('ContactInformation'),
+                        translator.translate('ContactInformation'),
                       ),
                       Divider(),
                       Column(
@@ -1332,6 +1336,21 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       print('Could not launch $url');
     }
   }*/
+  }
+  Future<void> _launchUniversalLinkIos(String url) async {
+    if (await canLaunch(url)) {
+      final bool nativeAppLaunchSucceeded = await launch(
+        url,
+        forceSafariVC: false,
+        universalLinksOnly: true,
+      );
+      if (!nativeAppLaunchSucceeded) {
+        await launch(
+          url,
+          forceSafariVC: true,
+        );
+      }
+    }
   }
 
   Future<dynamic> sendMsgToMail(

@@ -41,5 +41,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+		<key>LSApplicationQueriesSchemes</key>
+        	<array>
+        		<string>googlechromes</string>
+        		<string>comgooglemaps</string>
+        	</array>
+        	<key>NSCameraUsageDescription</key>
+        	<string>$(PRODUCT_NAME) camera use.</string>
+        	<key>NSLocationAlwaysUsageDescription</key>
+        	<string>We need a location request to get your orders delivered or get your order from our branches</string>
+        	<key>NSLocationUsageDescription</key>
+        	<string>$(PRODUCT_NAME) location use.  We need a location request to get your orders delivered or get your order from our branches </string>
+        	<key>NSLocationWhenInUseUsageDescription</key>
+        	<string>We need a location request to get your orders delivered or get your order from our branches </string>
+        	<key>NSPhotoLibraryUsageDescription</key>
+        	<string>This app need to access photos and library to upload images when adding product</string>
+
 </dict>
 </plist>

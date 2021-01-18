@@ -35,7 +35,7 @@ class AllOffers extends StatelessWidget {
                               child: ClipOval(
                                 child:FadeInImage.assetNetwork(
                                   image:offerPro.offer[index].company_image,
-                                  placeholder:  'assets/cover.png',
+                                  placeholder:  'assets/logo.png',
                                   width: 60,
                                   height: 80,
                                   fit: BoxFit.fill,
@@ -64,7 +64,7 @@ class AllOffers extends StatelessWidget {
                                     width:  double.infinity,
                                     child: FadeInImage.assetNetwork(
                                       image:offerPro.offer[index].image,
-                                      placeholder:  'assets/cover.png',
+                                      placeholder:  'assets/logo.png',
                                       width: 60,
                                       height: 80,
                                       fit: BoxFit.fill,

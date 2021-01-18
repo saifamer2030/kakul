@@ -331,10 +331,10 @@ class _CompaniesState extends State<Companies> {
                                             allowHalfRating: true,
                                             itemCount: 5,
                                             itemSize: 20,
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: MyColor.customColor,
-                                            ),
+                                            // itemBuilder: (context, _) => Icon(
+                                            //   Icons.star,
+                                            //   color: MyColor.customColor,
+                                            // ),
                                             onRatingUpdate: (rating) {
                                               print(rating);
                                             },

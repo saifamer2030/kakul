@@ -8,9 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/companyInmap.dart';
+import 'package:kul_last/model/globals.dart';
+import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/map_helper.dart';
 import 'package:kul_last/model/map_marker.dart';
 import 'package:kul_last/myColor.dart';
+import 'package:kul_last/view/companyDetails.dart';
+import 'package:kul_last/view/jobsInCompany.dart';
 import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:location/location.dart';
@@ -20,7 +24,9 @@ import 'package:kul_last/model/globals.dart' as globals;
 class MapCluster extends StatefulWidget {
   List<CompanyMap> companies = [];
   SectionProvider secProv;
+
   MapCluster(this.companies, this.secProv);
+
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0.0, 0.0),
     zoom: 12,
@@ -34,12 +40,16 @@ class _MapClusterState extends State<MapCluster> {
   final Completer<GoogleMapController> _mapController = Completer();
   final markerKey = GlobalKey();
   String selectedID = null;
+  Company company;
   String search = "";
+  List<Job> jobs = [];
 
   /// Set of displayed markers and cluster markers on the map
   final Set<Marker> _markers = Set();
+
   //Set<Marker> markers = Set.from([]);
   List<Marker> markers = [];
+
   /// Minimum zoom at which the markers will cluster
   final int _minClusterZoom = 0;
 
@@ -57,6 +67,7 @@ class _MapClusterState extends State<MapCluster> {
 
   /// Markers loading flag
   bool _areMarkersLoading = true;
+  List<Company> companies = [];
 
   /// Url image used on normal markers
   final String _markerImageUrl =
@@ -176,18 +187,20 @@ class _MapClusterState extends State<MapCluster> {
     markers.clear();
     for (CompanyMap company in globals.companies) {
       if (company.name.contains(search)) {
-      if (selectedID != null) {
-        if (selectedID == company.secID) {
+        if (selectedID != null) {
+          if (selectedID == company.secID) {
+            count++;
+            // markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
+            markers.add(company.marker);
+
+          }
+        } else {
           count++;
           // markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
           markers.add(company.marker);
+
         }
-      } else {
-        count++;
-        // markerImage = await MapHelper.getMarkerIcon(company.imgURL,125.0);
-        markers.add(company.marker);
       }
-    }
     }
     // _clusterManager = await MapHelper.initClusterManager(
     //   markers,
@@ -230,6 +243,7 @@ class _MapClusterState extends State<MapCluster> {
   //   });
   // }
   Location loc = Location();
+
   getMyLoc() async {
     loc.getLocation().then((data) {
       _mapController.future.then((v) {
@@ -243,16 +257,22 @@ class _MapClusterState extends State<MapCluster> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  //  addMarkers();
+    //  addMarkers();
     getMyLoc();
   }
+
   @override
   Widget build(BuildContext context) {
     print("ooo${_markers.length}");
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: MyColor.customColor,
 
-      body:  SafeArea(
+      ),
+      body: SafeArea(
+
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Stack(
@@ -260,7 +280,7 @@ class _MapClusterState extends State<MapCluster> {
               // Google Map widget
               Opacity(
                 opacity: _isMapLoading ? 0 : 1,
-                child:  Container(
+                child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   color: Colors.grey,
@@ -269,13 +289,15 @@ class _MapClusterState extends State<MapCluster> {
                     mapToolbarEnabled: false,
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
+
                     initialCameraPosition: CameraPosition(
                       target: LatLng(24.781518, 46.701888),
                       zoom: 12,
                     ),
                     markers: Set<Marker>.of(markers),
                     onMapCreated: (controller) => _onMapCreated(controller),
-                  //  onCameraMove: (position) => _updateMarkers(position.zoom),
+
+                    //  onCameraMove: (position) => _updateMarkers(position.zoom),
                   ),
                 ),
               ),
@@ -287,27 +309,28 @@ class _MapClusterState extends State<MapCluster> {
               ),
 
               // Map markers loading indicator
-               (_areMarkersLoading)?
-                Center(
-                  child: Container(
-                    height: 75,width: 75,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child:
-                        Card(
-                          elevation: 2,
-                          color: Colors.white.withOpacity(0.9),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: _loadingWidget(context),
+              (_areMarkersLoading)
+                  ? Center(
+                      child: Container(
+                        height: 75,
+                        width: 75,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Card(
+                              elevation: 2,
+                              color: Colors.white.withOpacity(0.9),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: _loadingWidget(context),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ):Container(),
+                    )
+                  : Container(),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -331,14 +354,14 @@ class _MapClusterState extends State<MapCluster> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                               ),
                               child: TextField(
                                 onSubmitted: (text) {
-                                //  print("First text field: $text");
+                                  //  print("First text field: $text");
                                   setState(() {
-                                    search=text;
+                                    search = text;
                                     _initMarkers();
                                   });
                                 },
@@ -353,7 +376,9 @@ class _MapClusterState extends State<MapCluster> {
                           )
                         ],
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Container(
                         color: Colors.grey[200],
                         padding: EdgeInsets.only(left: 10, right: 10),
@@ -371,12 +396,12 @@ class _MapClusterState extends State<MapCluster> {
                                     width: 50,
                                     child: Center(
                                         child: Text(
-                                          'الكل',
-                                          style: TextStyle(
-                                              color: (selectedID == null)
-                                                  ? MyColor.customColor
-                                                  : Colors.black87),
-                                        ))),
+                                      'الكل',
+                                      style: TextStyle(
+                                          color: (selectedID == null)
+                                              ? MyColor.customColor
+                                              : Colors.black87),
+                                    ))),
                               ),
                               Expanded(
                                 child: ListView(
@@ -404,73 +429,82 @@ class _MapClusterState extends State<MapCluster> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text("عروض"),
-                       SizedBox(width: 2,),
-                        Container(
-                          width:20,height: 20,
-
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                border: Border.all(
-                                  color: Colors.green,
-                                ),
-                                borderRadius: BorderRadius.all(Radius.circular(20))
-                            ),
+                        SizedBox(
+                          width: 2,
                         ),
-                      SizedBox(width: 7,),
-                        Text("وظائف للجميع"),
-                      //  SizedBox(width: 4,),
                         Container(
-                          width:20,height: 20,
-
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              border: Border.all(
+                                color: Colors.green,
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                        ),
+                        SizedBox(
+                          width: 7,
+                        ),
+                        Text("وظائف للجميع"),
+                        //  SizedBox(width: 4,),
+                        Container(
+                          width: 20,
+                          height: 20,
                           decoration: BoxDecoration(
                               color: Colors.orange,
                               border: Border.all(
                                 color: Colors.orange,
                               ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
                         ),
-                        SizedBox(width: 7,),
+                        SizedBox(
+                          width: 7,
+                        ),
                         Text("وظائف نساء"),
-                       // SizedBox(width: 4,),
+                        // SizedBox(width: 4,),
                         Container(
-                          width:20,height: 20,
-
+                          width: 20,
+                          height: 20,
                           decoration: BoxDecoration(
                               color: Colors.pink,
                               border: Border.all(
                                 color: Colors.pink,
                               ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
                         ),
-                        SizedBox(width: 7,),
+                        SizedBox(
+                          width: 7,
+                        ),
                         Text("وظائف رجال"),
-                        SizedBox(width: 4,),
+                        SizedBox(
+                          width: 4,
+                        ),
                         Container(
-                          width:20,height: 20,
-
+                          width: 20,
+                          height: 20,
                           decoration: BoxDecoration(
                               color: Colors.blue,
                               border: Border.all(
                                 color: Colors.blue,
                               ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
                         ),
-
                       ],
                     ),
                   ),
                 ),
               )
-
             ],
           ),
         ),
       ),
     );
   }
+
   List<Widget> getSearchItems() {
     List<Widget> items = [];
 
@@ -528,9 +562,12 @@ class _MapClusterState extends State<MapCluster> {
     });
     return items;
   }
+
   Widget _loadingWidget(BuildContext context) {
     return Container(
         height: 400,
-        child: Center( child: CircularProgressIndicator(), ));
+        child: Center(
+          child: CircularProgressIndicator(),
+        ));
   }
 }

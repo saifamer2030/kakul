@@ -25,6 +25,7 @@ main(List<String> args) async {
       child: MaterialApp(
         title: 'ككل',
         theme: ThemeData(fontFamily: 'jareda'),
+        debugShowCheckedModeBanner: false,
         home: MultiProvider(
           providers: [
             ChangeNotifierProvider(

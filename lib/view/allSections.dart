@@ -48,7 +48,7 @@ class AllSections extends StatelessWidget {
                                   child: ClipOval(
                     child: FadeInImage.assetNetwork(
                       image: sections[index].imgURL,
-                      placeholder: 'assets/picture3.png',
+                      placeholder: 'assets/logo.png',
                       fit: BoxFit.cover,
                       width: 70,
                       height: 70,

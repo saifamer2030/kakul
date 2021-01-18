@@ -49,7 +49,7 @@ class AllFeaturedCompanies extends StatelessWidget {
                     
                     child: FadeInImage.assetNetwork(
                       image: companies[index].imgURL,
-                      placeholder: 'assets/picture3.png',
+                      placeholder: 'assets/logo.png',
                       fit: BoxFit.cover,
                       width: 70,
                       height: 70,

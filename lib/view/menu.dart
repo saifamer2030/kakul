@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kul_last/model/companyInSection.dart';
+import 'package:kul_last/model/globals.dart';
 import 'package:kul_last/model/userModel.dart';
 import 'package:kul_last/view/allNews.dart';
 import 'package:kul_last/view/companyDetails.dart';
@@ -13,7 +14,9 @@ import 'package:provider/provider.dart';
 class MyMenu extends StatelessWidget {
   User user;
   Company userCompany;
+
   MyMenu(this.user, this.userCompany);
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -37,8 +40,11 @@ class MyMenu extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      Divider(),
-                      ListTile(
+                      user != null && userCompany.user_only == "0"
+                          ? Divider()
+                          : Container(),
+                      user != null && userCompany.user_only == "0"
+                          ? ListTile(
                         onTap: () {
                           Navigator.pop(context);
                           if (userCompany == null) {
@@ -59,9 +65,11 @@ class MyMenu extends StatelessWidget {
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
                         ),
-                      ),
-                      Divider(),
-                      ListTile(
+                      )
+                          : Container(),
+                      user != null ? Divider() : Container(),
+                      user != null
+                          ? ListTile(
                         onTap: () {
                           Navigator.pop(context);
                           if (user == null) {
@@ -81,7 +89,8 @@ class MyMenu extends StatelessWidget {
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
                         ),
-                      ),
+                      )
+                          : Container(),
                       Divider(),
                       ListTile(
                         onTap: () {
@@ -109,8 +118,11 @@ class MyMenu extends StatelessWidget {
                       ),
 
                      */
-                      Divider(),
-                      ListTile(
+                      user != null && userCompany.user_only == "1"
+                          ? Divider()
+                          : Container(),
+                      user != null && userCompany.user_only == "1"
+                          ? ListTile(
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
@@ -118,13 +130,16 @@ class MyMenu extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => NewCompany()));
                         },
-                        leading: Image.asset('assets/tag2.png', scale: 3.5),
-                        title: Text(translator.translate('CompanyRegistration')),
+                        leading:
+                        Image.asset('assets/tag2.png', scale: 3.5),
+                        title: Text(
+                            translator.translate('CompanyRegistration')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
                         ),
-                      ),
+                      )
+                          : Container(),
                       Divider(),
                       ListTile(
                         onTap: () {
@@ -132,7 +147,9 @@ class MyMenu extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Login()));
                         },
                         leading: Icon(Icons.exit_to_app),
-                        title: Text(user == null?translator.translate('Login'):translator.translate('Logoff')),
+                        title: Text(user == null
+                            ? translator.translate('Login')
+                            : translator.translate('Logoff')),
                         trailing: Icon(
                           Icons.arrow_back,
                           textDirection: TextDirection.ltr,
@@ -143,7 +160,9 @@ class MyMenu extends StatelessWidget {
                         onTap: () {
                           translator.setNewLanguage(
                             context,
-                            newLanguage: translator.currentLanguage == 'ar' ? 'en' : 'ar',
+                            newLanguage: translator.currentLanguage == 'ar'
+                                ? 'en'
+                                : 'ar',
                             remember: true,
                             restart: true,
                           );
@@ -160,7 +179,6 @@ class MyMenu extends StatelessWidget {
                 ),
               ),
             ),
-
 
             // OutlineButton(
             //   onPressed: () {

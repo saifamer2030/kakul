@@ -6,16 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kul_last/model/companyInSection.dart';
+import 'package:kul_last/model/globals.dart';
 import 'package:kul_last/myColor.dart';
+import 'package:kul_last/view/companyDetails.dart';
 import 'package:kul_last/viewModel/companies.dart';
 import 'package:kul_last/viewModel/sections.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+
 class Maps extends StatefulWidget {
   List<Company> companies = [];
   SectionProvider secProv;
+
   Maps(this.companies, this.secProv);
+
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(0.0, 0.0),
     zoom: 12,
@@ -41,6 +46,7 @@ class _MapsState extends State<Maps> {
   }
 
   String selectedID = null;
+  List<Company> companies = [];
 
   void addMarkers() async {
     int count = 0;
@@ -61,7 +67,13 @@ class _MapsState extends State<Maps> {
                 widget.companies[i].id,
               ),
               icon: myIcon,
-              infoWindow: InfoWindow(title: widget.companies[i].name),
+              infoWindow: InfoWindow(
+                title: widget.companies[i].name,
+                onTap: ({BuildContext context}) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CompanyDetails(companies[i])));
+                },
+              ),
               position: LatLng(double.parse(widget.companies[i].lat),
                   double.parse(widget.companies[i].lng))));
         }
@@ -72,7 +84,13 @@ class _MapsState extends State<Maps> {
               widget.companies[i].id,
             ),
             icon: myIcon,
-            infoWindow: InfoWindow(title: widget.companies[i].name),
+            infoWindow: InfoWindow(
+              title: widget.companies[i].name,
+              onTap: ({BuildContext context}) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CompanyDetails(companies[i])));
+              },
+            ),
             position: LatLng(double.parse(widget.companies[i].lat),
                 double.parse(widget.companies[i].lng))));
       }
@@ -94,6 +112,7 @@ class _MapsState extends State<Maps> {
   }
 
   Location loc = Location();
+
   getMyLoc() async {
     loc.getLocation().then((data) {
       _controller.future.then((v) {
@@ -117,6 +136,11 @@ class _MapsState extends State<Maps> {
     // var compPro = Provider.of<CompanyProvider>(context);
     //   addMarkers(compPro);
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: MyColor.customColor,
+
+      ),
       body: SafeArea(
           child: Directionality(
         textDirection: TextDirection.rtl,
@@ -160,8 +184,8 @@ class _MapsState extends State<Maps> {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                             ),
                             child: TextField(
                               decoration: InputDecoration(
@@ -175,7 +199,9 @@ class _MapsState extends State<Maps> {
                         )
                       ],
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Container(
                       color: Colors.grey[200],
                       padding: EdgeInsets.only(left: 10, right: 10),
@@ -193,7 +219,7 @@ class _MapsState extends State<Maps> {
                                   width: 50,
                                   child: Center(
                                       child: Text(
-                                          translator.translate('All'),
+                                    translator.translate('All'),
                                     style: TextStyle(
                                         color: (selectedID == null)
                                             ? MyColor.customColor

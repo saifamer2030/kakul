@@ -35,7 +35,7 @@ class Jobs extends StatelessWidget {
                               child: ClipOval(
                                 child:FadeInImage.assetNetwork(
                                   image: jobPro.jobs[index].Image,
-                                  placeholder:  'assets/cover.png',
+                                  placeholder:  'assets/logo.png',
                                   width: 60,
                                   height: 80,
                                   fit: BoxFit.fill,
