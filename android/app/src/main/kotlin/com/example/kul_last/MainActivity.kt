@@ -1,4 +1,4 @@
-package com.kulkul.kul_last
+package com.kulkul.kakul
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

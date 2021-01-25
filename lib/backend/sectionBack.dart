@@ -710,11 +710,9 @@ Future<dynamic> registeruser(
       String title}) async {
 
   String url = 'http://kk.vision.com.sa/API/NewUser.php?';
-  Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
-
+  Map<String, String> headers = {'Cookie': 'PHPSESSID=a214u1u1v8pgrdj2p6dpb5n8l1'};
   //String copoun = (pinController.text == null) ? '' : pinController.text;
   //print('Coup:$copoun');
-
   var formData = dio.FormData.fromMap({
     "Name": companyName,
     "Image":"",
@@ -739,11 +737,63 @@ Future<dynamic> registeruser(
   // print('FormData:${formData.fields}');
   dio.Response response = await dio.Dio()
       .post(url, data: formData, options: dio.Options(headers: headers));
-//  print('Status:${response.statusCode}');
-//  print('Response:${response.data.toString()}');
+ print('Status:${response.statusCode}');
+ print('Response:${response.data.toString()}');
 }
 
-
+// Future<dynamic> registeruser(
+//     {String companyName,
+//       File profileImage,
+//       String description,
+//       String secID,
+//       String subSecID,
+//       String subscribtion,
+//       String email,
+//       String password,
+//       String facebook,
+//       String twitter,
+//       String youtube,
+//       String snapchat,
+//       String instagram,
+//       File coverImg,
+//       String phone,
+//       String commRecord,
+//       String lat,
+//       String lng,
+//       String title}) async {
+//   String url = 'http://kk.vision.com.sa/API/NewUser.php?';
+//   // Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
+//   Map<String, String> headers = {'Cookie': 'PHPSESSID=a214u1u1v8pgrdj2p6dpb5n8l1'};
+//   var client = Client();
+//   Response res = await client.post(url,headers:headers,
+//       body:jsonEncode({
+//         "Name": companyName,
+//         "Image":"",
+//         "Description": description,
+//         "IdSections": secID,
+//         "IdSubSection": subSecID,
+//         "Subscription": subscribtion,
+//         "Email": email,
+//         "Password": password,
+//         "Facebook": facebook,
+//         "Twitter": twitter,
+//         "YouTube": youtube,
+//         "Snapchat":snapchat,
+//         "Instagram": instagram,
+//         "Photo":"",
+//         "Mobile": phone,
+//         "CommercialReg":commRecord,
+//         "lat": lat,
+//         "lon": lng,
+//         "Title": title
+//       })).then((response) {
+//     print('Status:${response.statusCode}');
+//     print('Response:${response.body.toString()}');
+//   } );
+//
+//
+//
+// }
 
 Future<dynamic> registerCompany(
     {String id,
@@ -809,6 +859,9 @@ Future<dynamic> registerCompany(
   print('Status:${response.statusCode}');
   print('Response:${response.data.toString()}');
 }
+
+
+
 
 
 Future<dynamic> getCompanymessage(String companyID) async {
