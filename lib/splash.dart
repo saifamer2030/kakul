@@ -24,6 +24,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     openLocationService().then((v) {
       if (v == true)
         checkUserSharedPref();

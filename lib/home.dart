@@ -49,15 +49,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
 
+    getAllCompanies1();
+    getAllCompaniesmap(context);
 
 
     Timer(Duration(seconds: 0), () async {
-      getAllCompanies1();
       LatLng latlng= await getCurrentLocation();
 
-      getAllCompaniesmap(context).then((v) async {
-        print('iddd'+v);
-      });
       print("hhh1");
     });
     if (user != null) {

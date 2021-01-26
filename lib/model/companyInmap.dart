@@ -22,7 +22,7 @@ class CompanyMap {
       subSecID,
       locationName;
   String Accept,  user_only;
-
+int jobcolor,offercolor;
   Marker marker;
   CompanyMap(
       {@required this.imgURL,
@@ -51,5 +51,7 @@ class CompanyMap {
     this.marker=json['marker'];
     this.Accept=json['Accept'];
     this.user_only=json['user_only'];
+    this.jobcolor=json['jobcolor'];
+    this.offercolor=json['offercolor'];
   }
 }

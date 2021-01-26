@@ -43,7 +43,7 @@ class _MapClusterState extends State<MapCluster> {
   Company company;
   String search = "";
   List<Job> jobs = [];
-
+bool male=false;bool fmale=false;bool both=false;bool offer=false;
   /// Set of displayed markers and cluster markers on the map
   final Set<Marker> _markers = Set();
 
@@ -180,6 +180,7 @@ class _MapClusterState extends State<MapCluster> {
   void _initMarkers() async {
     setState(() {
       _areMarkersLoading = true;
+      male=false;fmale=false;both=false;offer=false;
     });
     // final List<Marker> markers = [];
     BitmapDescriptor markerImage;
@@ -212,6 +213,67 @@ class _MapClusterState extends State<MapCluster> {
     });
     //  await _updateMarkers();
   }
+  void _initMarkersjobcolord(int i) async {
+    setState(() {
+      _areMarkersLoading = true;
+    });
+    // final List<Marker> markers = [];
+    BitmapDescriptor markerImage;
+    int count = 0;
+    markers.clear();
+    for (CompanyMap company in globals.companies) {
+      if (selectedID != null) {
+        if (selectedID == company.secID) {
+          if (company.jobcolor==i) {
+            count++;
+            markers.add(company.marker);
+          }
+        }
+      }else{
+        if (company.jobcolor==i) {
+          count++;
+          markers.add(company.marker);
+        }
+      }
+
+    }
+    setState(() {
+      _areMarkersLoading = false;
+    });
+  }
+  void _initMarkersoffercolord() async {
+    setState(() {
+      _areMarkersLoading = true;
+    });
+    // final List<Marker> markers = [];
+    BitmapDescriptor markerImage;
+    int count = 0;
+    markers.clear();
+    for (CompanyMap company in globals.companies) {
+      if (selectedID != null) {
+        if (selectedID == company.secID) {
+          if (company.offercolor>0) {
+            count++;
+            markers.add(company.marker);
+          }
+        }
+      }else{
+        if (company.offercolor>0) {
+          count++;
+          markers.add(company.marker);
+        }
+      }
+
+      // else{
+      //   count++;
+      //   markers.add(company.marker);
+      // }
+    }
+    setState(() {
+      _areMarkersLoading = false;
+    });
+  }
+
 
   /// Gets the markers and clusters to be displayed on the map for the current zoom level and
   /// updates state.
@@ -428,70 +490,160 @@ class _MapClusterState extends State<MapCluster> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("عروض"),
+                      InkWell(
+                      onTap: () {
+                        setState(() {
+                          offer=!offer;
+                          male=false;fmale=false;both=false;
+                        });
+                        if(offer){_initMarkersoffercolord();}else{_initMarkers();}
+
+                      },
+                      child: Text("عروض",
+                        style: TextStyle(
+                            color: (offer)
+                                ? MyColor.customColor
+                                : Colors.black87),)),
                         SizedBox(
                           width: 2,
                         ),
-                        Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              color: Colors.green,
-                              border: Border.all(
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              offer=!offer;
+                              male=false;fmale=false;both=false;
+                            });
+                            if(offer){_initMarkersoffercolord();}else{_initMarkers();}
+
+                          },
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
                                 color: Colors.green,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                border: Border.all(
+                                  color: Colors.green,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                          ),
                         ),
                         SizedBox(
                           width: 7,
                         ),
-                        Text("وظائف للجميع"),
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                both=!both;
+                                male=false;fmale=false;offer=false;
+                              });
+                              if(both){_initMarkersjobcolord(3);}else{_initMarkers();}
+                            },
+                            child: Text("وظائف للجميع",
+                              style: TextStyle(
+                                  color: (both)
+                                      ? MyColor.customColor
+                                      : Colors.black87),)),
                         //  SizedBox(width: 4,),
-                        Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              color: Colors.orange,
-                              border: Border.all(
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              both=!both;
+                              male=false;fmale=false;offer=false;
+                            });
+                            if(both){_initMarkersjobcolord(3);}else{_initMarkers();}
+                          },
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
                                 color: Colors.orange,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                border: Border.all(
+                                  color: Colors.orange,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                          ),
                         ),
                         SizedBox(
                           width: 7,
                         ),
-                        Text("وظائف نساء"),
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                fmale=!fmale;
+                                male=false;both=false;offer=false;
+                              });
+                              if(fmale){ _initMarkersjobcolord(2);}else{_initMarkers();}
+
+                            },child: Text("وظائف نساء",
+                          style: TextStyle(
+                              color: (fmale)
+                                  ? MyColor.customColor
+                                  : Colors.black87),)),
                         // SizedBox(width: 4,),
-                        Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              color: Colors.pink,
-                              border: Border.all(
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              fmale=!fmale;
+                              male=false;both=false;offer=false;
+                            });
+                            if(fmale){ _initMarkersjobcolord(2);}else{_initMarkers();}
+
+                          },
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
                                 color: Colors.pink,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                border: Border.all(
+                                  color: Colors.pink,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                          ),
                         ),
                         SizedBox(
                           width: 7,
                         ),
-                        Text("وظائف رجال"),
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                male=!male;
+                                fmale=false;both=false;offer=false;
+                              });
+                              if(male){  _initMarkersjobcolord(1);}else{_initMarkers();}
+
+
+                            },child: Text("وظائف رجال",
+                          style: TextStyle(
+                              color: (male)
+                                  ? MyColor.customColor
+                                  : Colors.black87),)),
                         SizedBox(
                           width: 4,
                         ),
-                        Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              border: Border.all(
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              male=!male;
+                              fmale=false;both=false;offer=false;
+                            });
+                            if(male){  _initMarkersjobcolord(1);}else{_initMarkers();}
+
+
+                          },
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
                                 color: Colors.blue,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                border: Border.all(
+                                  color: Colors.blue,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                          ),
                         ),
                       ],
                     ),

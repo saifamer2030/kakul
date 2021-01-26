@@ -139,5 +139,6 @@
     "Login" : "Login",
     "NewJobAlertFromCompany": "New job alert from a company",
     "RegisterNewAccount": "Register a new account",
-    "ThereIsNo": "There is no"
+    "ThereIsNo": "There is no",
+    "no_comp": "There is no company now"
 }

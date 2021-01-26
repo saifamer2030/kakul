@@ -25,7 +25,7 @@ class _CompaniesState extends State<Companies> {
   Section selectedSection;
 
   List<SubSection> subSections = [];
-
+  bool loading=false;
   SubSection selectedSubSection;
   List<Company> filteredList = [];
   @override
@@ -37,7 +37,13 @@ class _CompaniesState extends State<Companies> {
         sections.addAll(v);
       });
     });
-    if(globals.allcompanies.length==0){}else{ companies.addAll(globals.allcompanies);}
+    if(globals.allcompanies.length==0){
+      Future.delayed(Duration(seconds:4), () {
+     setState(() {
+       loading=true;
+     });
+      });
+    }else{ companies.addAll(globals.allcompanies);}
 
    // print("iii${globals.allcompanies[0].distanceBetween}");
     //
@@ -193,7 +199,7 @@ class _CompaniesState extends State<Companies> {
             Expanded(
                 child: (companies.length == 0)
                     ? Center(
-                        child: CircularProgressIndicator(
+                        child:loading?Text(translator.translate('no_comp')): CircularProgressIndicator(
                           valueColor: new AlwaysStoppedAnimation<Color>(
                               MyColor.customColor),
                         ),

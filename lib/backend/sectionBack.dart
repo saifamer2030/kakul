@@ -352,6 +352,7 @@ int length=0;
   print("zzz0");
   return 0;
 }
+///////////////////////////
 Future<dynamic> getAllCompaniesmap(BuildContext context) async {
   List<CompanyMap> companies = [];
   print("hhh4");
@@ -391,6 +392,8 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
                 var markerImage = await MapHelper.getMarkerIcon(
                     jsonSecList[j]['Image'], 125.0, jobcolor[j], offerlen)
                     .then((value) {
+                  jsonSecList[j]['jobcolor'] =jobcolor[j];
+                  jsonSecList[j]['offercolor'] =offerlen;
                   jsonSecList[j]['marker'] = Marker(
                     markerId: MarkerId(
                       jsonSecList[j]['id'],

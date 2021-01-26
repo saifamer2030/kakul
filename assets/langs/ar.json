@@ -144,7 +144,9 @@
     "Login" : "تسجيل دخول",
     "NewJobAlertFromCompany": "تنبيه بوظيفة جديدة من شركة ",
     "RegisterNewAccount": "تسجيل حساب جديد",
-    "ThereIsNo": "لا يوجد"
+    "ThereIsNo": "لا يوجد",
+    "no_comp": "لا يوجد شركات الان"
+
 
 
 
