@@ -43,8 +43,6 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
   List<New> news = [];
   List<Offer> offers = [];
 
-
-
   List<Widget> getCompanyImgWidget() {
     List<Widget> items = [];
     urls.forEach((i) {
@@ -53,29 +51,29 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
           showDialog(
               context: this.context,
               builder: (context) => AlertDialog(
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                content: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          i,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ));
+                    backgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    content: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              i,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ));
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: FadeInImage.assetNetwork(
             image: i,
-            placeholder: 'assets/pic4.png',
+            placeholder: 'assets/logo.png',
             width: 80,
             height: 80,
             fit: BoxFit.fill,
@@ -154,7 +152,7 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                     children: <Widget>[
                       FadeInImage.assetNetwork(
                         image: company.coverURL,
-                        placeholder: 'assets/cover.png',
+                        placeholder: 'assets/logo.png',
                         fit: BoxFit.cover,
                       ),
                       Align(
@@ -174,7 +172,8 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                   InkWell(
                                     onTap: () {
                                       //launchURL("");
-                                      launchURL(widget.company.instagram);
+                                      _launchUniversalLinkIos(
+                                          widget.company.instagram);
                                     },
                                     child: Image.asset(
                                       'assets/insta.png',
@@ -183,7 +182,8 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchURL(widget.company.youtube);
+                                      _launchUniversalLinkIos(
+                                          widget.company.youtube);
                                     },
                                     child: Image.asset(
                                       'assets/youtube.png',
@@ -192,7 +192,8 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchURL(widget.company.twitter);
+                                      _launchUniversalLinkIos(
+                                          widget.company.twitter);
                                     },
                                     child: Image.asset(
                                       'assets/twitter.png',
@@ -201,7 +202,8 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launchURL(widget.company.face);
+                                      _launchUniversalLinkIos(
+                                          widget.company.face);
                                     },
                                     child: Image.asset(
                                       'assets/facebook.png',
@@ -213,7 +215,8 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                     height: 30,
                                     child: InkWell(
                                         onTap: () {
-                                          launchURL(widget.company.snapshat);
+                                          _launchUniversalLinkIos(
+                                              widget.company.snapshat);
                                         },
                                         child: CircleAvatar(
                                           backgroundColor: MyColor.customColor,
@@ -238,184 +241,184 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                       context: context,
                                       barrierDismissible: false,
                                       builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(8)),
-                                        content: SingleChildScrollView(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.mail,
-                                                size: 45,
-                                              ),
-                                              SizedBox(
-                                                height: 25,
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(8),
-                                                    border: Border.all(
-                                                        width: .5,
-                                                        color:
-                                                        Colors.grey)),
-                                                child: TextField(
-                                                  controller: subCont,
-                                                  textAlign:
-                                                  TextAlign.right,
-                                                  textDirection:
-                                                  TextDirection.rtl,
-                                                  decoration:
-                                                  InputDecoration(
-                                                    contentPadding:
-                                                    EdgeInsets.all(10),
-                                                    border:
-                                                    InputBorder.none,
-                                                    hintText:
-                                                    translator
-                                                        .translate(
-                                                        'MessageSubject'),
-                                                    hintStyle: TextStyle(
-                                                        color: Colors
-                                                            .grey[400]),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 25,
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(8),
-                                                    border: Border.all(
-                                                        width: .5,
-                                                        color:
-                                                        Colors.grey)),
-                                                child: TextField(
-                                                  controller: bodyCont,
-                                                  maxLines: 4,
-                                                  textAlign:
-                                                  TextAlign.right,
-                                                  textDirection:
-                                                  TextDirection.rtl,
-                                                  decoration:
-                                                  InputDecoration(
-                                                    contentPadding:
-                                                    EdgeInsets.all(10),
-                                                    hintStyle: TextStyle(
-                                                        color: Colors
-                                                            .grey[400]),
-                                                    border:
-                                                    InputBorder.none,
-                                                    hintText: translator
-                                                        .translate(
-                                                        'TheMessage'),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 25,
-                                              ),
-                                              Row(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            content: SingleChildScrollView(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  InkWell(
-                                                    child: Text(
-                                                      translator.translate(
-                                                          'Cancellation'),
-                                                      style: TextStyle(
-                                                          color:
-                                                          Colors.red),
-                                                    ),
-                                                    onTap: () {
-                                                      Navigator.pop(
-                                                          context);
-                                                    },
+                                                  Icon(
+                                                    Icons.mail,
+                                                    size: 45,
                                                   ),
                                                   SizedBox(
-                                                    width: 25,
+                                                    height: 25,
                                                   ),
-                                                  InkWell(
-                                                    child: Text(
-                                                      translator.translate(
-                                                          'emphasis'),
-                                                      style: TextStyle(
-                                                          color:
-                                                          Colors.green),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        border: Border.all(
+                                                            width: .5,
+                                                            color:
+                                                                Colors.grey)),
+                                                    child: TextField(
+                                                      controller: subCont,
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        contentPadding:
+                                                            EdgeInsets.all(10),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: translator
+                                                            .translate(
+                                                                'MessageSubject'),
+                                                        hintStyle: TextStyle(
+                                                            color: Colors
+                                                                .grey[400]),
+                                                      ),
                                                     ),
-                                                    onTap: () async {
-                                                      if (bodyCont
-                                                          .text.isEmpty) {
-                                                        Fluttertoast.showToast(
-                                                            msg:
-                                                            translator
-                                                                .translate(
-                                                                'PleaseWriteAMessage'),
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                            ToastGravity
-                                                                .CENTER,
-                                                            timeInSecForIos:
-                                                            1,
-                                                            backgroundColor:
-                                                            MyColor
-                                                                .customColor,
-                                                            textColor:
-                                                            Colors
-                                                                .white,
-                                                            fontSize: 16.0);
-                                                      } else {
-                                                        Navigator.pop(
-                                                            context);
-                                                        showDialog(
-                                                            context:
-                                                            context,
-                                                            barrierDismissible:
-                                                            false,
-                                                            builder:
-                                                                (context) =>
-                                                                AlertDialog(
-                                                                  content:
-                                                                  Row(
-                                                                    textDirection:
-                                                                    TextDirection.rtl,
-                                                                    children: <Widget>[
-                                                                      CircularProgressIndicator(),
-                                                                      SizedBox(
-                                                                        width: 25,
-                                                                      ),
-                                                                      Text(  translator.translate('SendingMessage ...'),)
-                                                                    ],
-                                                                  ),
-                                                                ));
-                                                        await sendMsgToMail(
-                                                            body: bodyCont
-                                                                .text,
-                                                            subject:
-                                                            subCont
-                                                                .text,
-                                                            mail: widget
-                                                                .company
-                                                                .email)
-                                                            .whenComplete(
-                                                                () {
+                                                  ),
+                                                  SizedBox(
+                                                    height: 25,
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        border: Border.all(
+                                                            width: .5,
+                                                            color:
+                                                                Colors.grey)),
+                                                    child: TextField(
+                                                      controller: bodyCont,
+                                                      maxLines: 4,
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        contentPadding:
+                                                            EdgeInsets.all(10),
+                                                        hintStyle: TextStyle(
+                                                            color: Colors
+                                                                .grey[400]),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: translator
+                                                            .translate(
+                                                                'TheMessage'),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 25,
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      InkWell(
+                                                        child: Text(
+                                                          translator.translate(
+                                                              'Cancellation'),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                      SizedBox(
+                                                        width: 25,
+                                                      ),
+                                                      InkWell(
+                                                        child: Text(
+                                                          translator.translate(
+                                                              'emphasis'),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.green),
+                                                        ),
+                                                        onTap: () async {
+                                                          if (bodyCont
+                                                              .text.isEmpty) {
+                                                            Fluttertoast.showToast(
+                                                                msg: translator
+                                                                    .translate(
+                                                                        'PleaseWriteAMessage'),
+                                                                toastLength: Toast
+                                                                    .LENGTH_SHORT,
+                                                                gravity:
+                                                                    ToastGravity
+                                                                        .CENTER,
+                                                                timeInSecForIos:
+                                                                    1,
+                                                                backgroundColor:
+                                                                    MyColor
+                                                                        .customColor,
+                                                                textColor:
+                                                                    Colors
+                                                                        .white,
+                                                                fontSize: 16.0);
+                                                          } else {
+                                                            Navigator.pop(
+                                                                context);
+                                                            showDialog(
+                                                                context:
+                                                                    context,
+                                                                barrierDismissible:
+                                                                    false,
+                                                                builder:
+                                                                    (context) =>
+                                                                        AlertDialog(
+                                                                          content:
+                                                                              Row(
+                                                                            textDirection:
+                                                                                TextDirection.rtl,
+                                                                            children: <Widget>[
+                                                                              CircularProgressIndicator(),
+                                                                              SizedBox(
+                                                                                width: 25,
+                                                                              ),
+                                                                              Text(
+                                                                                translator.translate('SendingMessage ...'),
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ));
+                                                            await sendMsgToMail(
+                                                                    body: bodyCont
+                                                                        .text,
+                                                                    subject:
+                                                                        subCont
+                                                                            .text,
+                                                                    mail: widget
+                                                                        .company
+                                                                        .email)
+                                                                .whenComplete(
+                                                                    () {
                                                               Navigator.pop(
                                                                   context);
                                                             });
-                                                      }
-                                                      //Navigator.pop(context);
-                                                    },
-                                                  ),
+                                                          }
+                                                          //Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  )
                                                 ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ));
+                                              ),
+                                            ),
+                                          ));
                                 },
                                 child: Row(
                                   children: <Widget>[
@@ -426,7 +429,9 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text( translator.translate('SendAMessage'),)
+                                    Text(
+                                      translator.translate('SendAMessage'),
+                                    )
                                   ],
                                 ),
                               )
@@ -455,83 +460,78 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                 SizedBox(
                   height: 10,
                 ),
-                (( globals.myCompany.id==company.id)&&(globals.myCompany.Accept=="1"))?
-                Container(
-
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.all(1),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: .5, color: Colors.grey)),
-                  width:  MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RaisedButton(
-                        color: MyColor.customColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddNewJob()));
-                        },
+                ((globals.myCompany.id == company.id) &&
+                        (globals.myCompany.Accept == "1"))
+                    ? Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.all(1),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: .5, color: Colors.grey)),
+                        width: MediaQuery.of(context).size.width,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.water_damage_rounded),
-                            // SizedBox(
-                            //   width: 5,
-                            // ),
-                            Text(translator.translate('PostJob'))
+                            RaisedButton(
+                              color: MyColor.customColor,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddNewJob()));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.water_damage_rounded),
+                                  // SizedBox(
+                                  //   width: 5,
+                                  // ),
+                                  Text(translator.translate('PostJob'))
+                                ],
+                              ),
+                            ),
+                            RaisedButton(
+                              color: MyColor.customColor,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddNewOffer()));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.monetization_on),
+                                  // SizedBox(
+                                  //   width: 5,
+                                  // ),
+                                  Text(translator.translate('AddOffer'))
+                                ],
+                              ),
+                            ),
+                            RaisedButton(
+                              color: MyColor.customColor,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddNewNews()));
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.wysiwyg),
+                                  // SizedBox(
+                                  //   width: 5,
+                                  // ),
+                                  Text(translator.translate('AddNews'))
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                      RaisedButton(
-                        color: MyColor.customColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddNewOffer()));
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.monetization_on),
-                            // SizedBox(
-                            //   width: 5,
-                            // ),
-                            Text(translator.translate('AddOffer'))
-                          ],
-                        ),
-                      ),
-                      RaisedButton(
-                        color: MyColor.customColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddNewNews()));
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.wysiwyg),
-                            // SizedBox(
-                            //   width: 5,
-                            // ),
-                            Text(translator.translate('AddNews'))
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-                )
-                    :Container(),
+                      )
+                    : Container(),
                 SizedBox(
                   height: 10,
                 ),
@@ -544,9 +544,7 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                          translator.translate('AboutCompany')
-                      ),
+                      Text(translator.translate('AboutCompany')),
                       Divider(),
                       Text(
                         widget.company.description,
@@ -568,7 +566,7 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                          translator.translate('ContactInformation'),
+                        translator.translate('ContactInformation'),
                       ),
                       Divider(),
                       Column(
@@ -581,7 +579,8 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                               ),
                               InkWell(
                                   onTap: () {
-                                    //   launchURL(widget.company.phone);
+                                    _launchUniversalLinkIos(
+                                        widget.company.phone);
                                   },
                                   child: Text(widget.company.phone))
                             ],
@@ -589,14 +588,58 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.mail_outline),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(widget.company.email)
-                            ],
+                          InkWell(
+                            onTap: () async {
+                              var subCont = TextEditingController();
+                              var bodyCont = TextEditingController();
+                              if (bodyCont.text.isEmpty) {
+                                Fluttertoast.showToast(
+                                    msg: translator
+                                        .translate('PleaseWriteAMessage'),
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIos: 1,
+                                    backgroundColor: MyColor.customColor,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              } else {
+                                Navigator.pop(context);
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) => AlertDialog(
+                                          content: Row(
+                                            textDirection: TextDirection.rtl,
+                                            children: <Widget>[
+                                              CircularProgressIndicator(),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              Text(
+                                                translator.translate(
+                                                    'SendingMessage ...'),
+                                              )
+                                            ],
+                                          ),
+                                        ));
+                                await sendMsgToMail(
+                                        body: bodyCont.text,
+                                        subject: subCont.text,
+                                        mail: widget.company.email)
+                                    .whenComplete(() {
+                                  Navigator.pop(context);
+                                });
+                              }
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.mail_outline),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(widget.company.email)
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
@@ -625,566 +668,593 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                 (offers == null)
                     ? Container()
                     : Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: .5, color: Colors.grey)),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            translator.translate('AvailableJobs'),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OffersInCompany(
-                                        offers: offers,
-                                        companyName: company.name,
-                                      )));
-                            },
-                            child: Text(
-                              translator.translate('BrowseMore'),
-                              style:
-                              TextStyle(color: MyColor.customColor),
-                            ),
-                          )
-                        ],
-                      ),
-                      Divider(),
-                      (offers.length == 0)
-                          ? Container(
-                        height: 100,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                          : ExpansionTile(
-                        trailing: Container(
-                          width: 0,
-                          height: 0,
-                        ),
-                        title: ListTile(
-                          contentPadding: EdgeInsets.all(0),
-                          leading:Container(
-                            child: ClipOval(
-                              child:FadeInImage.assetNetwork(
-                                image: offers[0].company_image,
-                                placeholder:  'assets/cover.png',
-                                width: 60,
-                                height: 80,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            offers[0].title,
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          subtitle: Text(
-                            offers[0].create_date.split(' ')[0],
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          trailing: Icon(
-                            Icons.details,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        children: <Widget>[
-                          Container(
-                            child: Stack(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: .5, color: Colors.grey)),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              textDirection: TextDirection.rtl,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Container(
-                                  height:150,
-                                  width:  double.infinity,
-                                  child: FadeInImage.assetNetwork(
-                                    image: offers[0].image,
-                                    placeholder:  'assets/cover.png',
-                                    width: 60,
-                                    height: 80,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Text(
-                                    '${ offers[0].old_price} ريال',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.red[200],
-                                      fontFamily: 'El Messiri',
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                    //  textDirection: TextDirection.rtl,
-                                  ),
-                                ),
                                 Text(
-                                  '${offers[0].new_price} ريال',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.green[200],
-                                    fontFamily: 'El Messiri',
-                                    //  decoration: TextDecoration.lineThrough,
-                                  ),
-                                  //  textDirection: TextDirection.ltr,
+                                  translator.translate('AvailableJobs'),
                                 ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OffersInCompany(
+                                                  offers: offers,
+                                                  companyName: company.name,
+                                                )));
+                                  },
+                                  child: Text(
+                                    translator.translate('BrowseMore'),
+                                    style:
+                                        TextStyle(color: MyColor.customColor),
+                                  ),
+                                )
                               ],
                             ),
-                          ),
-                          Divider(
-                            endIndent: 20,
-                            indent: 20,
-                            color: Colors.grey,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            child: Text(
-                              offers[0].text,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.grey[600]),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            width: double.infinity,
-                            child: RaisedButton(
-                              color: MyColor.customColor,
-                              textColor: Colors.white,
-                              child: Text('اظهار الرقم'),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        AlertDialog(
-                                          content: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceBetween,
-                                            children: <Widget>[
-                                              Text(offers[0].Mobile),
-                                              InkWell(
-                                                onTap: () {
-                                                  launch("tel://${offers[0].Mobile}");
-                                                },
-                                                child: Icon(
-                                                  Icons.call,
-                                                  textDirection:
-                                                  TextDirection
-                                                      .rtl,
-                                                ),
-                                              )
-                                            ],
+                            Divider(),
+                            (offers.length == 0)
+                                ? Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )
+                                : ExpansionTile(
+                                    trailing: Container(
+                                      width: 0,
+                                      height: 0,
+                                    ),
+                                    title: ListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      leading: Container(
+                                        child: ClipOval(
+                                          child: FadeInImage.assetNetwork(
+                                            image: offers[0].company_image,
+                                            placeholder: 'assets/cover.png',
+                                            width: 60,
+                                            height: 80,
+                                            fit: BoxFit.fill,
                                           ),
-                                        ));
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: 60,
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            width: double.infinity,
-                            child: RaisedButton(
-                              color:    Colors.grey[300],
-                              //  textColor: Colors.white,
-                              child:  Text(
-                                translator.translate('OtherSimilarOffers'),
-                                style: TextStyle(
-                                    color: Colors.grey[600]),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => SimilarOffers(offers[0].IdSections,offers[0].IdSubSection)));
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        offers[0].title,
+                                        style: TextStyle(color: Colors.black87),
+                                      ),
+                                      subtitle: Text(
+                                        offers[0].create_date.split(' ')[0],
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.details,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    children: <Widget>[
+                                      Container(
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Container(
+                                              height: 150,
+                                              width: double.infinity,
+                                              child: FadeInImage.assetNetwork(
+                                                image: offers[0].image,
+                                                placeholder: 'assets/cover.png',
+                                                width: 60,
+                                                height: 80,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                '${offers[0].old_price} ريال',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.red[200],
+                                                  fontFamily: 'El Messiri',
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                ),
+                                                //  textDirection: TextDirection.rtl,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${offers[0].new_price} ريال',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.green[200],
+                                                fontFamily: 'El Messiri',
+                                                //  decoration: TextDecoration.lineThrough,
+                                              ),
+                                              //  textDirection: TextDirection.ltr,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        endIndent: 20,
+                                        indent: 20,
+                                        color: Colors.grey,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Text(
+                                          offers[0].text,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.grey[600]),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        width: double.infinity,
+                                        child: RaisedButton(
+                                          color: MyColor.customColor,
+                                          textColor: Colors.white,
+                                          child: Text('اظهار الرقم'),
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                      content: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          Text(
+                                                              offers[0].Mobile),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              launch(
+                                                                  "tel://${offers[0].Mobile}");
+                                                            },
+                                                            child: Icon(
+                                                              Icons.call,
+                                                              textDirection:
+                                                                  TextDirection
+                                                                      .rtl,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ));
+                                          },
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 60,
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        width: double.infinity,
+                                        child: RaisedButton(
+                                          color: Colors.grey[300],
+                                          //  textColor: Colors.white,
+                                          child: Text(
+                                            translator.translate(
+                                                'OtherSimilarOffers'),
+                                            style: TextStyle(
+                                                color: Colors.grey[600]),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SimilarOffers(
+                                                            offers[0]
+                                                                .IdSections,
+                                                            offers[0]
+                                                                .IdSubSection)));
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  )
+                          ],
+                        ),
+                      ),
                 SizedBox(
                   height: 10,
                 ),
                 (jobs == null)
                     ? Container()
                     : Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: .5, color: Colors.grey)),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            translator.translate('AvailableJobs'),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => JobsInCompany(
-                                        jobs: jobs,
-                                        companyName: company.name,
-                                      )));
-                            },
-                            child: Text(
-                              translator.translate('BrowseMore'),
-                              style:
-                              TextStyle(color: MyColor.customColor),
-                            ),
-                          )
-                        ],
-                      ),
-                      Divider(),
-                      (jobs.length == 0)
-                          ? Container(
-                        height: 100,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                          : ExpansionTile(
-                        trailing: Container(
-                          width: 0,
-                          height: 0,
-                        ),
-                        title: ListTile(
-                          contentPadding: EdgeInsets.all(0),
-                          leading:Container(
-                            child: ClipOval(
-                              child:FadeInImage.assetNetwork(
-                                image: jobs[0].Image,
-                                placeholder:  'assets/cover.png',
-                                width: 60,
-                                height: 80,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            jobs[0].name,
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          subtitle: Text(
-                            jobs[0].dateAt.split(' ')[0],
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          trailing: Icon(
-                            Icons.details,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        children: <Widget>[
-                          Container(
-                            child: Column(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: .5, color: Colors.grey)),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              textDirection: TextDirection.rtl,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: 20, right: 20),
-                                  child: Table(
-                                    defaultColumnWidth:
-                                    FlexColumnWidth(1),
-                                    border: TableBorder(
-                                      horizontalInside: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey),
-                                      verticalInside: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey),
-                                    ),
-                                    children: [
-                                      TableRow(children: [
-                                        Text(
-                                          translator.translate('ExperienceLevel'),
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color:
-                                              Colors.grey[600]),
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            jobs[0].Experience,
-                                            style: TextStyle(
-                                                color: MyColor
-                                                    .customColor,
-                                                fontSize: 12),
-                                          ),
-                                        ),
-                                        Center(
-                                          child: Text(translator.translate('TypeOfEmployment'),
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors
-                                                      .grey[600])),
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            jobs[0].workHours,
-                                            style: TextStyle(
-                                                color: MyColor
-                                                    .customColor,
-                                                fontSize: 12),
-                                          ),
-                                        )
-                                      ]),
-                                      TableRow(children: [
-                                        Center(
-                                          child: Text(
-                                              translator.translate('EducationalLevel'),
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors
-                                                      .grey[600])),
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            jobs[0].Education,
-                                            style: TextStyle(
-                                                color: MyColor
-                                                    .customColor,
-                                                fontSize: 12),
-                                          ),
-                                        ),
-                                        Center(
-                                          child: Text('نوع المعلن',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors
-                                                      .grey[600])),
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            'باحث عن موظف',
-                                            style: TextStyle(
-                                                color: MyColor
-                                                    .customColor,
-                                                fontSize: 11),
-                                          ),
-                                        )
-                                      ])
-                                    ],
+                                Text(
+                                  translator.translate('AvailableJobs'),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => JobsInCompany(
+                                                  jobs: jobs,
+                                                  companyName: company.name,
+                                                )));
+                                  },
+                                  child: Text(
+                                    translator.translate('BrowseMore'),
+                                    style:
+                                        TextStyle(color: MyColor.customColor),
                                   ),
                                 )
                               ],
                             ),
-                          ),
-                          Divider(
-                            endIndent: 20,
-                            indent: 20,
-                            color: Colors.grey,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            child: Text(
-                              jobs[0].details,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.grey[600]),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            width: double.infinity,
-                            child: RaisedButton(
-                              color: MyColor.customColor,
-                              textColor: Colors.white,
-                              child: Text(translator
-                                  .translate('ShowTheNumber'),),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        AlertDialog(
-                                          content: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceBetween,
-                                            children: <Widget>[
-                                              Text(  jobs[0].Mobile,),
-                                              InkWell(
-                                                onTap: () {
-                                                  launch("tel://${jobs[0].Mobile}");
-
-                                                },
-                                                child: Icon(
-                                                  Icons.call,
-                                                  textDirection:
-                                                  TextDirection
-                                                      .rtl,
-                                                ),
-                                              )
-                                            ],
+                            Divider(),
+                            (jobs.length == 0)
+                                ? Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )
+                                : ExpansionTile(
+                                    trailing: Container(
+                                      width: 0,
+                                      height: 0,
+                                    ),
+                                    title: ListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      leading: Container(
+                                        child: ClipOval(
+                                          child: FadeInImage.assetNetwork(
+                                            image: jobs[0].Image,
+                                            placeholder: 'assets/cover.png',
+                                            width: 60,
+                                            height: 80,
+                                            fit: BoxFit.fill,
                                           ),
-                                        ));
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: 60,
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            width: double.infinity,
-                            child: RaisedButton(
-                              color:    Colors.grey[300],
-                              //  textColor: Colors.white,
-                              child:  Text(
-                                translator.translate('OtherSimilarOffers'),
-                                style: TextStyle(
-                                    color: Colors.grey[600]),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => SimilarJobs(jobs[0].IdSections,jobs[0].IdSubSection)));
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        jobs[0].name,
+                                        style: TextStyle(color: Colors.black87),
+                                      ),
+                                      subtitle: Text(
+                                        jobs[0].dateAt.split(' ')[0],
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.details,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    children: <Widget>[
+                                      Container(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  left: 20, right: 20),
+                                              child: Table(
+                                                defaultColumnWidth:
+                                                    FlexColumnWidth(1),
+                                                border: TableBorder(
+                                                  horizontalInside: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                  verticalInside: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                ),
+                                                children: [
+                                                  TableRow(children: [
+                                                    Text(
+                                                      translator.translate(
+                                                          'ExperienceLevel'),
+                                                      style: TextStyle(
+                                                          fontSize: 12,
+                                                          color:
+                                                              Colors.grey[600]),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                        jobs[0].Experience,
+                                                        style: TextStyle(
+                                                            color: MyColor
+                                                                .customColor,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                          translator.translate(
+                                                              'TypeOfEmployment'),
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              color: Colors
+                                                                  .grey[600])),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                        jobs[0].workHours,
+                                                        style: TextStyle(
+                                                            color: MyColor
+                                                                .customColor,
+                                                            fontSize: 12),
+                                                      ),
+                                                    )
+                                                  ]),
+                                                  TableRow(children: [
+                                                    Center(
+                                                      child: Text(
+                                                          translator.translate(
+                                                              'EducationalLevel'),
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              color: Colors
+                                                                  .grey[600])),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                        jobs[0].Education,
+                                                        style: TextStyle(
+                                                            color: MyColor
+                                                                .customColor,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                    Center(
+                                                      child: Text('نوع المعلن',
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              color: Colors
+                                                                  .grey[600])),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                        'باحث عن موظف',
+                                                        style: TextStyle(
+                                                            color: MyColor
+                                                                .customColor,
+                                                            fontSize: 11),
+                                                      ),
+                                                    )
+                                                  ])
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        endIndent: 20,
+                                        indent: 20,
+                                        color: Colors.grey,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Text(
+                                          jobs[0].details,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.grey[600]),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        width: double.infinity,
+                                        child: RaisedButton(
+                                          color: MyColor.customColor,
+                                          textColor: Colors.white,
+                                          child: Text(
+                                            translator
+                                                .translate('ShowTheNumber'),
+                                          ),
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                      content: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          Text(
+                                                            jobs[0].Mobile,
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              // launch("tel://${jobs[0].Mobile}");
+                                                              _makePhoneCall(
+                                                                  jobs[0]
+                                                                      .Mobile);
+                                                            },
+                                                            child: Icon(
+                                                              Icons.call,
+                                                              textDirection:
+                                                                  TextDirection
+                                                                      .rtl,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ));
+                                          },
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 60,
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        width: double.infinity,
+                                        child: RaisedButton(
+                                          color: Colors.grey[300],
+                                          //  textColor: Colors.white,
+                                          child: Text(
+                                            translator.translate(
+                                                'OtherSimilarOffers'),
+                                            style: TextStyle(
+                                                color: Colors.grey[600]),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SimilarJobs(
+                                                            jobs[0].IdSections,
+                                                            jobs[0]
+                                                                .IdSubSection)));
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  )
+                          ],
+                        ),
+                      ),
                 SizedBox(
                   height: 10,
                 ),
                 (news == null)
                     ? Container()
                     : Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: .5, color: Colors.grey)),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            translator.translate('LatestNews'),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NewsInCompany(
-                                        news: news,
-                                        companyName: company.name,
-                                      )));
-                            },
-                            child: Text(
-                              translator.translate('BrowseMore'),
-                              style:
-                              TextStyle(color: MyColor.customColor),
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: .5, color: Colors.grey)),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              textDirection: TextDirection.rtl,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  translator.translate('LatestNews'),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NewsInCompany(
+                                                  news: news,
+                                                  companyName: company.name,
+                                                )));
+                                  },
+                                  child: Text(
+                                    translator.translate('BrowseMore'),
+                                    style:
+                                        TextStyle(color: MyColor.customColor),
+                                  ),
+                                )
+                              ],
                             ),
-                          )
-                        ],
+                            Divider(),
+                            (news.length == 0)
+                                ? Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )
+                                : ExpansionTile(
+                                    trailing: Container(
+                                      width: 0,
+                                      height: 0,
+                                    ),
+                                    title: ListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      leading: Container(
+                                        child: ClipOval(
+                                          child: FadeInImage.assetNetwork(
+                                            image: news[0].imgURL,
+                                            placeholder: 'assets/cover.png',
+                                            width: 60,
+                                            height: 80,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        news[0].name,
+                                        style: TextStyle(color: Colors.black87),
+                                      ),
+                                      subtitle: Text(
+                                        news[0].date.split(' ')[0],
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.details,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Text(
+                                          news[0].topic,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.grey[600]),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                          ],
+                        ),
                       ),
-                      Divider(),
-                      (news.length == 0)
-                          ? Container(
-                        height: 100,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                          : ExpansionTile(
-                        trailing: Container(
-                          width: 0,
-                          height: 0,
-                        ),
-                        title: ListTile(
-                          contentPadding: EdgeInsets.all(0),
-                          leading: Container(
-                            child: ClipOval(
-                              child: FadeInImage.assetNetwork(
-                                image: news[0].imgURL,
-                                placeholder: 'assets/cover.png',
-                                width: 60,
-                                height: 80,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            news[0].name,
-                            style: TextStyle(color: Colors.black87),
-                          ),
-                          subtitle: Text(
-                            news[0].date.split(' ')[0],
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          trailing: Icon(
-                            Icons.details,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 20, right: 20),
-                            child: Text(
-                              news[0].topic,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.grey[600]),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: 10,
                 ),
                 (urls == null)
                     ? Container()
                     : Container(
-                  // margin: EdgeInsets.only(left: 10, right: 10),
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        border: Border.all(width: .5, color: Colors.grey)),
-                    child: (urls.length == 0)
-                        ? Container(
-                      width: double.infinity,
-                      height: 100,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                        : Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children:getCompanyImgWidget(),
-                    )),
+                        // margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: .5, color: Colors.grey)),
+                        child: (urls.length == 0)
+                            ? Container(
+                                width: double.infinity,
+                                height: 100,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                            : Wrap(
+                                spacing: 10,
+                                runSpacing: 10,
+                                children: getCompanyImgWidget(),
+                              )),
                 SizedBox(
                   height: 40,
                 ),
@@ -1196,21 +1266,45 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
     );
   }
 
-  launchURL(String socialURL) async {
-    var url = "https:$socialURL";
+  Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
     }
-    /*if (await canLaunch(url)) {
-      
-      await launch(url,);
-    } else {
-      print('Could not launch $url');
-    }
-  }*/
   }
+
+  Future<void> _launchUniversalLinkIos(String url) async {
+    if (await canLaunch(url)) {
+      final bool nativeAppLaunchSucceeded = await launch(
+        url,
+        forceSafariVC: false,
+        universalLinksOnly: true,
+      );
+      if (!nativeAppLaunchSucceeded) {
+        await launch(
+          url,
+          forceSafariVC: true,
+        );
+      }
+    }
+  }
+
+  // launchURL(String socialURL) async {
+  //   var url = "https:$socialURL";
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  //   /*if (await canLaunch(url)) {
+  //
+  //     await launch(url,);
+  //   } else {
+  //     print('Could not launch $url');
+  //   }
+  // }*/
+  // }
 
   Future<dynamic> sendMsgToMail(
       {String mail, String subject, String body}) async {

@@ -715,14 +715,80 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.mail_outline),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(widget.company.email)
-                            ],
+                          InkWell(
+                            onTap: () async {
+                              var subCont = TextEditingController();
+                              var bodyCont = TextEditingController();
+                              if (bodyCont
+                                  .text.isEmpty) {
+                                Fluttertoast.showToast(
+                                    msg:
+                                    translator
+                                        .translate(
+                                        'PleaseWriteAMessage'),
+                                    toastLength: Toast
+                                        .LENGTH_SHORT,
+                                    gravity:
+                                    ToastGravity
+                                        .CENTER,
+                                    timeInSecForIos:
+                                    1,
+                                    backgroundColor:
+                                    MyColor
+                                        .customColor,
+                                    textColor:
+                                    Colors
+                                        .white,
+                                    fontSize: 16.0);
+                              } else {
+                                Navigator.pop(
+                                    context);
+                                showDialog(
+                                    context:
+                                    context,
+                                    barrierDismissible:
+                                    false,
+                                    builder:
+                                        (context) =>
+                                        AlertDialog(
+                                          content:
+                                          Row(
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            children: <Widget>[
+                                              CircularProgressIndicator(),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              Text(  translator.translate('SendingMessage ...'),)
+                                            ],
+                                          ),
+                                        ));
+                                await sendMsgToMail(
+                                    body: bodyCont
+                                        .text,
+                                    subject:
+                                    subCont
+                                        .text,
+                                    mail: widget
+                                    .company
+                                    .email)
+                                    .whenComplete(
+                                        () {
+                                      Navigator.pop(
+                                          context);
+                                    });
+                              }
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.mail_outline),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(widget.company.email)
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
@@ -1151,7 +1217,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                               Text(  jobs[0].Mobile,),
                                               InkWell(
                                                 onTap: () {
-                                                  launch("tel://${jobs[0].Mobile}");
+                                                  // launch("tel://${jobs[0].Mobile}");
+                                                  _makePhoneCall(jobs[0].Mobile);
 
                                                 },
                                                 child: Icon(
@@ -1321,7 +1388,25 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
   }
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  Future<dynamic> sendMsgToMail(
+      {String mail, String subject, String body}) async {
+    String url = "mailto:$mail?subject=$subject&body=$body";
+    if (await canLaunch(url)) {
+      await launch(url);
+      return true;
+    } else {
+      //throw 'Could not launch $url';
 
+      return false;
+    }
+  }
   launchURL(String socialURL) async {
     var url = "https:$socialURL";
     if (await canLaunch(url)) {
@@ -1353,18 +1438,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     }
   }
 
-  Future<dynamic> sendMsgToMail(
-      {String mail, String subject, String body}) async {
-    String url = "mailto:$mail?subject=$subject&body=$body";
-    if (await canLaunch(url)) {
-      await launch(url);
-      return true;
-    } else {
-      //throw 'Could not launch $url';
 
-      return false;
-    }
-  }
 
   Future<File> getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);

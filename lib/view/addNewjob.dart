@@ -114,7 +114,7 @@ class _AddNewJobState extends State<AddNewJob> {
                             controller: salaryController,
                           //  keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'المرتب',
+                              hintText: 'الراتب',
                               contentPadding: EdgeInsets.all(10),
                               border: InputBorder.none,
                               fillColor: Colors.white,
