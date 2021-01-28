@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kul_last/backend/sectionBack.dart';
@@ -28,6 +30,12 @@ class _CompaniesState extends State<Companies> {
   bool loading=false;
   SubSection selectedSubSection;
   List<Company> filteredList = [];
+  Timer _clockTimer;
+  @override
+  void dispose() {
+    _clockTimer.cancel();
+    super.dispose();
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -37,14 +45,25 @@ class _CompaniesState extends State<Companies> {
         sections.addAll(v);
       });
     });
-    if(globals.allcompanies.length==0){
-      Future.delayed(Duration(seconds:2), () {
-     setState(() {
-       loading=true;
-     });
-      });
-    }else{ companies.addAll(globals.allcompanies);}
+    if(globals.allcompanies.length>0) {
+      companies.addAll(globals.allcompanies);
+    }else{
+      _clockTimer =Timer.periodic(Duration(seconds: 1), (timer) {
+      // if(globals.allcompanies.length>0) {}else
+        if(globals.allcompanies.length==0){
+        Future.delayed(Duration(seconds:4), () {
+          setState(() {
+            loading=true;
+          });
+        });
+      }else{
+        setState(() {
+          companies.addAll(globals.allcompanies);
+          timer.cancel();
+            });}
 
+    });
+    }
    // print("iii${globals.allcompanies[0].distanceBetween}");
     //
     // getAllCompanies().then((v) async {

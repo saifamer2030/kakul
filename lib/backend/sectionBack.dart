@@ -142,10 +142,13 @@ Future<dynamic> getAllCompanies1() async {
                 toLng: double.parse(item['lon'])).then((value1) {
               item['distanceBetween'] = value1.toString();
               print("ggg///$item");
+             // globals.allcompanies.clear();
+             // companies.add(Company.fromMap(item));
+             // companies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
 
-              companies.add(Company.fromMap(item));
-              globals.allcompanies.add(Company.fromMap(item));
-              globals.allcompanies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
+               globals.allcompanies.add(Company.fromMap(item));
+             // globals.allcompanies.addAll(companies);
+             globals.allcompanies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
 
             //  print("aaa${ globals.allcompanies}");
             });
