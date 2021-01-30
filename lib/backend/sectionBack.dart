@@ -31,6 +31,7 @@ import 'package:kul_last/model/globals.dart' as globals;
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 import 'others.dart';
+import 'package:http/http.dart' as http;
 
 Future<dynamic> getAllSections() async {
   List<Section> sections = [];
@@ -929,6 +930,35 @@ Future<dynamic> registerOffer(
   print('Status:${response.statusCode}');
   print('Response:${response.data.toString()}');
 }
+Future<dynamic> deleteOffer({String id}) async {
+  var baseURL =
+      "http://kk.vision.com.sa/API/DeleteOffer.php?id=$id";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+}
+Future<dynamic> deleteJob({String id}) async {
+  var baseURL =
+      "http://kk.vision.com.sa/API/DeletesJob.php?id=$id";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+}
+Future<dynamic> deleteNews({String id}) async {
+  var baseURL =
+      "http://kk.vision.com.sa/API/DeleteNews.php?id=$id";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+}
+
+
 Future<dynamic> getCompanyoffers({String companyID}) async {
   String baseURL = "http://kk.vision.com.sa/API/GetOffer.php?Spid=$companyID";
   var client = Client();

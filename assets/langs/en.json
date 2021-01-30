@@ -40,6 +40,8 @@
     "AboutCompany": "About Company",
     "ContactInformation": "Contact Information",
     "AvailableJobs": "Available Jobs",
+    "AvailableOffers": "Available Offers",
+
     "BrowseMore": "Browse More",
     "ExperienceLevel": "Experience Level",
     "RecentGraduate": "Recent Graduate",
@@ -140,5 +142,6 @@
     "NewJobAlertFromCompany": "New job alert from a company",
     "RegisterNewAccount": "Register a new account",
     "ThereIsNo": "There is no",
-    "no_comp": "There is no company now"
+    "no_comp": "There is no company now",
+    "confirm_del": "succesfully deleted"
 }

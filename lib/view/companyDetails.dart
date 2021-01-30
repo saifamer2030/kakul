@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -954,7 +955,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            translator.translate('AvailableJobs'),
+                            translator.translate('AvailableOffers'),
                           ),
                           InkWell(
                             onTap: () {
@@ -964,6 +965,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       builder: (context) => OffersInCompany(
                                         offers: offers,
                                         companyName: company.name,
+                                        companyId: company.id,
                                       )));
                             },
                             child: Text(
@@ -1008,7 +1010,66 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             offers[0].create_date.split(' ')[0],
                             style: TextStyle(color: Colors.grey),
                           ),
-                          trailing: Icon(
+                          trailing:company.id==globals.myCompany.id?IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                new CupertinoAlertDialog(
+                                  title: new Text("تنبية"),
+                                  content: new Text("هل تريد حذف هذا العرض؟"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () async {
+                                            await deleteOffer(
+                                              id:offers[0].id,
+                                            )
+                                                .then((v) {
+                                              Fluttertoast.showToast(
+                                                  msg: "تمت الحذف بنجاح",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              Navigator.pop(context);
+                                            }).whenComplete(() {
+                                              Navigator.pop(context);
+                                             // Navigator.pop(context);
+
+                                            }).catchError((e) {
+                                              Fluttertoast.showToast(
+                                                  msg: e,
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              //  showSnackMsg(e.toString());
+                                              print('ErrorRegCompany:$e');
+                                            }).then((v) {});
+                                          }
+                                          ,
+                                          child: Text("موافق"),
+                                        )),
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("إلغاء"),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          ): Icon(
                             Icons.details,
                             color: Colors.black87,
                           ),
@@ -1161,6 +1222,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       builder: (context) => JobsInCompany(
                                         jobs: jobs,
                                         companyName: company.name,
+                                        companyId: company.id,
                                       )));
                             },
                             child: Text(
@@ -1205,7 +1267,66 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             jobs[0].dateAt.split(' ')[0],
                             style: TextStyle(color: Colors.grey),
                           ),
-                          trailing: Icon(
+                          trailing:company.id==globals.myCompany.id?IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                new CupertinoAlertDialog(
+                                  title: new Text("تنبية"),
+                                  content: new Text("هل تريد حذف هذا الوظيفة؟"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () async {
+                                            await deleteJob(
+                                              id:jobs[0].id,
+                                            )
+                                                .then((v) {
+                                              Fluttertoast.showToast(
+                                                  msg: "تمت الحذف بنجاح",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              Navigator.pop(context);
+                                            }).whenComplete(() {
+                                              Navigator.pop(context);
+                                              // Navigator.pop(context);
+
+                                            }).catchError((e) {
+                                              Fluttertoast.showToast(
+                                                  msg: e,
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              //  showSnackMsg(e.toString());
+                                              print('ErrorRegCompany:$e');
+                                            }).then((v) {});
+                                          }
+                                          ,
+                                          child: Text("موافق"),
+                                        )),
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("إلغاء"),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          ): Icon(
                             Icons.details,
                             color: Colors.black87,
                           ),
@@ -1414,6 +1535,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       builder: (context) => NewsInCompany(
                                         news: news,
                                         companyName: company.name,
+                                        companyId: company.id,
                                       )));
                             },
                             child: Text(
@@ -1458,7 +1580,66 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             news[0].date.split(' ')[0],
                             style: TextStyle(color: Colors.grey),
                           ),
-                          trailing: Icon(
+                          trailing:company.id==globals.myCompany.id?IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                new CupertinoAlertDialog(
+                                  title: new Text("تنبية"),
+                                  content: new Text("هل تريد حذف هذا الخبر؟"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () async {
+                                            await deleteNews(
+                                              id:news[0].id,
+                                            )
+                                                .then((v) {
+                                              Fluttertoast.showToast(
+                                                  msg: "تمت الحذف بنجاح",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              Navigator.pop(context);
+                                            }).whenComplete(() {
+                                              Navigator.pop(context);
+                                              // Navigator.pop(context);
+
+                                            }).catchError((e) {
+                                              Fluttertoast.showToast(
+                                                  msg: e,
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              //  showSnackMsg(e.toString());
+                                              print('ErrorRegCompany:$e');
+                                            }).then((v) {});
+                                          }
+                                          ,
+                                          child: Text("موافق"),
+                                        )),
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("إلغاء"),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          ): Icon(
                             Icons.details,
                             color: Colors.black87,
                           ),
