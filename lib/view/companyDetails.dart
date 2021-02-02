@@ -995,7 +995,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             child: ClipOval(
                               child:FadeInImage.assetNetwork(
                                 image: offers[0].company_image,
-                                placeholder:  'assets/cover.png',
+                                placeholder:  'assets/logo.png',
                                 width: 60,
                                 height: 80,
                                 fit: BoxFit.fill,
@@ -1738,6 +1738,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         await launch(
           url,
           forceSafariVC: true,
+            enableJavaScript: true,
+            forceWebView: true
         );
       }
     }

@@ -101,7 +101,7 @@ similarsubsec=widget.sec;
                             width:  double.infinity,
                             child: FadeInImage.assetNetwork(
                               image: offers[index].image,
-                              placeholder:  'assets/cover.png',
+                              placeholder:  'assets/logo.png',
                               width: 60,
                               height: 80,
                               fit: BoxFit.fill,

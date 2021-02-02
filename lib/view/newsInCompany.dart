@@ -40,7 +40,7 @@ class NewsInCompany extends StatelessWidget {
                                   child: ClipOval(
                                     child:FadeInImage.assetNetwork(
                                       image: news[index].imgURL,
-                                      placeholder:  'assets/cover.png',
+                                      placeholder:  'assets/logo.png',
                                       width: 60,
                                       height: 80,
                                       fit: BoxFit.fill,

@@ -685,7 +685,7 @@ bool male=false;bool fmale=false;bool both=false;bool offer=false;
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
                         image: secItem.imgURL,
-                        placeholder: 'assets/picture3.png',
+                        placeholder: 'assets/logo.png',
                         fit: BoxFit.cover,
                         width: 50,
                         height: 50,

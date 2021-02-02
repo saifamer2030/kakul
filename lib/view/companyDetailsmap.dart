@@ -589,193 +589,178 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                             height: 5,
                           ),
                           InkWell(
-                              onTap: ()  {
-                                var subCont = TextEditingController();
-                                var bodyCont = TextEditingController();
+                            onTap: () {
+                              var subCont = TextEditingController();
+                              var bodyCont = TextEditingController();
 
-                                showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) => AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(8)),
-                                      content: SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.mail,
-                                              size: 45,
-                                            ),
-                                            SizedBox(
-                                              height: 25,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(8),
-                                                  border: Border.all(
-                                                      width: .5,
-                                                      color:
-                                                      Colors.grey)),
-                                              child: TextField(
-                                                controller: subCont,
-                                                textAlign:
-                                                TextAlign.right,
-                                                textDirection:
-                                                TextDirection.rtl,
-                                                decoration:
-                                                InputDecoration(
-                                                  contentPadding:
-                                                  EdgeInsets.all(10),
-                                                  border:
-                                                  InputBorder.none,
-                                                  hintText: translator
-                                                      .translate(
-                                                      'MessageSubject'),
-                                                  hintStyle: TextStyle(
-                                                      color: Colors
-                                                          .grey[400]),
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        content: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.mail,
+                                                size: 45,
+                                              ),
+                                              SizedBox(
+                                                height: 25,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    border: Border.all(
+                                                        width: .5,
+                                                        color: Colors.grey)),
+                                                child: TextField(
+                                                  controller: subCont,
+                                                  textAlign: TextAlign.right,
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  decoration: InputDecoration(
+                                                    contentPadding:
+                                                        EdgeInsets.all(10),
+                                                    border: InputBorder.none,
+                                                    hintText:
+                                                        translator.translate(
+                                                            'MessageSubject'),
+                                                    hintStyle: TextStyle(
+                                                        color:
+                                                            Colors.grey[400]),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 25,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(8),
-                                                  border: Border.all(
-                                                      width: .5,
-                                                      color:
-                                                      Colors.grey)),
-                                              child: TextField(
-                                                controller: bodyCont,
-                                                maxLines: 4,
-                                                textAlign:
-                                                TextAlign.right,
-                                                textDirection:
-                                                TextDirection.rtl,
-                                                decoration:
-                                                InputDecoration(
-                                                  contentPadding:
-                                                  EdgeInsets.all(10),
-                                                  hintStyle: TextStyle(
-                                                      color: Colors
-                                                          .grey[400]),
-                                                  border:
-                                                  InputBorder.none,
-                                                  hintText: translator
-                                                      .translate(
-                                                      'TheMessage'),
+                                              SizedBox(
+                                                height: 25,
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    border: Border.all(
+                                                        width: .5,
+                                                        color: Colors.grey)),
+                                                child: TextField(
+                                                  controller: bodyCont,
+                                                  maxLines: 4,
+                                                  textAlign: TextAlign.right,
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  decoration: InputDecoration(
+                                                    contentPadding:
+                                                        EdgeInsets.all(10),
+                                                    hintStyle: TextStyle(
+                                                        color:
+                                                            Colors.grey[400]),
+                                                    border: InputBorder.none,
+                                                    hintText:
+                                                        translator.translate(
+                                                            'TheMessage'),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 25,
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                InkWell(
-                                                  child: Text(
-                                                    translator.translate(
-                                                        'Cancellation'),
-                                                    style: TextStyle(
-                                                        color:
-                                                        Colors.red),
+                                              SizedBox(
+                                                height: 25,
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  InkWell(
+                                                    child: Text(
+                                                      translator.translate(
+                                                          'Cancellation'),
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
                                                   ),
-                                                  onTap: () {
-                                                    Navigator.pop(
-                                                        context);
-                                                  },
-                                                ),
-                                                SizedBox(
-                                                  width: 25,
-                                                ),
-                                                InkWell(
-                                                  child: Text(
-                                                    translator.translate(
-                                                        'emphasis'),
-                                                    style: TextStyle(
-                                                        color:
-                                                        Colors.green),
+                                                  SizedBox(
+                                                    width: 25,
                                                   ),
-                                                  onTap: () async {
-                                                    if (bodyCont
-                                                        .text.isEmpty) {
-                                                      Fluttertoast.showToast(
-                                                          msg: translator
-                                                              .translate(
-                                                              'PleaseWriteAMessage'),
-                                                          toastLength: Toast
-                                                              .LENGTH_SHORT,
-                                                          gravity:
-                                                          ToastGravity
-                                                              .CENTER,
-                                                          timeInSecForIos:
-                                                          1,
-                                                          backgroundColor:
-                                                          MyColor
-                                                              .customColor,
-                                                          textColor:
-                                                          Colors
-                                                              .white,
-                                                          fontSize: 16.0);
-                                                    } else {
-                                                      Navigator.pop(
-                                                          context);
-                                                      showDialog(
-                                                          context:
-                                                          context,
-                                                          barrierDismissible:
-                                                          false,
-                                                          builder:
-                                                              (context) =>
-                                                              AlertDialog(
-                                                                content:
-                                                                Row(
-                                                                  textDirection:
-                                                                  TextDirection.rtl,
-                                                                  children: <Widget>[
-                                                                    CircularProgressIndicator(),
-                                                                    SizedBox(
-                                                                      width: 25,
-                                                                    ),
-                                                                    Text(
-                                                                      translator.translate('SendingMessage ...'),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ));
-                                                      await sendMsgToMail(
-                                                          body: bodyCont
-                                                              .text,
-                                                          subject:
-                                                          subCont
-                                                              .text,
-                                                          mail: widget
-                                                              .company
-                                                              .email)
-                                                          .whenComplete(
-                                                              () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                    }
-                                                    //Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                                  InkWell(
+                                                    child: Text(
+                                                      translator.translate(
+                                                          'emphasis'),
+                                                      style: TextStyle(
+                                                          color: Colors.green),
+                                                    ),
+                                                    onTap: () async {
+                                                      if (bodyCont
+                                                          .text.isEmpty) {
+                                                        Fluttertoast.showToast(
+                                                            msg: translator
+                                                                .translate(
+                                                                    'PleaseWriteAMessage'),
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .CENTER,
+                                                            timeInSecForIos: 1,
+                                                            backgroundColor:
+                                                                MyColor
+                                                                    .customColor,
+                                                            textColor:
+                                                                Colors.white,
+                                                            fontSize: 16.0);
+                                                      } else {
+                                                        Navigator.pop(context);
+                                                        showDialog(
+                                                            context: context,
+                                                            barrierDismissible:
+                                                                false,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                                      content:
+                                                                          Row(
+                                                                        textDirection:
+                                                                            TextDirection.rtl,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          CircularProgressIndicator(),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                25,
+                                                                          ),
+                                                                          Text(
+                                                                            translator.translate('SendingMessage ...'),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ));
+                                                        await sendMsgToMail(
+                                                                body: bodyCont
+                                                                    .text,
+                                                                subject: subCont
+                                                                    .text,
+                                                                mail: widget
+                                                                    .company
+                                                                    .email)
+                                                            .whenComplete(() {
+                                                          Navigator.pop(
+                                                              context);
+                                                        });
+                                                      }
+                                                      //Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ));
-                              },
+                                      ));
+                            },
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.mail_outline),
@@ -866,7 +851,7 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                                         child: ClipOval(
                                           child: FadeInImage.assetNetwork(
                                             image: offers[0].company_image,
-                                            placeholder: 'assets/cover.png',
+                                            placeholder: 'assets/logo.png',
                                             width: 60,
                                             height: 80,
                                             fit: BoxFit.fill,
@@ -1420,15 +1405,15 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
 
   Future<void> _launchUniversalLinkIos(String url) async {
     if (await canLaunch(url)) {
-      final bool nativeAppLaunchSucceeded = await launch(
-        url,
-        forceSafariVC: false,
-        universalLinksOnly: true,
-      );
+      final bool nativeAppLaunchSucceeded = await launch(url,
+          forceSafariVC: false,
+          universalLinksOnly: true,);
       if (!nativeAppLaunchSucceeded) {
         await launch(
           url,
           forceSafariVC: true,
+            enableJavaScript: true,
+            forceWebView: true
         );
       }
     }

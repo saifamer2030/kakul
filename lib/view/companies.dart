@@ -375,6 +375,7 @@ class _CompaniesState extends State<Companies> {
                                             textColor: Colors.white,
                                             color: MyColor.customColor,
                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Icon(Icons.call),
                                                 // SizedBox(
@@ -548,6 +549,7 @@ class _CompaniesState extends State<Companies> {
                                             textColor: Colors.white,
                                             color: MyColor.customColor,
                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Icon(Icons.call),
                                                 // SizedBox(

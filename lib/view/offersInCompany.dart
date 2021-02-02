@@ -27,7 +27,7 @@ class OffersInCompany extends StatelessWidget {
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          ' ${translator.translate('Jobs')} $companyName',
+          ' ${translator.translate('AvailableOffers')} $companyName',
         ),
       ),
       body: Directionality(
@@ -46,7 +46,7 @@ class OffersInCompany extends StatelessWidget {
                   child: ClipOval(
                     child:FadeInImage.assetNetwork(
                       image:offers[index].company_image,
-                      placeholder:  'assets/cover.png',
+                      placeholder:  'assets/logo.png',
                       width: 60,
                       height: 80,
                       fit: BoxFit.fill,
@@ -135,7 +135,7 @@ class OffersInCompany extends StatelessWidget {
                         width:  double.infinity,
                         child: FadeInImage.assetNetwork(
                           image:offers[index].image,
-                          placeholder:  'assets/cover.png',
+                          placeholder:  'assets/logo.png',
                           width: 60,
                           height: 80,
                           fit: BoxFit.fill,
