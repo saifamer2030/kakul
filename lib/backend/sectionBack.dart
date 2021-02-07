@@ -149,8 +149,8 @@ Future<dynamic> getAllCompanies1() async {
 
                globals.allcompanies.add(Company.fromMap(item));
              // globals.allcompanies.addAll(companies);
-             globals.allcompanies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
-
+             // globals.allcompanies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
+              globals.allcompanies.sort((fl1, fl2) =>int.parse(fl1.distanceBetween) .compareTo(int.parse(fl2.distanceBetween)));
             //  print("aaa${ globals.allcompanies}");
             });
             });

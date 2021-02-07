@@ -811,7 +811,7 @@ class _CompanyDetailsMapState extends State<CompanyDetailsMap> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  translator.translate('AvailableJobs'),
+                                  translator.translate('AvailableOffers'),
                                 ),
                                 InkWell(
                                   onTap: () {
