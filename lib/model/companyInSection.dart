@@ -37,7 +37,7 @@ class Company {
     this.face = json['Facebook'];
     this.snapshat = json['Snapchat'];
     this.twitter = json['Twitter'];
-    this.youtube = json['Youtube'];
+    this.youtube = json['YouTube'];
     this.instagram = json['Instagram'];
     this.phone = json['Mobile'];
     this.lat = json['lat'];

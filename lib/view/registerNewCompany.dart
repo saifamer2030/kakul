@@ -629,6 +629,9 @@ class _NewCompanyState extends State<NewCompany> {
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),
+                                onChanged: (v){
+                                  print("YoutubeChannelLink: $v");
+                                },
                               ),
                             )),
                         Container(
@@ -717,6 +720,7 @@ class _NewCompanyState extends State<NewCompany> {
                               title: titleController.text,
                               twitter: twitterController.text,
                               youtube: youtubeController.text)
+
                               .then((v) {
                             Fluttertoast.showToast(
                                 msg: translator.translate('SuccessfullyRegistered'),

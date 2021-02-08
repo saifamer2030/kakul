@@ -1,4 +1,4 @@
-package com.kulkul.kakul
+package com.kulkul.visionsa
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -87,7 +87,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           borderRadius: BorderRadius.circular(8),
           child: FadeInImage.assetNetwork(
             image: i,
-            placeholder: 'assets/pic4.png',
+            placeholder: 'assets/logo.png',
             width: 80,
             height: 80,
             fit: BoxFit.fill,
@@ -246,6 +246,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   InkWell(
                                     onTap: () {
                                       //launchURL("");
+                                      print("instagram:  ${widget.company.instagram}");
                                       _launchUniversalLinkIos(widget.company.instagram);
                                     },
                                     child: Image.asset(
@@ -255,6 +256,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      print("youtube:  ${widget.company.youtube}");
                                       _launchUniversalLinkIos(widget.company.youtube);
                                     },
                                     child: Image.asset(
@@ -264,6 +266,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      print("twitter:  ${widget.company.twitter}");
                                       _launchUniversalLinkIos(widget.company.twitter);
                                     },
                                     child: Image.asset(
@@ -273,6 +276,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      print("face:  ${widget.company.face}");
                                       _launchUniversalLinkIos(widget.company.face);
                                     },
                                     child: Image.asset(
@@ -285,6 +289,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     height: 30,
                                     child: InkWell(
                                         onTap: () {
+                                          print("snapshat:  ${widget.company.snapshat}");
                                           _launchUniversalLinkIos(widget.company.snapshat);
                                         },
                                         child: CircleAvatar(
@@ -1738,8 +1743,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         await launch(
           url,
           forceSafariVC: true,
-            enableJavaScript: true,
-            forceWebView: true
+            // enableJavaScript: true,
+            // forceWebView: true
         );
       }
     }
