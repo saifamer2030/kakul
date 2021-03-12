@@ -74,6 +74,15 @@ flutter:
     - assets/
     - assets/langs/en.json
     - assets/langs/ar.json
+    - assets/images/calender.png
+    - assets/images/card_cvv.png
+    - assets/images/visa.png
+    - assets/images/jcb.png
+    - assets/images/verve.png
+    - assets/images/discover.png
+    - assets/images/american_express.png
+    - assets/images/dinners_club.png
+    - assets/images/mastercard.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
