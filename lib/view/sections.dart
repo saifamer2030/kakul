@@ -101,7 +101,7 @@ class _SectionsState extends State<Sections>  {
                         }
                       },
                       child: Image.network(adv[index].image,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.contain,
                           loadingBuilder: (BuildContext context,
                               Widget child,
                               ImageChunkEvent loadingProgress) {

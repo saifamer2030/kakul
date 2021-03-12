@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -11,14 +12,17 @@ import 'package:kul_last/backend/others.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/jobs.dart';
+import 'package:kul_last/model/myplan.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/model/photo.dart';
+import 'package:kul_last/model/plan.dart';
 import 'package:kul_last/view/addNewjob.dart';
 import 'package:kul_last/view/addNewnews.dart';
 import 'package:kul_last/view/addnewoffer.dart';
 import 'package:kul_last/view/jobsInCompany.dart';
 import 'package:kul_last/view/offersInCompany.dart';
+import 'package:kul_last/view/panespage.dart';
 import 'package:kul_last/view/similarjobs.dart';
 import 'package:kul_last/view/similaroffers.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
@@ -86,7 +90,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           borderRadius: BorderRadius.circular(8),
           child: FadeInImage.assetNetwork(
             image: i,
-            placeholder: 'assets/pic4.png',
+            placeholder: 'assets/logo.png',
             width: 80,
             height: 80,
             fit: BoxFit.fill,
@@ -96,12 +100,77 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     });
     return items;
   }
-
+  List<MyPlan> plans = [];
+bool subcribecheck=false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 0), () async {
+      // await getallplans()
+      //     .then((v) {
+      //   Fluttertoast.showToast(
+      //       msg: "تمت الإضافة بنجاح",
+      //       toastLength: Toast.LENGTH_SHORT,
+      //       gravity: ToastGravity.CENTER,
+      //       timeInSecForIos: 1,
+      //       backgroundColor: MyColor.customColor,
+      //       textColor: Colors.white,
+      //       fontSize: 16.0);
+      //  // Navigator.pop(context);
+      // });
+      await getmyplans(globals.myCompany.id).then((v) async {
+        setState(() {
+          plans.addAll(v);
+          print("ppll${plans[0]}");
+        if(plans.length==0){
+          subcribecheck=false;
+          print("ppll11${subcribecheck}");
+        }else{
+          print("ppll22${subcribecheck}");
+                String date = plans[0].create_date.replaceAll("-", "").replaceAll(" ", "").replaceAll(":", "");
+                String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
+                DateTime dateTime1 = DateTime.parse(dateWithT);
+                DateTime dateTime2 =dateTime1.add(new Duration(days:3));
+
+              if(  DateTime.now().isBefore(dateTime2)){
+                subcribecheck=true;
+
+              }else{          subcribecheck=false;}
+          // Timer(Duration(seconds: 0), () async {
+          //   List<Plan> plan = [];
+          //   await getoneplan(plans[0].plan_id).then((v) async {
+          //     setState(() {
+          //       plan.addAll(v);
+          //       print("ppll${plan.length}");
+          //       //create_date: 2021-03-10 20:11:30,
+          //       String date = plans[0].create_date.replaceAll("-", "").replaceAll(" ", "").replaceAll(":", "");
+          //       String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
+          //       DateTime dateTime1 = DateTime.parse(dateWithT);
+          //       DateTime dateTime2 =dateTime1.add(new Duration(days:3*30 ));
+          //
+          //     if(  DateTime.now().isBefore(dateTime2)){
+          //       subcribecheck=true;
+          //
+          //     }else{          subcribecheck=false;
+          //     }
+          //     });
+          //
+          //
+          //   });
+          // });
+
+        }
+
+        });
+
+
+      });
+
+      //
+
+
+
       getCompanyphoto(company.id).then((v) async {
         setState(() {
           photos.addAll(v);
@@ -245,6 +314,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   InkWell(
                                     onTap: () {
                                       //launchURL("");
+                                      print("instagram:  ${widget.company.instagram}");
                                       _launchUniversalLinkIos(widget.company.instagram);
                                     },
                                     child: Image.asset(
@@ -254,6 +324,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      print("youtube:  ${widget.company.youtube}");
                                       _launchUniversalLinkIos(widget.company.youtube);
                                     },
                                     child: Image.asset(
@@ -263,6 +334,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      print("twitter:  ${widget.company.twitter}");
                                       _launchUniversalLinkIos(widget.company.twitter);
                                     },
                                     child: Image.asset(
@@ -272,6 +344,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      print("face:  ${widget.company.face}");
                                       _launchUniversalLinkIos(widget.company.face);
                                     },
                                     child: Image.asset(
@@ -284,6 +357,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                     height: 30,
                                     child: InkWell(
                                         onTap: () {
+                                          print("snapshat:  ${widget.company.snapshat}");
                                           _launchUniversalLinkIos(widget.company.snapshat);
                                         },
                                         child: CircleAvatar(
@@ -582,7 +656,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   height: 10,
                 ),
                 (( globals.myCompany.id==company.id)&&(globals.myCompany.Accept=="1"))?
-                Container(
+                subcribecheck? Container(
 
                   margin: EdgeInsets.only(left: 10, right: 10),
                   padding: EdgeInsets.all(1),
@@ -656,8 +730,84 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
                     ],
                   ),
+                ): Container(
+
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: .5, color: Colors.grey)),
+                  width:  MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // RaisedButton(
+                      //   color: MyColor.customColor,
+                      //   textColor: Colors.white,
+                      //   onPressed: () {
+                      //
+                      //     Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) =>
+                      //                 AddNewJob()));
+                      //   },
+                      //   child: Row(
+                      //     children: <Widget>[
+                      //       Icon(Icons.water_damage_rounded),
+                      //       // SizedBox(
+                      //       //   width: 5,
+                      //       // ),
+                      //       Text(translator.translate('PostJob'))
+                      //     ],
+                      //   ),
+                      // ),
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      PanesPage()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.monetization_on),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('subcribe'))
+                          ],
+                        ),
+                      ),
+                      // RaisedButton(
+                      //   color: MyColor.customColor,
+                      //   textColor: Colors.white,
+                      //   onPressed: () {
+                      //     Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) =>
+                      //                 AddNewNews()));
+                      //   },
+                      //   child: Row(
+                      //     children: <Widget>[
+                      //       Icon(Icons.wysiwyg),
+                      //       // SizedBox(
+                      //       //   width: 5,
+                      //       // ),
+                      //       Text(translator.translate('AddNews'))
+                      //     ],
+                      //   ),
+                      // ),
+
+                    ],
+                  ),
                 )
                     :Container(),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -708,6 +858,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               InkWell(
                                   onTap: () {
                                     //   launchURL(widget.company.phone);
+                                    _makePhoneCall('tel:${widget.company.phone}');
                                   },
                                   child: Text(widget.company.phone))
                             ],
@@ -715,14 +866,203 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.mail_outline),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(widget.company.email)
-                            ],
+                          InkWell(
+                            onTap: () {
+                              var subCont = TextEditingController();
+                              var bodyCont = TextEditingController();
+
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(8)),
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.mail,
+                                            size: 45,
+                                          ),
+                                          SizedBox(
+                                            height: 25,
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(8),
+                                                border: Border.all(
+                                                    width: .5,
+                                                    color:
+                                                    Colors.grey)),
+                                            child: TextField(
+                                              controller: subCont,
+                                              textAlign:
+                                              TextAlign.right,
+                                              textDirection:
+                                              TextDirection.rtl,
+                                              decoration:
+                                              InputDecoration(
+                                                contentPadding:
+                                                EdgeInsets.all(10),
+                                                border:
+                                                InputBorder.none,
+                                                hintText: translator
+                                                    .translate(
+                                                    'MessageSubject'),
+                                                hintStyle: TextStyle(
+                                                    color: Colors
+                                                        .grey[400]),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 25,
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(8),
+                                                border: Border.all(
+                                                    width: .5,
+                                                    color:
+                                                    Colors.grey)),
+                                            child: TextField(
+                                              controller: bodyCont,
+                                              maxLines: 4,
+                                              textAlign:
+                                              TextAlign.right,
+                                              textDirection:
+                                              TextDirection.rtl,
+                                              decoration:
+                                              InputDecoration(
+                                                contentPadding:
+                                                EdgeInsets.all(10),
+                                                hintStyle: TextStyle(
+                                                    color: Colors
+                                                        .grey[400]),
+                                                border:
+                                                InputBorder.none,
+                                                hintText: translator
+                                                    .translate(
+                                                    'TheMessage'),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 25,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              InkWell(
+                                                child: Text(
+                                                  translator.translate(
+                                                      'Cancellation'),
+                                                  style: TextStyle(
+                                                      color:
+                                                      Colors.red),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.pop(
+                                                      context);
+                                                },
+                                              ),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              InkWell(
+                                                child: Text(
+                                                  translator.translate(
+                                                      'emphasis'),
+                                                  style: TextStyle(
+                                                      color:
+                                                      Colors.green),
+                                                ),
+                                                onTap: () async {
+                                                  if (bodyCont
+                                                      .text.isEmpty) {
+                                                    Fluttertoast.showToast(
+                                                        msg: translator
+                                                            .translate(
+                                                            'PleaseWriteAMessage'),
+                                                        toastLength: Toast
+                                                            .LENGTH_SHORT,
+                                                        gravity:
+                                                        ToastGravity
+                                                            .CENTER,
+                                                        timeInSecForIos:
+                                                        1,
+                                                        backgroundColor:
+                                                        MyColor
+                                                            .customColor,
+                                                        textColor:
+                                                        Colors
+                                                            .white,
+                                                        fontSize: 16.0);
+                                                  } else {
+                                                    Navigator.pop(
+                                                        context);
+                                                    showDialog(
+                                                        context:
+                                                        context,
+                                                        barrierDismissible:
+                                                        false,
+                                                        builder:
+                                                            (context) =>
+                                                            AlertDialog(
+                                                              content:
+                                                              Row(
+                                                                textDirection:
+                                                                TextDirection.rtl,
+                                                                children: <Widget>[
+                                                                  CircularProgressIndicator(),
+                                                                  SizedBox(
+                                                                    width: 25,
+                                                                  ),
+                                                                  Text(
+                                                                    translator.translate('SendingMessage ...'),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ));
+                                                    await sendMsgToMail(
+                                                        body: bodyCont
+                                                            .text,
+                                                        subject:
+                                                        subCont
+                                                            .text,
+                                                        mail: widget
+                                                            .company
+                                                            .email)
+                                                        .whenComplete(
+                                                            () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        });
+                                                  }
+                                                  //Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ));
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.mail_outline),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(widget.company.email)
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
@@ -764,7 +1104,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            translator.translate('AvailableJobs'),
+                            translator.translate('AvailableOffers'),
                           ),
                           InkWell(
                             onTap: () {
@@ -774,6 +1114,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       builder: (context) => OffersInCompany(
                                         offers: offers,
                                         companyName: company.name,
+                                        companyId: company.id,
                                       )));
                             },
                             child: Text(
@@ -803,7 +1144,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             child: ClipOval(
                               child:FadeInImage.assetNetwork(
                                 image: offers[0].company_image,
-                                placeholder:  'assets/cover.png',
+                                placeholder:  'assets/logo.png',
                                 width: 60,
                                 height: 80,
                                 fit: BoxFit.fill,
@@ -818,7 +1159,66 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             offers[0].create_date.split(' ')[0],
                             style: TextStyle(color: Colors.grey),
                           ),
-                          trailing: Icon(
+                          trailing:company.id==globals.myCompany.id?IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                new CupertinoAlertDialog(
+                                  title: new Text("تنبية"),
+                                  content: new Text("هل تريد حذف هذا العرض؟"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () async {
+                                            await deleteOffer(
+                                              id:offers[0].id,
+                                            )
+                                                .then((v) {
+                                              Fluttertoast.showToast(
+                                                  msg: "تمت الحذف بنجاح",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              Navigator.pop(context);
+                                            }).whenComplete(() {
+                                              Navigator.pop(context);
+                                             // Navigator.pop(context);
+
+                                            }).catchError((e) {
+                                              Fluttertoast.showToast(
+                                                  msg: e,
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              //  showSnackMsg(e.toString());
+                                              print('ErrorRegCompany:$e');
+                                            }).then((v) {});
+                                          }
+                                          ,
+                                          child: Text("موافق"),
+                                        )),
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("إلغاء"),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          ): Icon(
                             Icons.details,
                             color: Colors.black87,
                           ),
@@ -971,6 +1371,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       builder: (context) => JobsInCompany(
                                         jobs: jobs,
                                         companyName: company.name,
+                                        companyId: company.id,
                                       )));
                             },
                             child: Text(
@@ -1015,7 +1416,66 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             jobs[0].dateAt.split(' ')[0],
                             style: TextStyle(color: Colors.grey),
                           ),
-                          trailing: Icon(
+                          trailing:company.id==globals.myCompany.id?IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                new CupertinoAlertDialog(
+                                  title: new Text("تنبية"),
+                                  content: new Text("هل تريد حذف هذا الوظيفة؟"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () async {
+                                            await deleteJob(
+                                              id:jobs[0].id,
+                                            )
+                                                .then((v) {
+                                              Fluttertoast.showToast(
+                                                  msg: "تمت الحذف بنجاح",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              Navigator.pop(context);
+                                            }).whenComplete(() {
+                                              Navigator.pop(context);
+                                              // Navigator.pop(context);
+
+                                            }).catchError((e) {
+                                              Fluttertoast.showToast(
+                                                  msg: e,
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              //  showSnackMsg(e.toString());
+                                              print('ErrorRegCompany:$e');
+                                            }).then((v) {});
+                                          }
+                                          ,
+                                          child: Text("موافق"),
+                                        )),
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("إلغاء"),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          ): Icon(
                             Icons.details,
                             color: Colors.black87,
                           ),
@@ -1151,7 +1611,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                               Text(  jobs[0].Mobile,),
                                               InkWell(
                                                 onTap: () {
-                                                  launch("tel://${jobs[0].Mobile}");
+                                                  // launch("tel://${jobs[0].Mobile}");
+                                                  _makePhoneCall("tel:${jobs[0].Mobile}");
 
                                                 },
                                                 child: Icon(
@@ -1223,6 +1684,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                                       builder: (context) => NewsInCompany(
                                         news: news,
                                         companyName: company.name,
+                                        companyId: company.id,
                                       )));
                             },
                             child: Text(
@@ -1267,7 +1729,66 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             news[0].date.split(' ')[0],
                             style: TextStyle(color: Colors.grey),
                           ),
-                          trailing: Icon(
+                          trailing:company.id==globals.myCompany.id?IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                new CupertinoAlertDialog(
+                                  title: new Text("تنبية"),
+                                  content: new Text("هل تريد حذف هذا الخبر؟"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () async {
+                                            await deleteNews(
+                                              id:news[0].id,
+                                            )
+                                                .then((v) {
+                                              Fluttertoast.showToast(
+                                                  msg: "تمت الحذف بنجاح",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              Navigator.pop(context);
+                                            }).whenComplete(() {
+                                              Navigator.pop(context);
+                                              // Navigator.pop(context);
+
+                                            }).catchError((e) {
+                                              Fluttertoast.showToast(
+                                                  msg: e,
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: MyColor.customColor,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              //  showSnackMsg(e.toString());
+                                              print('ErrorRegCompany:$e');
+                                            }).then((v) {});
+                                          }
+                                          ,
+                                          child: Text("موافق"),
+                                        )),
+                                    CupertinoDialogAction(
+                                        isDefaultAction: false,
+                                        child: new FlatButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("إلغاء"),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          ): Icon(
                             Icons.details,
                             color: Colors.black87,
                           ),
@@ -1321,7 +1842,25 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
   }
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  Future<dynamic> sendMsgToMail(
+      {String mail, String subject, String body}) async {
+    String url = "mailto:$mail?subject=$subject&body=$body";
+    if (await canLaunch(url)) {
+      await launch(url);
+      return true;
+    } else {
+      //throw 'Could not launch $url';
 
+      return false;
+    }
+  }
   launchURL(String socialURL) async {
     var url = "https:$socialURL";
     if (await canLaunch(url)) {
@@ -1348,23 +1887,14 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         await launch(
           url,
           forceSafariVC: true,
+            // enableJavaScript: true,
+            // forceWebView: true
         );
       }
     }
   }
 
-  Future<dynamic> sendMsgToMail(
-      {String mail, String subject, String body}) async {
-    String url = "mailto:$mail?subject=$subject&body=$body";
-    if (await canLaunch(url)) {
-      await launch(url);
-      return true;
-    } else {
-      //throw 'Could not launch $url';
 
-      return false;
-    }
-  }
 
   Future<File> getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);

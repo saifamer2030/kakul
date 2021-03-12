@@ -64,7 +64,6 @@ class _CompaniesState extends State<Companies> {
 
     });
     }
-
    // print("iii${globals.allcompanies[0].distanceBetween}");
     //
     // getAllCompanies().then((v) async {
@@ -219,7 +218,8 @@ class _CompaniesState extends State<Companies> {
             Expanded(
                 child: (companies.length == 0)
                     ? Center(
-                        child:loading?Text(translator.translate('no_comp')): CircularProgressIndicator(
+                        child:loading?Text(translator.translate('no_comp')):
+                        CircularProgressIndicator(
                           valueColor: new AlwaysStoppedAnimation<Color>(
                               MyColor.customColor),
                         ),
@@ -256,7 +256,7 @@ class _CompaniesState extends State<Companies> {
                                           height: double.infinity,
                                           child: FadeInImage.assetNetwork(
                                             image: filteredList[index].imgURL,
-                                            placeholder: 'assets/t1.png',
+                                            placeholder: 'assets/logo.png',
                                             width: 100,
                                             fit: BoxFit.fill,
                                           )),
@@ -357,10 +357,10 @@ class _CompaniesState extends State<Companies> {
                                             allowHalfRating: true,
                                             itemCount: 5,
                                             itemSize: 20,
-                                            // itemBuilder: (context, _) => Icon(
-                                            //   Icons.star,
-                                            //   color: MyColor.customColor,
-                                            // ),
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: MyColor.customColor,
+                                            ),
                                             onRatingUpdate: (rating) {
                                               print(rating);
                                             },
@@ -375,11 +375,12 @@ class _CompaniesState extends State<Companies> {
                                             textColor: Colors.white,
                                             color: MyColor.customColor,
                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Icon(Icons.call),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
+                                                // SizedBox(
+                                                //   width: 5,
+                                                // ),
                                                 Text(translator.translate('Contact'),)
                                               ],
                                             ),
@@ -425,7 +426,7 @@ class _CompaniesState extends State<Companies> {
                                           child: FadeInImage.assetNetwork(
                                             image:
                                             companies[index].imgURL,
-                                            placeholder: 'assets/t1.png',
+                                            placeholder: 'assets/logo.png',
                                             width: 100,
                                             fit: BoxFit.fill,
                                           )),
@@ -548,11 +549,12 @@ class _CompaniesState extends State<Companies> {
                                             textColor: Colors.white,
                                             color: MyColor.customColor,
                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Icon(Icons.call),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
+                                                // SizedBox(
+                                                //   width: 5,
+                                                // ),
                                                 Text(translator.translate('Contact'),)
                                               ],
                                             ),

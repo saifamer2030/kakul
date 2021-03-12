@@ -1,15 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/myColor.dart';
 import 'package:kul_last/view/similarjobs.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:kul_last/model/globals.dart' as globals;
 import 'package:localize_and_translate/localize_and_translate.dart';
 class JobsInCompany extends StatelessWidget {
   List<Job> jobs;
   String companyName;
+  String companyId;
 
-  JobsInCompany({this.jobs, this.companyName});
+  JobsInCompany({this.jobs, this.companyName, this.companyId});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +55,67 @@ class JobsInCompany extends StatelessWidget {
                   jobs[index].dateAt.split(' ')[0],
                   style: TextStyle(color: Colors.grey),
                 ),
-                trailing: Icon(
+                //*************
+                trailing:companyId==globals.myCompany.id?IconButton(
+                  icon: Icon(Icons.delete),
+                  color: Colors.red,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                      new CupertinoAlertDialog(
+                        title: new Text("تنبية"),
+                        content: new Text("هل تريد حذف هذا الوظيفة؟"),
+                        actions: [
+                          CupertinoDialogAction(
+                              isDefaultAction: false,
+                              child: new FlatButton(
+                                onPressed: () async {
+                                  await deleteJob(
+                                    id:jobs[index].id,
+                                  )
+                                      .then((v) {
+                                    Fluttertoast.showToast(
+                                        msg: "تمت الحذف بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIos: 1,
+                                        backgroundColor: MyColor.customColor,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                    Navigator.pop(context);
+                                  }).whenComplete(() {
+                                    Navigator.pop(context);
+                                     Navigator.pop(context);
+
+                                  }).catchError((e) {
+                                    Fluttertoast.showToast(
+                                        msg: e,
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIos: 1,
+                                        backgroundColor: MyColor.customColor,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                    //  showSnackMsg(e.toString());
+                                    print('ErrorRegCompany:$e');
+                                  }).then((v) {});
+                                }
+                                ,
+                                child: Text("موافق"),
+                              )),
+                          CupertinoDialogAction(
+                              isDefaultAction: false,
+                              child: new FlatButton(
+                                onPressed: () =>
+                                    Navigator.pop(context),
+                                child: Text("إلغاء"),
+                              )),
+                        ],
+                      ),
+                    );
+                  },
+                ): Icon(
                   Icons.details,
                   color: Colors.black87,
                 ),

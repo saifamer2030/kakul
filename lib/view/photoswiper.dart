@@ -65,6 +65,9 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        backgroundColor: MyColor.customColor,
+      ),
       body: Container(
           width: double.infinity,
           height: double.infinity,
@@ -78,7 +81,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
                     height: double.infinity,
                     child: FadeInImage.assetNetwork(
             image: widget.company.coverURL,
-            placeholder: 'assets/cover.png',
+            placeholder: 'assets/logo.png',
             fit: BoxFit.cover,
           ),
                   ),
@@ -97,7 +100,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
                           },
                           child: FadeInImage.assetNetwork(
                             image: widget.company.imgURL,
-                            placeholder: 'assets/picture2.png',
+                            placeholder: 'assets/logo.png',
                             fit: BoxFit.cover,
                             width: 70,
                             height: 70,
@@ -149,7 +152,11 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
               print("Showing a story");
             },
             onComplete: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CompanyDetailsMap(widget.company)));
             },
             progressPosition: ProgressPosition.top,
             repeat: true,

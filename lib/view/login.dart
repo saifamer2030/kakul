@@ -67,6 +67,7 @@ class _LoginState extends State<Login> {
                               ChangeNotifierProvider<OffersProvider>.value(
                                 value: OffersProvider(),
                               ),
+
                             ],
                             child: Home(null),
                           ),
@@ -185,6 +186,7 @@ class _LoginState extends State<Login> {
                                                   ChangeNotifierProvider<OffersProvider>.value(
                                                     value: OffersProvider(),
                                                   ),
+
                                                 ],
                                                 child: Home(v),
                                               )));

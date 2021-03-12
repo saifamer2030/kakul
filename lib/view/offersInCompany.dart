@@ -1,24 +1,33 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/myColor.dart';
 import 'package:kul_last/view/similaroffers.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:kul_last/model/globals.dart' as globals;
 
 class OffersInCompany extends StatelessWidget {
   List<Offer> offers;
   String companyName;
+  String companyId;
+  OffersInCompany({this.offers, this.companyName, this.companyId});
+  // var key = GlobalKey<ScaffoldState>();
 
-  OffersInCompany({this.offers, this.companyName});
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      // key: key,
+
       appBar: AppBar(
         backgroundColor: MyColor.customColor,
         centerTitle: true,
         title: Text(
-          ' ${translator.translate('Jobs')} $companyName',
+          ' ${translator.translate('AvailableOffers')} $companyName',
         ),
       ),
       body: Directionality(
@@ -37,7 +46,7 @@ class OffersInCompany extends StatelessWidget {
                   child: ClipOval(
                     child:FadeInImage.assetNetwork(
                       image:offers[index].company_image,
-                      placeholder:  'assets/cover.png',
+                      placeholder:  'assets/logo.png',
                       width: 60,
                       height: 80,
                       fit: BoxFit.fill,
@@ -52,7 +61,67 @@ class OffersInCompany extends StatelessWidget {
                   offers[index].create_date.split(' ')[0],
                   style: TextStyle(color: Colors.grey),
                 ),
-                trailing: Icon(
+                //***************
+                trailing:companyId==globals.myCompany.id?IconButton(
+                  icon: Icon(Icons.delete),
+                  color: Colors.red,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                      new CupertinoAlertDialog(
+                        title: new Text("تنبية"),
+                        content: new Text("هل تريد حذف هذا العرض؟"),
+                        actions: [
+                          CupertinoDialogAction(
+                              isDefaultAction: false,
+                              child: new FlatButton(
+                                onPressed: () async {
+                                  await deleteOffer(
+                                      id:offers[index].id,
+                                  )
+                                      .then((v) {
+                                    Fluttertoast.showToast(
+                                        msg: "تمت الإضافة بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIos: 1,
+                                        backgroundColor: MyColor.customColor,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                    Navigator.pop(context);
+                                  }).whenComplete(() {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+
+                                  }).catchError((e) {
+                                    Fluttertoast.showToast(
+                                        msg: e,
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIos: 1,
+                                        backgroundColor: MyColor.customColor,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  //  showSnackMsg(e.toString());
+                                    print('ErrorRegCompany:$e');
+                                  }).then((v) {});
+                                }
+                                ,
+                                child: Text("موافق"),
+                              )),
+                          CupertinoDialogAction(
+                              isDefaultAction: false,
+                              child: new FlatButton(
+                                onPressed: () =>
+                                    Navigator.pop(context),
+                                child: Text("إلغاء"),
+                              )),
+                        ],
+                      ),
+                    );
+                  },
+                ): Icon(
                   Icons.details,
                   color: Colors.black87,
                 ),
@@ -66,7 +135,7 @@ class OffersInCompany extends StatelessWidget {
                         width:  double.infinity,
                         child: FadeInImage.assetNetwork(
                           image:offers[index].image,
-                          placeholder:  'assets/cover.png',
+                          placeholder:  'assets/logo.png',
                           width: 60,
                           height: 80,
                           fit: BoxFit.fill,
@@ -178,4 +247,13 @@ class OffersInCompany extends StatelessWidget {
       ),
     );
   }
+  // showSnackMsg(String msg) {
+  //   key.currentState.showSnackBar(SnackBar(
+  //     content: Text(
+  //       msg,
+  //       textAlign: TextAlign.center,
+  //     ),
+  //   ));
+  // }
+
 }

@@ -41,6 +41,8 @@
     "AboutCompany": "عن الشركة",
     "ContactInformation": "معلومات الاتصال",
     "AvailableJobs": "الوظائف المتاحة",
+    "AvailableOffers": "العروض المتاحة",
+
     "BrowseMore": "تصفح المزيد",
     "ExperienceLevel": "مستوى الخبرة",
     "RecentGraduate": "حديث التخرج",
@@ -145,7 +147,9 @@
     "NewJobAlertFromCompany": "تنبيه بوظيفة جديدة من شركة ",
     "RegisterNewAccount": "تسجيل حساب جديد",
     "ThereIsNo": "لا يوجد",
-    "no_comp": "لا يوجد شركات الان"
+    "no_comp": "لا يوجد شركات الان",
+    "confirm_del":  "تمت الحذف بنجاح",
+    "subcribe": "اشتراك"
 
 
 

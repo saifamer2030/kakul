@@ -17,9 +17,11 @@ import 'package:kul_last/model/jobtype.dart';
 import 'package:kul_last/model/map_helper.dart';
 import 'package:kul_last/model/map_marker.dart';
 import 'package:kul_last/model/message.dart';
+import 'package:kul_last/model/myplan.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/model/photo.dart';
+import 'package:kul_last/model/plan.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
 import 'package:kul_last/view/companyDetails.dart';
@@ -31,6 +33,7 @@ import 'package:kul_last/model/globals.dart' as globals;
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 import 'others.dart';
+import 'package:http/http.dart' as http;
 
 Future<dynamic> getAllSections() async {
   List<Section> sections = [];
@@ -148,8 +151,8 @@ Future<dynamic> getAllCompanies1() async {
 
                globals.allcompanies.add(Company.fromMap(item));
              // globals.allcompanies.addAll(companies);
-             globals.allcompanies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
-
+             // globals.allcompanies.sort((fl1, fl2) => fl1.distanceBetween.compareTo(fl2.distanceBetween));
+              globals.allcompanies.sort((fl1, fl2) =>int.parse(fl1.distanceBetween) .compareTo(int.parse(fl2.distanceBetween)));
             //  print("aaa${ globals.allcompanies}");
             });
             });
@@ -929,6 +932,35 @@ Future<dynamic> registerOffer(
   print('Status:${response.statusCode}');
   print('Response:${response.data.toString()}');
 }
+Future<dynamic> deleteOffer({String id}) async {
+  var baseURL =
+      "http://kk.vision.com.sa/API/DeleteOffer.php?id=$id";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+}
+Future<dynamic> deleteJob({String id}) async {
+  var baseURL =
+      "http://kk.vision.com.sa/API/DeletesJob.php?id=$id";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+}
+Future<dynamic> deleteNews({String id}) async {
+  var baseURL =
+      "http://kk.vision.com.sa/API/DeleteNews.php?id=$id";
+  var client = Client();
+  Response response = await client.get(baseURL)
+      .then((value){
+    print("lll${value.body}//${value.request}//");
+  });
+}
+
+
 Future<dynamic> getCompanyoffers({String companyID}) async {
   String baseURL = "http://kk.vision.com.sa/API/GetOffer.php?Spid=$companyID";
   var client = Client();
@@ -1107,15 +1139,89 @@ Future<dynamic> deletCompanyphoto(String photoID) async {
   });
 
 }
+Future<dynamic> getallplans() async {
+  List<Plan> plans = [];
+
+  String url = 'http://kk.vision.com.sa/API/Plans.php';
+  Map<String, String> headers = {   'Content-type': 'application/json',
+    'Accept': 'application/json'};
+
+  var formData = dio.FormData.fromMap({
+    "req_type": "getAll",
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response = await dio.Dio()
+      .post(url, data: formData, options: dio.Options(headers: headers));
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.data);
+    if (json['success']) {
+      List jsonList = json["data"];
+      print('Responsepp11:${jsonList.toString()}');
+      jsonList.forEach((i) {
+        plans.add(Plan.fromMap(i));
+        print('Responsepp11:${Plan.fromMap(i).text}');
+      });
+      return plans;
+    } else {
+      return null;
+    }
+  }
+
+  print('Status:${response.statusCode}');
+  print('Responsepp:${response.data.toString()}');
+}
+
+Future<dynamic> getmyplans(id) async {
+  List<MyPlan> plans = [];
+
+  String url = 'http://kk.vision.com.sa/API/Subscribe.php';
+  Map<String, String> headers = {   'Content-type': 'application/json',
+    'Accept': 'application/json'};
+
+  var formData = dio.FormData.fromMap({
+    "req_type": "getByUserID",
+    "user_id": id
+
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response = await dio.Dio()
+      .post(url, data: formData, options: dio.Options(headers: headers));
+  if (response.statusCode == 200) {
+    var json = jsonDecode(response.data);
+    if (json['success']) {
+      List jsonList = json["data"];
+      print('Responsepp11:${jsonList.toString()}');
+      jsonList.forEach((i) {
+        plans.add(MyPlan.fromMap(i));
+        print('Responsepp11:${MyPlan.fromMap(i).id}');
+      });
+      return plans;
+    } else {
+      return plans;
+    }
+  }
+
+  print('Status:${response.statusCode}');
+  print('Responsepp:${response.data.toString()}');
+}
 
 
-/**
-    [12:52 PM, 12/27/2020] +971 58 670 6583:
+Future<dynamic> creatmyplan(id) async {
+  String url = 'http://kk.vision.com.sa/API/Subscribe.php';
+  Map<String, String> headers = {   'Content-type': 'application/json',
+    'Accept': 'application/json'};
 
-    http://kk.vision.com.sa/API/GetAllOffer.php
-    جلب كل العروض
-    [12:53 PM, 12/27/2020] +971 58 670 6583: http://kk.vision.com.sa/API/DeleteOffer.php?id=1
-    حذف عرض حيث id تمثل اي دي العرض
-    [12:55 PM, 12/27/2020] +971 58 670 6583: http://kk.vision.com.sa/API/GetOffer.php?Spid=10
-    جلب العروض الخاصة بشركة واحده  حيث Spid اي دي الشركة
- * */
+  var formData = dio.FormData.fromMap({
+    "req_type": "create",
+    "user_id": id,
+    "plan_id": 4,
+    "status" : "1"
+
+
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response = await dio.Dio()
+      .post(url, data: formData, options: dio.Options(headers: headers));
+  print('Status:${response.statusCode}');
+  print('Responsepp:${response.data.toString()}kkk');
+}

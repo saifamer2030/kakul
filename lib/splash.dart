@@ -67,17 +67,72 @@ class _SplashState extends State<Splash> {
                           ChangeNotifierProvider<OffersProvider>.value(
                             value: OffersProvider(),
                           ),
+
                         ],
                         child: Home(v),
                       )));
         } else {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Login()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => MultiProvider(
+                providers: [
+                  ChangeNotifierProvider<SectionProvider>.value(
+                    value: SectionProvider(),
+                  ),
+                  ChangeNotifierProvider<
+                      FeaturedCompanyProvider>.value(
+                    value: FeaturedCompanyProvider(),
+                  ),
+                  ChangeNotifierProvider<CompanyProvider>.value(
+                    value: CompanyProvider(),
+                  ),
+                  ChangeNotifierProvider<JobsProvider>.value(
+                    value: JobsProvider(),
+                  ),
+                  ChangeNotifierProvider<OffersProvider>.value(
+                    value: OffersProvider(),
+                  ),
+
+                ],
+                child: Home(null),
+              ),
+            ),
+          );
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (context) => Login()));
         }
       });
     } else
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Login()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider<SectionProvider>.value(
+                value: SectionProvider(),
+              ),
+              ChangeNotifierProvider<
+                  FeaturedCompanyProvider>.value(
+                value: FeaturedCompanyProvider(),
+              ),
+              ChangeNotifierProvider<CompanyProvider>.value(
+                value: CompanyProvider(),
+              ),
+              ChangeNotifierProvider<JobsProvider>.value(
+                value: JobsProvider(),
+              ),
+              ChangeNotifierProvider<OffersProvider>.value(
+                value: OffersProvider(),
+              ),
+
+            ],
+            child: Home(null),
+          ),
+        ),
+      );
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => Login()));
   }
 
   @override
