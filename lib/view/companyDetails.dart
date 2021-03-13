@@ -17,6 +17,7 @@ import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/model/photo.dart';
 import 'package:kul_last/model/plan.dart';
+import 'package:kul_last/payment/CreditCardPage.dart';
 import 'package:kul_last/view/addNewjob.dart';
 import 'package:kul_last/view/addNewnews.dart';
 import 'package:kul_last/view/addnewoffer.dart';
@@ -122,21 +123,27 @@ bool subcribecheck=false;
       await getmyplans(globals.myCompany.id).then((v) async {
         setState(() {
           plans.addAll(v);
-          print("ppll${plans[0]}");
+          print("pplkl${plans[0].status}");
         if(plans.length==0){
           subcribecheck=false;
           print("ppll11${subcribecheck}");
         }else{
-          print("ppll22${subcribecheck}");
-                String date = plans[0].create_date.replaceAll("-", "").replaceAll(" ", "").replaceAll(":", "");
-                String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
-                DateTime dateTime1 = DateTime.parse(dateWithT);
-                DateTime dateTime2 =dateTime1.add(new Duration(days:1));
-
-              if(  DateTime.now().isBefore(dateTime2)){
-                subcribecheck=true;
-
-              }else{          subcribecheck=false;}
+          if(plans[0].status=="0"){
+            subcribecheck=true;
+          }else{
+            subcribecheck=false;
+          }
+         // plans[0].status;
+          // print("ppll22${subcribecheck}");
+          //       String date = plans[0].create_date.replaceAll("-", "").replaceAll(" ", "").replaceAll(":", "");
+          //       String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
+          //       DateTime dateTime1 = DateTime.parse(dateWithT);
+          //       DateTime dateTime2 =dateTime1.add(new Duration(days:1));
+          //
+          //     if(  DateTime.now().isBefore(dateTime2)){
+          //       subcribecheck=true;
+          //
+          //     }else{          subcribecheck=false;}
           // Timer(Duration(seconds: 0), () async {
           //   List<Plan> plan = [];
           //   await getoneplan(plans[0].plan_id).then((v) async {
@@ -666,80 +673,6 @@ bool subcribecheck=false;
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      RaisedButton(
-                        color: MyColor.customColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddNewJob()));
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.water_damage_rounded),
-                            // SizedBox(
-                            //   width: 5,
-                            // ),
-                            Text(translator.translate('PostJob'))
-                          ],
-                        ),
-                      ),
-                      RaisedButton(
-                        color: MyColor.customColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddNewOffer()));
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.monetization_on),
-                            // SizedBox(
-                            //   width: 5,
-                            // ),
-                            Text(translator.translate('AddOffer'))
-                          ],
-                        ),
-                      ),
-                      RaisedButton(
-                        color: MyColor.customColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddNewNews()));
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.wysiwyg),
-                            // SizedBox(
-                            //   width: 5,
-                            // ),
-                            Text(translator.translate('AddNews'))
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ): Container(
-
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.all(1),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: .5, color: Colors.grey)),
-                  width:  MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
                       // RaisedButton(
                       //   color: MyColor.customColor,
                       //   textColor: Colors.white,
@@ -802,6 +735,80 @@ bool subcribecheck=false;
                       //     ],
                       //   ),
                       // ),
+
+                    ],
+                  ),
+                ):Container(
+
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: .5, color: Colors.grey)),
+                  width:  MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNewJob()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.water_damage_rounded),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('PostJob'))
+                          ],
+                        ),
+                      ),
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNewOffer()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.monetization_on),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('AddOffer'))
+                          ],
+                        ),
+                      ),
+                      RaisedButton(
+                        color: MyColor.customColor,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNewNews()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.wysiwyg),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            Text(translator.translate('AddNews'))
+                          ],
+                        ),
+                      ),
 
                     ],
                   ),

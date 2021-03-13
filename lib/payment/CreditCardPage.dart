@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/plan.dart';
 import 'package:kul_last/payment/input_formatters.dart';
 import 'package:kul_last/payment/my_strings.dart';
 import 'package:kul_last/payment/payment_card.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-
+import 'package:kul_last/model/globals.dart' as globals;
 
 class CreditCardPage extends StatefulWidget {
   Plan plan;
@@ -27,9 +28,8 @@ class CreditCardPageState extends State<CreditCardPage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var _formKey = new GlobalKey<FormState>();
   var numberController = new TextEditingController();
-  var _autoValidate = false;
-  bool _load = false;
   var _paymentCard = PaymentCard();
+  var _autoValidate = false;
   var _card = new PaymentCard();
 
   @override
@@ -37,143 +37,138 @@ class CreditCardPageState extends State<CreditCardPage> {
     super.initState();
     _paymentCard.type = CardType.Others;
     numberController.addListener(_getCardTypeFrmNumber);
-
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget loadingIndicator = _load
-        ? new Container(
-            child: SpinKitCubeGrid(
-              color: Theme.of(context).primaryColor,
-            ),
-          )
-        : new Container();
     return new Scaffold(
-        backgroundColor: Colors.white,
         key: _scaffoldKey,
-        appBar: AppBar(
+        appBar: new AppBar(
           centerTitle: true,
-          title: Text('Payment'),
+          title: new Text(Strings.appName),
         ),
         body: new Container(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: new Form(
               key: _formKey,
               autovalidate: _autoValidate,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: new ListView(
-                      children: <Widget>[
-                        new SizedBox(
-                          height: 20.0,
-                        ),
-                        new TextFormField(
-                          decoration: const InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            icon: const Icon(
-                              Icons.person,
-                              size: 40.0,
-                            ),
-                            hintText: 'What name is written on card?',
-                            labelText: 'Card Name',
-                          ),
-                          onSaved: (String value) {
-                            _card.name = value;
-                          },
-                          keyboardType: TextInputType.text,
-                          validator: (String value) =>
-                              value.isEmpty ? Strings.fieldReq : null,
-                        ),
-                        new SizedBox(
-                          height: 30.0,
-                        ),
-                        new TextFormField(
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            new LengthLimitingTextInputFormatter(19),
-                          //  new CardNumberInputFormatter()
-                          ],
-                          controller: numberController,
-                          decoration: new InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            icon: CardUtils.getCardIcon(_paymentCard.type),
-                            hintText: 'What number is written on card?',
-                            labelText: 'Number',
-                          ),
-                          onSaved: (String value) {
-                            print('onSaved = $value');
-                            print(
-                                'Num controller has = ${numberController.text}');
-                            _paymentCard.number =
-                                CardUtils.getCleanedNumber(value);
-                          },
-                          validator: CardUtils.validateCardNum,
-                        ),
-                        new SizedBox(
-                          height: 30.0,
-                        ),
-                        new TextFormField(
-                          inputFormatters: [
-                           WhitelistingTextInputFormatter.digitsOnly,
-                            new LengthLimitingTextInputFormatter(4),
-                          ],
-                          decoration: new InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            icon: new Image.asset(
-                              'assets/images/card_cvv.png',
-                              width: 40.0,
-                              color: Colors.grey[600],
-                            ),
-                            hintText: 'Number behind the card',
-                            labelText: 'CVV',
-                          ),
-                          validator: CardUtils.validateCVV,
-                          keyboardType: TextInputType.number,
-                          onSaved: (value) {
-                            _paymentCard.cvv = int.parse(value);
-                          },
-                        ),
-                        new SizedBox(
-                          height: 30.0,
-                        ),
-                        new TextFormField(
-                          inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            new LengthLimitingTextInputFormatter(4),
-                          //  new CardMonthInputFormatter()
-                          ],
-                          decoration: new InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            icon: new Image.asset(
-                              'assets/images/calender.png',
-                              width: 40.0,
-                              color: Colors.grey[600],
-                            ),
-                            hintText: 'MM/YY',
-                            labelText: 'Expiry Date',
-                          ),
-                          validator: CardUtils.validateDate,
-                          keyboardType: TextInputType.number,
-                          onSaved: (value) {
-                            List<int> expiryDate =
-                                CardUtils.getExpiryDate(value);
-                            _paymentCard.month = expiryDate[0].toString();
-                            _paymentCard.year = expiryDate[1].toString();
-                          },
-                        ),
-                      ],
+              child: new ListView(
+                children: <Widget>[
+                  new SizedBox(
+                    height: 20.0,
+                  ),
+                  new TextFormField(
+                    decoration: const InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: true,
+                      icon: const Icon(
+                        Icons.person,
+                        size: 40.0,
+                      ),
+                      hintText: 'What name is written on card?',
+                      labelText: 'Card Name',
                     ),
+                    onSaved: (String value) {
+                      setState(() {
+                        _card.name = value;
+                        _paymentCard.name =value;
+                      });
+                    },
+                    keyboardType: TextInputType.text,
+                    validator: (String value) =>
+                    value.isEmpty ? Strings.fieldReq : null,
+                  ),
+                  new SizedBox(
+                    height: 30.0,
+                  ),
+                  new TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      WhitelistingTextInputFormatter.digitsOnly,
+                      new LengthLimitingTextInputFormatter(19),
+                      // new CardNumberInputFormatter()
+                      CreditCardNumberInputFormatter(onCardSystemSelected:
+                          (CardSystemData cardSystemData) {
+                        print(cardSystemData.system);
+                      })
+                    ],
+                    controller: numberController,
+                    decoration: new InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: true,
+                      icon: CardUtils.getCardIcon(_paymentCard.type),
+                      hintText: 'What number is written on card?',
+                      labelText: 'Number',
+                    ),
+                    onSaved: (String value) {
+                      print('onSaved = $value');
+                      print('Num controller has = ${numberController.text}');
+                      _paymentCard.number = CardUtils.getCleanedNumber(value);
+                    },
+                    validator: CardUtils.validateCardNum,
+                  ),
+                  new SizedBox(
+                    height: 30.0,
+                  ),
+                  new TextFormField(
+                    inputFormatters: [
+                      WhitelistingTextInputFormatter.digitsOnly,
+                      new LengthLimitingTextInputFormatter(4),
+                      CreditCardCvcInputFormatter()
+                    ],
+                    decoration: new InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: true,
+                      icon: new Image.asset(
+                        'assets/images/card_cvv.png',
+                        width: 40.0,
+                        color: Colors.grey[600],
+                      ),
+                      hintText: 'Number behind the card',
+                      labelText: 'CVV',
+                    ),
+                    validator: CardUtils.validateCVV,
+                    keyboardType: TextInputType.number,
+                    onSaved: (value) {
+                      _paymentCard.cvv = int.parse(value);
+                    },
+                  ),
+                  new SizedBox(
+                    height: 30.0,
+                  ),
+                  new TextFormField(
+                    inputFormatters: [
+                      WhitelistingTextInputFormatter.digitsOnly,
+                      new LengthLimitingTextInputFormatter(4),
+                      // new CardMonthInputFormatter()
+                      CreditCardExpirationDateFormatter()
+                    ],
+                    decoration: new InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: true,
+                      icon: new Image.asset(
+                        'assets/images/calender.png',
+                        width: 40.0,
+                        color: Colors.grey[600],
+                      ),
+                      hintText: 'MM/YY',
+                      labelText: 'Expiry Date',
+                    ),
+                    validator: CardUtils.validateDate,
+                    keyboardType: TextInputType.number,
+                    onSaved: (value) {
+                      List<int> expiryDate = CardUtils.getExpiryDate(value);
+                      _paymentCard.month = expiryDate[0];
+                      _paymentCard.year = expiryDate[1];
+                    },
+                  ),
+                  new SizedBox(
+                    height: 50.0,
                   ),
                   new Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: !_load ? _getPayButton() : loadingIndicator),
+                    alignment: Alignment.center,
+                    child: _getPayButton(),
+                  )
                 ],
               )),
         ));
@@ -195,37 +190,37 @@ class CreditCardPageState extends State<CreditCardPage> {
     });
   }
 
-  void _validateInputs() {
+  Future<void> _validateInputs() async {
+    await creatmyplanwithpay(globals.myCompany.id,widget.plan.id,widget.plan.price,
+        _paymentCard.type,_paymentCard.number,_paymentCard.month,_paymentCard.year,
+        _paymentCard.cvv,_paymentCard.name).then((v) async {
+      Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);
+    });
+    // print('Type :${_paymentCard.type}');
+    // print('Number :${_paymentCard.number}');
+    // print('Cvv : ${_paymentCard.cvv}');
+    // print('Name :${_paymentCard.name}');
+    // print('Month :${_paymentCard.month}');
+    // print('Year :${_paymentCard.year}');
+    // print("احمد مجدى صالح"+widget.plan.price.toString());
     final FormState form = _formKey.currentState;
     if (!form.validate()) {
       setState(() {
         _autoValidate = true; // Start validating on every change.
       });
-      _load = false;
       _showInSnackBar('Please fix the errors in red before submitting.');
     } else {
       form.save();
       // Encrypt and send send payment details to payment gateway
-
-
-//                  '4242424242424242'
-      PaymentCard card = PaymentCard(
-          name: _paymentCard.name,
-          number: _paymentCard.number,
-          month: _paymentCard.month,
-          year: _paymentCard.year,
-          cvv: _paymentCard.cvv,
-          type: _paymentCard.type);
-      print('${_paymentCard.month}///${_paymentCard.year}');
+      _showInSnackBar('Payment card is valid');
     }
   }
-
 
   Widget _getPayButton() {
     if (Platform.isIOS) {
       return new CupertinoButton(
         onPressed: _validateInputs,
-        color: CupertinoColors.activeBlue,
+        color: Colors.black,//CupertinoColors.activeBlue,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -236,7 +231,7 @@ class CreditCardPageState extends State<CreditCardPage> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: new Text(
-                '٠٠٠٠',
+                '${widget.plan.price}',
                 style: const TextStyle(fontSize: 17.0),
               ),
             ),
@@ -257,7 +252,6 @@ class CreditCardPageState extends State<CreditCardPage> {
         child: new FlatButton(
           onPressed: () {
             setState(() {
-              _load = true;
               _validateInputs();
             });
           },
@@ -277,7 +271,7 @@ class CreditCardPageState extends State<CreditCardPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: new Text(
-                  '٠٠٠٠٠٠',
+                  '${widget.plan.price}',
                   style: const TextStyle(fontSize: 17.0),
                 ),
               ),
@@ -301,6 +295,4 @@ class CreditCardPageState extends State<CreditCardPage> {
       duration: new Duration(seconds: 3),
     ));
   }
-
-
 }

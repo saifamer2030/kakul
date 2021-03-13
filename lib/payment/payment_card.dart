@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:kul_last/payment/my_strings.dart';
 
@@ -7,8 +6,8 @@ class PaymentCard {
   CardType type;
   String number;
   String name;
-  String month;
-  String year;
+  int month;
+  int year;
   int cvv;
 
   PaymentCard(
