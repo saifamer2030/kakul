@@ -183,6 +183,12 @@ class CreditCardPageState extends State<CreditCardPage> {
   }
 
   void _validateInputs() {
+    print('Type :${_paymentCard.type}');
+    print('Number :${_paymentCard.number}');
+    print('Cvv : ${_paymentCard.cvv}');
+    print('Name :${_paymentCard.name}');
+    print('Month :${_paymentCard.month}');
+    print('Year :${_paymentCard.year}');
     final FormState form = _formKey.currentState;
     if (!form.validate()) {
       setState(() {
