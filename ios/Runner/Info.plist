@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.visionsa.kakul</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -15,38 +11,17 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>kakul</string>
+	<string>Kakul</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>googlechromes</string>
-		<string>comgooglemaps</string>
-	</array>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need a location request to get your orders delivered or get your order from our branches</string>
-	<key>NSLocationUsageDescription</key>
-	<string>$(PRODUCT_NAME) location use.  We need a location request to get your orders delivered or get your order from our branches </string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need a location request to get your orders delivered or get your order from our branches </string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app need to access photos and library to upload images when adding product</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>processing</string>
-		<string>remote-notification</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -66,5 +41,31 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+    	<array>
+    		<string>googlechromes</string>
+    		<string>comgooglemaps</string>
+    	</array>
+    	<key>LSRequiresIPhoneOS</key>
+    	<true/>
+    	<key>NSCameraUsageDescription</key>
+    	<string>$(PRODUCT_NAME) camera use.</string>
+    	<key>NSLocationAlwaysUsageDescription</key>
+    	<string>We need a location request to get your orders delivered or get your order from our branches</string>
+    	<key>NSLocationUsageDescription</key>
+    	<string>$(PRODUCT_NAME) location use.  We need a location request to get your orders delivered or get your order from our branches </string>
+    	<key>NSLocationWhenInUseUsageDescription</key>
+    	<string>We need a location request to get your orders delivered or get your order from our branches </string>
+    	<key>NSPhotoLibraryUsageDescription</key>
+    	<string>This app need to access photos and library to upload images when adding product</string>
+    	<key>UIBackgroundModes</key>
+    	<array>
+    		<string>fetch</string>
+    		<string>processing</string>
+    	</array>
+    	<key>BGTaskSchedulerPermittedIdentifiers</key>
+        <array>
+            <string>com.visionsa.kakul</string>
+        </array>
 </dict>
 </plist>

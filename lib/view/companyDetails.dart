@@ -131,7 +131,7 @@ bool subcribecheck=false;
                 String date = plans[0].create_date.replaceAll("-", "").replaceAll(" ", "").replaceAll(":", "");
                 String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
                 DateTime dateTime1 = DateTime.parse(dateWithT);
-                DateTime dateTime2 =dateTime1.add(new Duration(days:3));
+                DateTime dateTime2 =dateTime1.add(new Duration(days:1));
 
               if(  DateTime.now().isBefore(dateTime2)){
                 subcribecheck=true;

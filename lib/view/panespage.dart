@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/plan.dart';
+import 'package:kul_last/payment/CreditCardPage.dart';
 import 'package:kul_last/view/similaroffers.dart';
 import 'package:kul_last/viewModel/jobsProvider.dart';
 import 'package:kul_last/viewModel/offersProvider.dart';
@@ -72,7 +73,7 @@ class _PanesPageState extends State<PanesPage> {
                       style: TextStyle(color: Colors.black87),
                     ),
                     subtitle: Text(
-                      "${plans[index].price} ريال لمدة ${plans[index].duration} شهر",
+                      "${plans[index].price} ريال لمدة ${plans[index].duration} يوم",
                       style: TextStyle(color: Colors.grey),
                     ),
                     trailing: Icon(
@@ -130,7 +131,7 @@ class _PanesPageState extends State<PanesPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      PanesPage()));
+                                      CreditCardPage(plans[index])));
                         },
                         child: Row(
                           children: <Widget>[
