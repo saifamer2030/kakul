@@ -15,6 +15,7 @@ import 'package:kul_last/model/jobs.dart';
 import 'package:kul_last/model/news.dart';
 import 'package:kul_last/model/offer.dart';
 import 'package:kul_last/model/photo.dart';
+import 'package:kul_last/payment/CreditCardPage.dart';
 import 'package:kul_last/view/addNewjob.dart';
 import 'package:kul_last/view/addNewnews.dart';
 import 'package:kul_last/view/addnewoffer.dart';
@@ -627,7 +628,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      AddNewOffer()));
+                                      CreditCardPage()));
                         },
                         child: Row(
                           children: <Widget>[
