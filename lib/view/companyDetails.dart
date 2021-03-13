@@ -628,7 +628,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      CreditCardPage()));
+                                      AddNewOffer()));
                         },
                         child: Row(
                           children: <Widget>[
