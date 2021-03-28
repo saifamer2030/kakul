@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:kul_last/backend/sectionBack.dart';
 import 'package:kul_last/model/plan.dart';
@@ -191,18 +192,32 @@ class CreditCardPageState extends State<CreditCardPage> {
   }
 
   Future<void> _validateInputs() async {
-    await creatmyplanwithpay(globals.myCompany.id,widget.plan.id,widget.plan.price,
-        _paymentCard.type,_paymentCard.number,_paymentCard.month,_paymentCard.year,
-        _paymentCard.cvv,_paymentCard.name).then((v) async {
-      Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);
-    });
-    // print('Type :${_paymentCard.type}');
-    // print('Number :${_paymentCard.number}');
-    // print('Cvv : ${_paymentCard.cvv}');
-    // print('Name :${_paymentCard.name}');
-    // print('Month :${_paymentCard.month}');
-    // print('Year :${_paymentCard.year}');
-    // print("احمد مجدى صالح"+widget.plan.price.toString());
+    try {
+             List<Placemark> p = await Geolocator().placemarkFromCoordinates(
+                 double.parse(globals.lat.toString().trim()),
+                 double.parse(globals.lng.toString().trim())
+             );
+
+             Placemark place = p[0];
+             String name = place.name;
+             String subLocality = place.subLocality;
+             String locality = place.locality;
+             String administrativeArea = place.administrativeArea;
+             String postalCode = place.postalCode;
+             String country = place.country;
+
+          String   Address ="n:${name}, sub:${subLocality}, loc:${locality}, ad:${administrativeArea} pp:${postalCode}, c:${country}";
+             print("yyy$Address");
+             await paydata(globals.myCompany.id,widget.plan.id,widget.plan.price,
+                 _paymentCard.type,_paymentCard.number,_paymentCard.month,_paymentCard.year,
+                 _paymentCard.cvv,_paymentCard.name,context,name,locality,administrativeArea,postalCode).then((v) async {
+               // Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);
+             });
+    } catch (e) {
+             print(e);
+           }
+
+
     final FormState form = _formKey.currentState;
     if (!form.validate()) {
       setState(() {

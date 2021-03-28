@@ -24,6 +24,7 @@ import 'package:kul_last/model/photo.dart';
 import 'package:kul_last/model/plan.dart';
 import 'package:kul_last/model/section.dart';
 import 'package:kul_last/model/subSection.dart';
+import 'package:kul_last/payment/payhtmlpage.dart';
 import 'package:kul_last/view/companyDetails.dart';
 import 'package:kul_last/view/companyDetailsmap.dart';
 import 'package:kul_last/view/photoswiper.dart';
@@ -1228,7 +1229,8 @@ Future<dynamic> creatmyplan(id) async {
 
 Future<dynamic> creatmyplanwithpay(user_id,plan_id,price,
 paymentCard_type,_paymentCard_number,_paymentCard_month,_paymentCard_year,
-_paymentCard_cvv,_paymentCard_name) async {
+_paymentCard_cvv,_paymentCard_name,context,streetname,city,state,postalCode) async {
+
   String url = 'http://kk.vision.com.sa/API/Subscribe.php';
   Map<String, String> headers = {   'Content-type': 'application/json',
     'Accept': 'application/json'};
@@ -1250,10 +1252,78 @@ _paymentCard_cvv,_paymentCard_name) async {
     "cvv" :"${_paymentCard_cvv}",
   "holder" : "${_paymentCard_name}",
 
+    "street1":"${streetname}",
+    "city":"${city}",
+    "state" :"${state}",
+    "postcode" : "${postalCode}",
+
   });
   // print('FormData:${formData.fields}');
   dio.Response response = await dio.Dio()
       .post(url, data: formData, options: dio.Options(headers: headers));
   print('Status:${response.statusCode}');
   print('Responsepp:${response.data.toString()}kkk');
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Payhtmlpage(response.data.toString())));
+}
+
+
+Future<dynamic> paydata(user_id,plan_id,price,
+    paymentCard_type,_paymentCard_number,_paymentCard_month,_paymentCard_year,
+    _paymentCard_cvv,_paymentCard_name,context,streetname,city,state,postalCode) async {
+
+  String url = 'http://kk.vision.com.sa/API/Payment.php';
+  Map<String, String> headers = {   'Content-type': 'application/json',
+    'Accept': 'application/json'};
+
+  var formData = dio.FormData.fromMap({
+    "req_type": "checkoutServer",
+
+    "amount": "$price",
+    "currency": "SAR",
+    "paymentBrand": "${paymentCard_type}",
+    "paymentType" : "DB",
+
+    "number": "${_paymentCard_number}",
+    "expiryMonth":"${_paymentCard_month}",
+    "expiryYear":"${_paymentCard_year}",
+    "cvv" :"${_paymentCard_cvv}",
+    "holder" : "${_paymentCard_name}",
+
+    "street1":"${streetname}",
+    "city":"${city}",
+    "state" :"${state}",
+    "postcode" : "55555"//"${postalCode}"//"55555",
+
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response = await dio.Dio()
+      .post(url, data: formData, options: dio.Options(headers: headers));
+  print('Status:${response.statusCode}');
+  print('Responsepp:${response.data.toString()}kkk');
+
+ var url1="http://kk.vision.com.sa/API/Payment.php";
+  // Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //         builder: (context) =>
+  //             Payhtmlpage(response.data.url)));
+  String url_checkout_id =response.data.url.replace("http://www.kakeul.com/resourcePath=/v1/checkouts/","")..replace("/payment","");
+
+
+  var formData1 = dio.FormData.fromMap({
+    "req_type" : "getResult",
+    "checkout_id" : url_checkout_id,
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response1 = await dio.Dio()
+      .post(url, data: formData1, options: dio.Options(headers: headers));
+  print('Status:${response1.statusCode}');
+  print('Responsepp:${response1.data.toString()}kkk');
+  if(response1.data.error){}else{creatmyplan(user_id);}
+
+
 }

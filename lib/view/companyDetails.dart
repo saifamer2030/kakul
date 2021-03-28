@@ -663,7 +663,8 @@ bool subcribecheck=false;
                   height: 10,
                 ),
                 (( globals.myCompany.id==company.id)&&(globals.myCompany.Accept=="1"))?
-                subcribecheck? Container(
+              true//  subcribecheck
+                    ? Container(
 
                   margin: EdgeInsets.only(left: 10, right: 10),
                   padding: EdgeInsets.all(1),
