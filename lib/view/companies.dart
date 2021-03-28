@@ -351,20 +351,20 @@ class _CompaniesState extends State<Companies> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          RatingBar(
-                                            initialRating: 3,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            itemSize: 20,
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: MyColor.customColor,
-                                            ),
-                                            onRatingUpdate: (rating) {
-                                              print(rating);
-                                            },
-                                          ),
+                                          // RatingBar(
+                                          //   initialRating: 3,
+                                          //   direction: Axis.horizontal,
+                                          //   allowHalfRating: true,
+                                          //   itemCount: 5,
+                                          //   itemSize: 20,
+                                          //   itemBuilder: (context, _) => Icon(
+                                          //     Icons.star,
+                                          //     color: MyColor.customColor,
+                                          //   ),
+                                          //   onRatingUpdate: (rating) {
+                                          //     print(rating);
+                                          //   },
+                                          // ),
                                           Divider(),
                                           RaisedButton(
                                             onPressed: () {
@@ -526,20 +526,20 @@ class _CompaniesState extends State<Companies> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          RatingBar(
-                                            initialRating: 3,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            itemSize: 20,
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: MyColor.customColor,
-                                            ),
-                                            onRatingUpdate: (rating) {
-                                              print(rating);
-                                            },
-                                          ),
+                                          // RatingBar(
+                                          //   initialRating: 3,
+                                          //   direction: Axis.horizontal,
+                                          //   allowHalfRating: true,
+                                          //   itemCount: 5,
+                                          //   itemSize: 20,
+                                          //   itemBuilder: (context, _) => Icon(
+                                          //     Icons.star,
+                                          //     color: MyColor.customColor,
+                                          //   ),
+                                          //   onRatingUpdate: (rating) {
+                                          //     print(rating);
+                                          //   },
+                                          // ),
                                           Divider(),
                                           RaisedButton(
                                             onPressed: () {
