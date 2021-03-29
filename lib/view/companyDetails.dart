@@ -124,9 +124,9 @@ bool subcribecheck=true;
       await getmyplans(globals.myCompany.id).then((v) async {
         setState(() {
           plans.addAll(v);
-          print("status###############${plans[0].status}");
+          print("status###############${plans}");
           print("plans.length############### :${plans.length}");
-          print("pplkl${plans[0].status}");
+          // print("pplkl${plans[0].status}");
         if(plans.length==0){
           subcribecheck=true;
           print("ppll11${subcribecheck}");

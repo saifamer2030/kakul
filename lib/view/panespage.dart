@@ -27,7 +27,9 @@ class _PanesPageState extends State<PanesPage> {
     super.initState();
     Timer(Duration(seconds: 0), () async {
      await getallplans().then((v) async {
+
        setState(() {
+         print("Plans Data: ${v}");
          plans.addAll(v);
          print("ppll${plans.length}");
 

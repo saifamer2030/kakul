@@ -272,7 +272,6 @@ packages:
       name: google_maps_flutter_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "1.1.0"
   html:
     dependency: transitive
@@ -281,9 +280,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0+4"
-=======
-    version: "1.2.0"
->>>>>>> 54ab496c8c1c28ce19093e71c936009fe813af37
   http:
     dependency: "direct main"
     description:
@@ -444,7 +440,6 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "1.8.0+1"
   petitparser:
     dependency: transitive
@@ -453,9 +448,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
-=======
-    version: "1.9.2"
->>>>>>> 54ab496c8c1c28ce19093e71c936009fe813af37
   platform:
     dependency: transitive
     description:

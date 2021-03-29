@@ -90,7 +90,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                       // new CardNumberInputFormatter()
                       CreditCardNumberInputFormatter(onCardSystemSelected:
                           (CardSystemData cardSystemData) {
-                        print(cardSystemData.system);
+                        print(_paymentCard.type);
                       })
                     ],
                     controller: numberController,
@@ -210,7 +210,7 @@ class CreditCardPageState extends State<CreditCardPage> {
              print("yyy$Address");
              await paydata(globals.myCompany.id,widget.plan.id,widget.plan.price,
                  _paymentCard.type,_paymentCard.number,_paymentCard.month,_paymentCard.year,
-                 _paymentCard.cvv,_paymentCard.name,context,name,locality,administrativeArea,postalCode).then((v) async {
+                 _paymentCard.cvv,globals.myCompany.name,context,name,locality,administrativeArea,postalCode).then((v) async {
                // Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);
              });
     } catch (e) {

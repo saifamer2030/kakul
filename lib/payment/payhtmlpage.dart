@@ -18,8 +18,10 @@ import 'package:flutter_html/flutter_html.dart';
 
 
 class Payhtmlpage extends StatefulWidget {
-  String htmlString;
+  var htmlString;
+
   Payhtmlpage(this.htmlString);
+
   @override
   State<StatefulWidget> createState() {
     return PayhtmlpageState();
@@ -32,7 +34,7 @@ class PayhtmlpageState extends State<Payhtmlpage> {
   @override
   void initState() {
     super.initState();
-
+    print('${widget.htmlString}');
   }
 
   @override
@@ -43,19 +45,19 @@ class PayhtmlpageState extends State<Payhtmlpage> {
           centerTitle: true,
           title: new Text(Strings.appName),
         ),
-        body: new Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Html(
-            data:widget.htmlString,
-
+        body:  Container(
+          child: Center(
+            child: Html(
+                  data: widget.htmlString
+              ),
           ),
-        )
+        ),
+
     );
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 

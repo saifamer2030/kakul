@@ -20,8 +20,8 @@ class PaymentCard {
 }
 
 enum CardType {
-  Master,
-  Visa,
+  MASTER,
+  VISA,
   Verve,
   Discover,
   AmericanExpress,
@@ -134,10 +134,10 @@ class CardUtils {
     String img = "";
     Icon icon;
     switch (cardType) {
-      case CardType.Master:
+      case CardType.MASTER:
         img = 'mastercard.png';
         break;
-      case CardType.Visa:
+      case CardType.VISA:
         img = 'visa.png';
         break;
       case CardType.Verve:
@@ -220,9 +220,9 @@ class CardUtils {
     CardType cardType;
     if (input.startsWith(new RegExp(
         r'((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))'))) {
-      cardType = CardType.Master;
+      cardType = CardType.MASTER;
     } else if (input.startsWith(new RegExp(r'[4]'))) {
-      cardType = CardType.Visa;
+      cardType = CardType.VISA;
     } else if (input
         .startsWith(new RegExp(r'((506(0|1))|(507(8|9))|(6500))'))) {
       cardType = CardType.Verve;
