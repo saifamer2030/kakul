@@ -1252,21 +1252,18 @@ Future<dynamic> paydata(
 
   var formData = dio.FormData.fromMap({
     "req_type": "checkoutServer",
-
     "amount": "$price",
     //"currency": "SAR",
-    "paymentBrand": "VISA",
+    "paymentBrand": "MASTER",
     //"paymentType" : "DB",
-
     "number": "${_paymentCard_number}",
     "expiryMonth": "${_paymentCard_month}",
     "expiryYear": "20${_paymentCard_year}",
     "cvv": "${_paymentCard_cvv}",
-    "holder": "mosa",
-
+    "holder": "mmmohamed",
     "street1": "${streetname}",
-    "city": "${city}",
-    "state": "${state}",
+    "city": "SA-SAUDI ARABIA",
+    "state": "SA-SAUDI ARABIA",
     "postcode": "${postalCode}" //"55555",
   });
   // print('FormData:${formData.fields}');
@@ -1278,6 +1275,7 @@ Future<dynamic> paydata(
 
   if (json['success']) {
     print('${json['data']['url']}');
+
     var html = '<form action="${json['data']['url']}" class="paymentWidgets">';
     var params = json['data']['parameters'] as List;
 

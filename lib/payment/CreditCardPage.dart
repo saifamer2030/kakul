@@ -18,7 +18,9 @@ import 'package:kul_last/model/globals.dart' as globals;
 
 class CreditCardPage extends StatefulWidget {
   Plan plan;
+
   CreditCardPage(this.plan);
+
   @override
   State<StatefulWidget> createState() {
     return CreditCardPageState();
@@ -59,6 +61,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                     height: 20.0,
                   ),
                   new TextFormField(
+                    // controller: numberController,
                     decoration: const InputDecoration(
                       border: const UnderlineInputBorder(),
                       filled: true,
@@ -72,12 +75,12 @@ class CreditCardPageState extends State<CreditCardPage> {
                     onSaved: (String value) {
                       setState(() {
                         _card.name = value;
-                        _paymentCard.name =value;
+                        _paymentCard.name = value;
                       });
                     },
                     keyboardType: TextInputType.text,
                     validator: (String value) =>
-                    value.isEmpty ? Strings.fieldReq : null,
+                        value.isEmpty ? Strings.fieldReq : null,
                   ),
                   new SizedBox(
                     height: 30.0,
@@ -117,6 +120,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                       new LengthLimitingTextInputFormatter(4),
                       CreditCardCvcInputFormatter()
                     ],
+                    // controller: numberController,
                     decoration: new InputDecoration(
                       border: const UnderlineInputBorder(),
                       filled: true,
@@ -144,6 +148,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                       // new CardMonthInputFormatter()
                       CreditCardExpirationDateFormatter()
                     ],
+                    // controller: numberController,
                     decoration: new InputDecoration(
                       border: const UnderlineInputBorder(),
                       filled: true,
@@ -193,30 +198,42 @@ class CreditCardPageState extends State<CreditCardPage> {
 
   Future<void> _validateInputs() async {
     try {
-             List<Placemark> p = await Geolocator().placemarkFromCoordinates(
-                 double.parse(globals.lat.toString().trim()),
-                 double.parse(globals.lng.toString().trim())
-             );
+      List<Placemark> p = await Geolocator().placemarkFromCoordinates(
+          double.parse(globals.lat.toString().trim()),
+          double.parse(globals.lng.toString().trim()));
 
-             Placemark place = p[0];
-             String name = place.name;
-             String subLocality = place.subLocality;
-             String locality = place.locality;
-             String administrativeArea = place.administrativeArea;
-             String postalCode = place.postalCode;
-             String country = place.country;
+      Placemark place = p[0];
+      String name = place.name;
+      String subLocality = place.subLocality;
+      String locality = place.locality;
+      String administrativeArea = place.administrativeArea;
+      String postalCode = place.postalCode;
+      String country = place.country;
 
-          String   Address ="n:${name}, sub:${subLocality}, loc:${locality}, ad:${administrativeArea} pp:${postalCode}, c:${country}";
-             print("yyy$Address");
-             await paydata(globals.myCompany.id,widget.plan.id,widget.plan.price,
-                 _paymentCard.type,_paymentCard.number,_paymentCard.month,_paymentCard.year,
-                 _paymentCard.cvv,globals.myCompany.name,context,name,locality,administrativeArea,postalCode).then((v) async {
-               // Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);
-             });
+      String Address =
+          "n:${name}, sub:${subLocality}, loc:${locality}, ad:${administrativeArea} pp:${postalCode}, c:${country}";
+      print("yyy$Address");
+      await paydata(
+              globals.myCompany.id,
+              widget.plan.id,
+              widget.plan.price,
+              _paymentCard.type,
+              _paymentCard.number,
+              _paymentCard.month,
+              _paymentCard.year,
+              _paymentCard.cvv,
+              globals.myCompany.name,
+              context,
+              name,
+              locality,
+              administrativeArea,
+              postalCode)
+          .then((v) async {
+        // Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);
+      });
     } catch (e) {
-             print(e);
-           }
-
+      print(e);
+    }
 
     final FormState form = _formKey.currentState;
     if (!form.validate()) {
@@ -234,8 +251,12 @@ class CreditCardPageState extends State<CreditCardPage> {
   Widget _getPayButton() {
     if (Platform.isIOS) {
       return new CupertinoButton(
-        onPressed: _validateInputs,
-        color: Colors.black,//CupertinoColors.activeBlue,
+        onPressed: () {
+          setState(() {
+            _validateInputs();
+          });
+        },
+        color: Colors.black, //CupertinoColors.activeBlue,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
