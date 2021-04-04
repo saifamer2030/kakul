@@ -75,7 +75,7 @@ class _PanesPageState extends State<PanesPage> {
                       style: TextStyle(color: Colors.black87),
                     ),
                     subtitle: Text(
-                      "${plans[index].price} ريال لمدة ${plans[index].duration} يوم",
+                      "${plans[index].price} ريال لمدة ${plans[index].duration} شهر",
                       style: TextStyle(color: Colors.grey),
                     ),
                     trailing: Icon(

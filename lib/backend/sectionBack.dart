@@ -1256,19 +1256,19 @@ Future<dynamic> paydata(
     //"currency": "SAR",
     "paymentBrand": "MASTER",
     //"paymentType" : "DB",
-    "number": "${_paymentCard_number}",
-    "expiryMonth": "${_paymentCard_month}",
-    "expiryYear": "20${_paymentCard_year}",
-    "cvv": "${_paymentCard_cvv}",
-    "holder": "mmmohamed",
-    "street1": "${streetname}",
-    "city": "SA-SAUDI ARABIA",
-    "state": "SA-SAUDI ARABIA",
-    "postcode": "${postalCode}" //"55555",
+    "number": "$_paymentCard_number",
+    "expiryMonth": "$_paymentCard_month",
+    "expiryYear": "20$_paymentCard_year",
+    "cvv": "$_paymentCard_cvv",
+    "holder": "$_paymentCard_name",
+    "street1": "$streetname",
+    "city": "$city",
+    "state": "$state",
+    "postcode": "$postalCode" //"55555",
   });
   // print('FormData:${formData.fields}');
   dio.Response response = await dio.Dio()
-      .post(url, data: formData, options: dio.Options(headers: headers));
+      .post( url, data: formData, options: dio.Options(headers: headers));
   var json = jsonDecode(response.data);
   print('response.data.url : ${response.data}');
   print('response.success : ${json['success']}');

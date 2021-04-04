@@ -30,7 +30,10 @@ class CreditCardPage extends StatefulWidget {
 class CreditCardPageState extends State<CreditCardPage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var _formKey = new GlobalKey<FormState>();
-  var numberController = new TextEditingController();
+  var cvvController = new TextEditingController();
+  var numberController= new TextEditingController();
+  var dateController = new TextEditingController();
+  var nameController= new TextEditingController();
   var _paymentCard = PaymentCard();
   var _autoValidate = false;
   var _card = new PaymentCard();
@@ -61,7 +64,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                     height: 20.0,
                   ),
                   new TextFormField(
-                    // controller: numberController,
+                    controller: nameController,
                     decoration: const InputDecoration(
                       border: const UnderlineInputBorder(),
                       filled: true,
@@ -107,6 +110,9 @@ class CreditCardPageState extends State<CreditCardPage> {
                     onSaved: (String value) {
                       print('onSaved = $value');
                       print('Num controller has = ${numberController.text}');
+                      print('nameController has = ${nameController.text}');
+                      print('cvvController has = ${cvvController.text}');
+                      print('dateController has = ${dateController.text}');
                       _paymentCard.number = CardUtils.getCleanedNumber(value);
                     },
                     validator: CardUtils.validateCardNum,
@@ -120,7 +126,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                       new LengthLimitingTextInputFormatter(4),
                       CreditCardCvcInputFormatter()
                     ],
-                    // controller: numberController,
+                    controller: cvvController,
                     decoration: new InputDecoration(
                       border: const UnderlineInputBorder(),
                       filled: true,
@@ -148,7 +154,7 @@ class CreditCardPageState extends State<CreditCardPage> {
                       // new CardMonthInputFormatter()
                       CreditCardExpirationDateFormatter()
                     ],
-                    // controller: numberController,
+                    controller: dateController,
                     decoration: new InputDecoration(
                       border: const UnderlineInputBorder(),
                       filled: true,
@@ -218,11 +224,11 @@ class CreditCardPageState extends State<CreditCardPage> {
               widget.plan.id,
               widget.plan.price,
               _paymentCard.type,
-              _paymentCard.number,
+             _paymentCard.number,
               _paymentCard.month,
               _paymentCard.year,
               _paymentCard.cvv,
-              globals.myCompany.name,
+              nameController.text,
               context,
               name,
               locality,
