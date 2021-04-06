@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:dio/dio.dart' as dio;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:geolocator/geolocator.dart';
@@ -38,10 +39,10 @@ import 'package:http/http.dart' as http;
 
 Future<dynamic> getAllSections() async {
   List<Section> sections = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllSections.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllSections.php";
   var client = Client();
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -57,10 +58,10 @@ Future<dynamic> getAllSections() async {
 
 Future<dynamic> getAllSubSections(String secID) async {
   List<SubSection> subSections = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetSubSection.php?Spid=$secID";
+  String baseURL = "https://kk.vision.com.sa/API/GetSubSection.php?Spid=$secID";
   var client = Client();
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -79,10 +80,10 @@ Future<dynamic> getUserCompany(String userID) async {
   Company company;
 
   String baseURL =
-      "http://kk.vision.com.sa/API/GeTMyCompanies.php?UserId=$userID";
+      "https://kk.vision.com.sa/API/GeTMyCompanies.php?UserId=$userID";
   var client = Client();
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -99,10 +100,10 @@ Future<dynamic> getUserCompany(String userID) async {
 Future<dynamic> getCompanySection(String secID) async {
   List<Company> companies = [];
   String baseURL =
-      "http://kk.vision.com.sa/API/GetCompaniesIdSections.php?Spid=$secID";
+      "https://kk.vision.com.sa/API/GetCompaniesIdSections.php?Spid=$secID";
   var client = Client();
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -120,9 +121,9 @@ Future<dynamic> getCompanySection(String secID) async {
 
 Future<dynamic> getAllCompanies1() async {
   List<Company> companies = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllCompanies.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllCompanies.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -216,9 +217,9 @@ Future<dynamic> getAllCompanies1() async {
 
 Future<dynamic> getAllCompanies() async {
   List<Company> companies = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllCompanies.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllCompanies.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -282,14 +283,14 @@ Future<dynamic> getAllCompanies() async {
 }
 
 Future<dynamic> getCompanyJobstype(String companyID) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetJob.php?Spid=$companyID";
+  String baseURL = "https://kk.vision.com.sa/API/GetJob.php?Spid=$companyID";
   var client = Client();
   List<Job> jobs = [];
   JobType jobtype;
   bool m = false;
   bool f = false;
 //int checkoffers;
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -320,11 +321,11 @@ Future<dynamic> getCompanyJobstype(String companyID) async {
 }
 
 Future<int> getCompanyofferlength(String companyID) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetOffer.php?Spid=$companyID";
+  String baseURL = "https://kk.vision.com.sa/API/GetOffer.php?Spid=$companyID";
   var client = Client();
   List<Offer> offers = [];
   int length = 0;
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -350,9 +351,9 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
   print("hhh4");
   JobType jobtype;
   int checkoffers;
-  String baseURL = "http://kk.vision.com.sa/API/GetAllCompanies.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllCompanies.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -475,9 +476,9 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
 
 Future<dynamic> getFeaturedCompanies() async {
   List<Company> companies = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllCompaniesSP.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllCompaniesSP.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -496,9 +497,9 @@ Future<dynamic> getFeaturedCompanies() async {
 
 Future<dynamic> getSuggestedCompanies() async {
   List<Company> companies = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllCompaniesRN.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllCompaniesRN.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -513,11 +514,11 @@ Future<dynamic> getSuggestedCompanies() async {
 }
 
 Future<dynamic> getCompanyImgs({String companyID}) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetImages.php?Spid=$companyID";
+  String baseURL = "https://kk.vision.com.sa/API/GetImages.php?Spid=$companyID";
   List<String> urls = [];
   var client = Client();
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
     if (json['success'] == 1) {
@@ -534,11 +535,11 @@ Future<dynamic> getCompanyImgs({String companyID}) async {
 }
 
 Future<dynamic> getCompanyJobs({String companyID}) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetJob.php?Spid=$companyID";
+  String baseURL = "https://kk.vision.com.sa/API/GetJob.php?Spid=$companyID";
   var client = Client();
   List<Job> jobs = [];
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -556,11 +557,11 @@ Future<dynamic> getCompanyJobs({String companyID}) async {
 }
 
 Future<dynamic> getCompanyNews({String companyID}) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetNews.php?Spid=$companyID";
+  String baseURL = "https://kk.vision.com.sa/API/GetNews.php?Spid=$companyID";
   var client = Client();
   List<New> news = [];
 
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -591,11 +592,11 @@ Future<dynamic> addjob(
   edutype,
 ) async {
   var baseURL =
-      'http://kk.vision.com.sa/API/AddJob.php?Name=$Companyname&Sex=$sextype&Salary=$salary&WorkHours=$workhours&Education=$edutype&Experience=$expertype&Details=$details&Id-Us=$Companyid';
+      'https://kk.vision.com.sa/API/AddJob.php?Name=$Companyname&Sex=$sextype&Salary=$salary&WorkHours=$workhours&Education=$edutype&Experience=$expertype&Details=$details&Id-Us=$Companyid';
   print("llll");
   var client = Client();
   print("lll$edutype");
-  Response response = await client.get(baseURL).then((value) {
+  Response response = await client.get(Uri.parse(baseURL)).then((value) {
     print("lll${value.body}//${Companyname}///$salary//$sextype");
   });
 }
@@ -603,10 +604,10 @@ Future<dynamic> addjob(
 Future<dynamic> addnews(
     Companyid, Companyname, CompanyimgURL, Companyphone, details, secid) async {
   var baseURL =
-      'http://kk.vision.com.sa/API/AddNews.php?Name=$secid&Topic=$details&IdSubSection=$secid&us-id=$Companyid&Image=$CompanyimgURL';
+      'https://kk.vision.com.sa/API/AddNews.php?Name=$secid&Topic=$details&IdSubSection=$secid&us-id=$Companyid&Image=$CompanyimgURL';
   //  baseURL_APP+'Drivers/UpdateOrderIDLocations.php?OrderID=${widget.orderID}&DriverID=${widget.driverId}&driver_lat=${lat}&driver_long=${long}';
   var client = Client();
-  Response response = await client.get(baseURL).then((value) {
+  Response response = await client.get(Uri.parse(baseURL)).then((value) {
     print("lll${value.body}//${Companyname}///$secid//$details");
   });
   // http.Response response = await http.get(baseURL,
@@ -621,9 +622,9 @@ Future<dynamic> addnews(
 
 Future<dynamic> getAllJobs() async {
   List<Job> jobs = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllJob.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllJob.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -639,9 +640,9 @@ Future<dynamic> getAllJobs() async {
 
 Future<dynamic> getAllNews() async {
   List<New> news = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllNews.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllNews.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
 
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
@@ -657,9 +658,9 @@ Future<dynamic> getAllNews() async {
 
 Future<dynamic> getAllAdvert() async {
   List<Advertisment> advertisment = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllADS.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllADS.php";
   var client = Client();
-  Response response = await client.get(baseURL);
+  Response response = await client.get(Uri.parse(baseURL));
   if (response.statusCode == 200) {
     var json = jsonDecode(response.body);
     List jsonSecList = json['ADS'];
@@ -693,7 +694,7 @@ Future<dynamic> registeruser(
     String lat,
     String lng,
     String title}) async {
-  String url = 'http://kk.vision.com.sa/API/NewUser.php?';
+  String url = 'https://kk.vision.com.sa/API/NewUser.php?';
   Map<String, String> headers = {
     'Cookie': 'PHPSESSID=a214u1u1v8pgrdj2p6dpb5n8l1'
   };
@@ -809,7 +810,7 @@ Future<dynamic> registerCompany(
     lookupMimeType(coverImg.path).split('/')[0]:
         lookupMimeType(coverImg.path).split('/')[1]
   };
-  String url = 'http://kk.vision.com.sa/API/UpdateUser.php';
+  String url = 'https://kk.vision.com.sa/API/UpdateUser.php';
   Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
   var formData = dio.FormData.fromMap({
     "id": id,
@@ -847,7 +848,7 @@ Future<dynamic> registerCompany(
 
 Future<dynamic> getCompanymessage(String companyID) async {
   String baseURL =
-      "http://kk.vision.com.sa/API/GetMessage.php?Spid=${companyID}";
+      "https://kk.vision.com.sa/API/GetMessage.php?Spid=${companyID}";
   var client = Client();
   List<Message> message = [];
 
@@ -882,7 +883,7 @@ Future<dynamic> registerOffer({
         lookupMimeType(profileImage.path).split('/')[1]
   };
 
-  String url = 'http://kk.vision.com.sa/API/AddOffer.php';
+  String url = 'https://kk.vision.com.sa/API/AddOffer.php';
   Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
 
   //String copoun = (pinController.text == null) ? '' : pinController.text;
@@ -906,7 +907,7 @@ Future<dynamic> registerOffer({
 }
 
 Future<dynamic> deleteOffer({String id}) async {
-  var baseURL = "http://kk.vision.com.sa/API/DeleteOffer.php?id=$id";
+  var baseURL = "https://kk.vision.com.sa/API/DeleteOffer.php?id=$id";
   var client = Client();
   Response response = await client.get(baseURL).then((value) {
     print("lll${value.body}//${value.request}//");
@@ -914,7 +915,7 @@ Future<dynamic> deleteOffer({String id}) async {
 }
 
 Future<dynamic> deleteJob({String id}) async {
-  var baseURL = "http://kk.vision.com.sa/API/DeletesJob.php?id=$id";
+  var baseURL = "https://kk.vision.com.sa/API/DeletesJob.php?id=$id";
   var client = Client();
   Response response = await client.get(baseURL).then((value) {
     print("lll${value.body}//${value.request}//");
@@ -922,7 +923,7 @@ Future<dynamic> deleteJob({String id}) async {
 }
 
 Future<dynamic> deleteNews({String id}) async {
-  var baseURL = "http://kk.vision.com.sa/API/DeleteNews.php?id=$id";
+  var baseURL = "https://kk.vision.com.sa/API/DeleteNews.php?id=$id";
   var client = Client();
   Response response = await client.get(baseURL).then((value) {
     print("lll${value.body}//${value.request}//");
@@ -930,7 +931,7 @@ Future<dynamic> deleteNews({String id}) async {
 }
 
 Future<dynamic> getCompanyoffers({String companyID}) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetOffer.php?Spid=$companyID";
+  String baseURL = "https://kk.vision.com.sa/API/GetOffer.php?Spid=$companyID";
   var client = Client();
   List<Offer> offers = [];
 
@@ -954,7 +955,7 @@ Future<dynamic> getCompanyoffers({String companyID}) async {
 
 Future<dynamic> getAlloffers() async {
   List<Offer> offers = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllOffer.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllOffer.php";
   var client = Client();
   Response response = await client.get(baseURL);
 
@@ -973,7 +974,7 @@ Future<dynamic> getAlloffers() async {
 Future<dynamic> getSimilaroffers(
     String similarsec, String similarsubsec) async {
   List<Offer> offers = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllOffer.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllOffer.php";
   var client = Client();
   Response response = await client.get(baseURL);
 
@@ -999,7 +1000,7 @@ Future<dynamic> getSimilaroffers(
 
 Future<dynamic> getSimilarJobs(String similarsec, String similarsubsec) async {
   List<Job> jobs = [];
-  String baseURL = "http://kk.vision.com.sa/API/GetAllJob.php";
+  String baseURL = "https://kk.vision.com.sa/API/GetAllJob.php";
   var client = Client();
   Response response = await client.get(baseURL);
 
@@ -1037,7 +1038,7 @@ Future<dynamic> registerCompanyphotos1(
     dio.MultipartFile a = await dio.MultipartFile.fromFile(path,
         contentType: MediaType("image", "jpg"));
     images.add(a);
-    String url = 'http://kk.vision.com.sa/API/UpdateUser.php';
+    String url = 'https://kk.vision.com.sa/API/UpdateUser.php';
     Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
     var formData = dio.FormData.fromMap({
       "Spid": id,
@@ -1059,7 +1060,7 @@ Future<dynamic> registerCompanyphotos({
     lookupMimeType(coverImg.path).split('/')[0]:
         lookupMimeType(coverImg.path).split('/')[1]
   };
-  String url = 'http://kk.vision.com.sa/API/AddImage.php';
+  String url = 'https://kk.vision.com.sa/API/AddImage.php';
   Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
   var formData = dio.FormData.fromMap({
     "Spid": id,
@@ -1075,7 +1076,8 @@ Future<dynamic> registerCompanyphotos({
 }
 
 Future<dynamic> getCompanyphoto(String companyID) async {
-  String baseURL = "http://kk.vision.com.sa/API/GetImage.php?Spid=${companyID}";
+  String baseURL =
+      "https://kk.vision.com.sa/API/GetImage.php?Spid=${companyID}";
   var client = Client();
   List<Photo> photo = [];
 
@@ -1098,7 +1100,7 @@ Future<dynamic> getCompanyphoto(String companyID) async {
 }
 
 Future<dynamic> deletCompanyphoto(String photoID) async {
-  String baseURL = "http://kk.vision.com.sa/API/DeleteImage.php?id=${photoID}";
+  String baseURL = "https://kk.vision.com.sa/API/DeleteImage.php?id=${photoID}";
   var client = Client();
   Response response = await client.get(baseURL).then((value) {
     print("lll${value.body}//${value.request}//");
@@ -1108,7 +1110,7 @@ Future<dynamic> deletCompanyphoto(String photoID) async {
 Future<dynamic> getallplans() async {
   List<Plan> plans = [];
 
-  String url = 'http://kk.vision.com.sa/API/Plans.php';
+  String url = 'https://kk.vision.com.sa/API/Plans.php';
   Map<String, String> headers = {'Accept': 'application/json'};
 
   var formData = dio.FormData.fromMap({
@@ -1141,7 +1143,7 @@ Future<dynamic> getallplans() async {
 Future<dynamic> getmyplans(id) async {
   List<MyPlan> plans = [];
 
-  String url = 'http://kk.vision.com.sa/API/Subscribe.php';
+  String url = 'https://kk.vision.com.sa/API/Subscribe.php';
   Map<String, String> headers = {'Accept': 'application/json'};
 
   var formData =
@@ -1153,7 +1155,7 @@ Future<dynamic> getmyplans(id) async {
     var json = jsonDecode(response.data);
     if (json['success']) {
       List jsonList = json["data"];
-      print('Responsepp11:${jsonList.toString()}');
+      print('Responsepp:${jsonList.toString()}');
       jsonList.forEach((i) {
         plans.add(MyPlan.fromMap(i));
         print('Responsepp11:${MyPlan.fromMap(i).id}');
@@ -1169,7 +1171,7 @@ Future<dynamic> getmyplans(id) async {
 }
 
 Future<dynamic> creatmyplan(id) async {
-  String url = 'http://kk.vision.com.sa/API/Subscribe.php';
+  String url = 'https://kk.vision.com.sa/API/Subscribe.php';
   Map<String, String> headers = {'Accept': 'application/json'};
 
   var formData = dio.FormData.fromMap(
@@ -1196,7 +1198,7 @@ Future<dynamic> creatmyplanwithpay(
     city,
     state,
     postalCode) async {
-  String url = 'http://kk.vision.com.sa/API/Subscribe.php';
+  String url = 'https://kk.vision.com.sa/API/Subscribe.php';
   Map<String, String> headers = {'Accept': 'application/json'};
 
   var formData = dio.FormData.fromMap({
@@ -1247,7 +1249,7 @@ Future<dynamic> paydata(
     city,
     state,
     postalCode) async {
-  String url = 'http://kk.vision.com.sa/API/Payment.php';
+  String url = 'https://kk.vision.com.sa/API/Payment.php';
   Map<String, String> headers = {'Accept': 'application/json'};
 
   var formData = dio.FormData.fromMap({
@@ -1268,7 +1270,7 @@ Future<dynamic> paydata(
   });
   // print('FormData:${formData.fields}');
   dio.Response response = await dio.Dio()
-      .post( url, data: formData, options: dio.Options(headers: headers));
+      .post(url, data: formData, options: dio.Options(headers: headers));
   var json = jsonDecode(response.data);
   print('response.data.url : ${response.data}');
   print('response.success : ${json['success']}');
@@ -1313,4 +1315,62 @@ Future<dynamic> paydata(
   }
 
   */
+}
+
+Future<dynamic> Payment(user_id, price, paymentCard_type, context) async {
+  String url = 'https://kk.vision.com.sa/API/Payment.php';
+  Map<String, String> headers = {'Accept': 'application/json'};
+
+  var formData = dio.FormData.fromMap({
+    "req_type": "checkout",
+    "amount": "$price",
+    "user_id": "$user_id",
+    "paymentBrand": "$paymentCard_type",
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response = await dio.Dio()
+      .post(url, data: formData, options: dio.Options(headers: headers));
+  var json = jsonDecode(response.data);
+  print('response.data.url : ${response.data}');
+  print('response.success : ${json['success']}');
+  var checkoutId = json['data']['checkoutId'];
+  if (json['success']) {
+    print('${json['data']['checkoutId']}');
+    var html =
+        '<script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${json['data']['checkoutId']}"></script>';
+
+    var html2 =
+        '<form action="http://www.kakeul.com/" class="paymentWidgets" data-brands="$paymentCard_type"></form>';
+
+    var html3 =
+        '<script> var wpwlOptions = { paymentTarget:"_top", style: "card", billingAddress: {}, mandatoryBillingFields:{ country: false, state: true, city: true, postcode: true, street1: true, street2: false}} </script>';
+
+    // var params = json['data']['parameters'] as List;
+
+    // for (var i = 0; i < params.length; i++) {
+    //   html = html +
+    //       '<input type="text" name="${params[i]['name']}" value="${params[i]['value']}">';
+    // }
+
+    var webViewHtml = html + html2 + html3;
+    // html = html + '</form>';
+
+   Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Payhtmlpage(webViewHtml)));
+  }
+  var formData1 = dio.FormData.fromMap({
+    "req_type" : "getCheckoutResult",
+    "checkout_id" :  "${json['data']['checkoutId']}",
+    "paymentBrand" :"$paymentCard_type"
+  });
+  // print('FormData:${formData.fields}');
+  dio.Response response1 = await dio.Dio()
+      .post(url, data: formData1, options: dio.Options(headers: headers));
+  print('Status:${response1.statusCode}');
+  print('Responsepp:${response1.data.toString()}kkk');
+  if (response1.data.error) {
+  } else {
+    creatmyplan(user_id);
+  }
+
 }
