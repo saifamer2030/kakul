@@ -383,6 +383,7 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
             Timer(Duration(seconds: 0), () async {
               checkoffers = await getCompanyofferlength(jsonSecList[j]['id'])
                   .then((offerlen) {
+                    print("xyz${ jsonSecList[j]['Image']}");
                 Timer(Duration(seconds: 0), () async {
                   var markerImage = await MapHelper.getMarkerIcon(
                           jsonSecList[j]['Image'], 125.0, jobcolor[j], offerlen)
