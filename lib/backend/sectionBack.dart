@@ -1183,56 +1183,57 @@ Future<dynamic> creatmyplan(id) async {
   print('Responsepp:${response.data.toString()}kkk');
 }
 
-Future<dynamic> creatmyplanwithpay(
-    user_id,
-    plan_id,
-    price,
-    paymentCard_type,
-    _paymentCard_number,
-    _paymentCard_month,
-    _paymentCard_year,
-    _paymentCard_cvv,
-    _paymentCard_name,
-    context,
-    streetname,
-    city,
-    state,
-    postalCode) async {
-  String url = 'https://kk.vision.com.sa/API/Subscribe.php';
-  Map<String, String> headers = {'Accept': 'application/json'};
-
-  var formData = dio.FormData.fromMap({
-    "req_type": "create",
-    "user_id": user_id,
-    "plan_id": plan_id,
-    "status": "1",
-
-    "amount": "$price",
-    // "currency": "SAR",
-    "paymentBrand": "${paymentCard_type}",
-    // "paymentType" : "DE",
-
-    "number": "${_paymentCard_number}",
-    "expiryMonth": "${_paymentCard_month}",
-    "expiryYear": "${_paymentCard_year}",
-    "cvv": "${_paymentCard_cvv}",
-    "holder": "${_paymentCard_name}",
-
-    "street1": "${streetname}",
-    "city": "${city}",
-    "state": "${state}",
-    "postcode": "${postalCode}",
-  });
-  // print('FormData:${formData.fields}');
-  dio.Response response = await dio.Dio()
-      .post(url, data: formData, options: dio.Options(headers: headers));
-  print('Status:${response.statusCode}');
-  print('Responsepp:${response.data.toString()}kkk');
-  Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => Payhtmlpage(response.data.toString())));
-}
+// Future<dynamic> creatmyplanwithpay
+//     (
+//     user_id,
+//     plan_id,
+//     price,
+//     paymentCard_type,
+//     _paymentCard_number,
+//     _paymentCard_month,
+//     _paymentCard_year,
+//     _paymentCard_cvv,
+//     _paymentCard_name,
+//     context,
+//     streetname,
+//     city,
+//     state,
+//     postalCode) async {
+//   String url = 'https://kk.vision.com.sa/API/Subscribe.php';
+//   Map<String, String> headers = {'Accept': 'application/json'};
+//
+//   var formData = dio.FormData.fromMap({
+//     "req_type": "create",
+//     "user_id": user_id,
+//     "plan_id": plan_id,
+//     "status": "1",
+//
+//     "amount": "$price",
+//     // "currency": "SAR",
+//     "paymentBrand": "${paymentCard_type}",
+//     // "paymentType" : "DE",
+//
+//     "number": "${_paymentCard_number}",
+//     "expiryMonth": "${_paymentCard_month}",
+//     "expiryYear": "${_paymentCard_year}",
+//     "cvv": "${_paymentCard_cvv}",
+//     "holder": "${_paymentCard_name}",
+//
+//     "street1": "${streetname}",
+//     "city": "${city}",
+//     "state": "${state}",
+//     "postcode": "${postalCode}",
+//   });
+//   // print('FormData:${formData.fields}');
+//   dio.Response response = await dio.Dio()
+//       .post(url, data: formData, options: dio.Options(headers: headers));
+//   print('Status:${response.statusCode}');
+//   print('Responsepp:${response.data.toString()}kkk');
+//   Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//           builder: (context) => Payhtmlpage(response.data.toString())));
+// }
 
 Future<dynamic> paydata(
     user_id,
@@ -1288,8 +1289,8 @@ Future<dynamic> paydata(
 
     html = html + '</form>';
 
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Payhtmlpage(html)));
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => Payhtmlpage(html)));
   }
 
   print('Status:${response.statusCode}');
@@ -1356,20 +1357,20 @@ Future<dynamic> Payment(user_id, price, paymentCard_type, context) async {
     // html = html + '</form>';
 
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Payhtmlpage(webViewHtml)));
+        MaterialPageRoute(builder: (context) => Payhtmlpage(webViewHtml,paymentCard_type,checkoutId,user_id)));
   }
-  var formData1 = dio.FormData.fromMap({
-    "req_type": "getCheckoutResult",
-    "checkout_id": "${json['data']['checkoutId']}",
-    "paymentBrand": "$paymentCard_type"
-  });
-  // print('FormData:${formData.fields}');
-  dio.Response response1 = await dio.Dio()
-      .post(url, data: formData1, options: dio.Options(headers: headers));
-  print('Status:${response1.statusCode}');
-  print('Responsepp:${response1.data.toString()}kkk');
-  if (response1.data.error) {
-  } else {
-    creatmyplan(user_id);
-  }
+  // var formData1 = dio.FormData.fromMap({
+  //   "req_type": "getCheckoutResult",
+  //   "checkout_id": "${json['data']['checkoutId']}",
+  //   "paymentBrand": "$paymentCard_type"
+  // });
+  // // print('FormData:${formData.fields}');
+  // dio.Response response1 = await dio.Dio()
+  //     .post(url, data: formData1, options: dio.Options(headers: headers));
+  // print('Status:${response1.statusCode}');
+  // print('Responsepp:${response1.data.toString()}kkk');
+  // if (response1.data.error) {
+  // } else {
+  //   creatmyplan(user_id);
+  // }
 }

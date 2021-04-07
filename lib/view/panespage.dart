@@ -39,6 +39,7 @@ class _PanesPageState extends State<PanesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: MyColor.customColor,),
       body: Container(
           margin: EdgeInsets.only(left: 10, right: 10, top: 5),
           child: Directionality(
