@@ -1352,16 +1352,16 @@ Future<dynamic> Payment(user_id, price, paymentCard_type, context) async {
     //       '<input type="text" name="${params[i]['name']}" value="${params[i]['value']}">';
     // }
 
-    var webViewHtml = html + html2 + html3;
+    var webViewHtml = html + html3 + html2;
     // html = html + '</form>';
 
-   Navigator.push(context,
+    Navigator.push(context,
         MaterialPageRoute(builder: (context) => Payhtmlpage(webViewHtml)));
   }
   var formData1 = dio.FormData.fromMap({
-    "req_type" : "getCheckoutResult",
-    "checkout_id" :  "${json['data']['checkoutId']}",
-    "paymentBrand" :"$paymentCard_type"
+    "req_type": "getCheckoutResult",
+    "checkout_id": "${json['data']['checkoutId']}",
+    "paymentBrand": "$paymentCard_type"
   });
   // print('FormData:${formData.fields}');
   dio.Response response1 = await dio.Dio()
@@ -1372,5 +1372,4 @@ Future<dynamic> Payment(user_id, price, paymentCard_type, context) async {
   } else {
     creatmyplan(user_id);
   }
-
 }
