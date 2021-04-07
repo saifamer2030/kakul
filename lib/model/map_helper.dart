@@ -21,7 +21,6 @@ import 'map_marker.dart';
 /// In here we are encapsulating all the logic required to get marker icons from url images
 /// and to show clusters using the [Fluster] package.
 class MapHelper {
-
   static Future<BitmapDescriptor> getMarkerIcon(String url, double size, int type, int offers) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
@@ -165,7 +164,7 @@ class MapHelper {
       });
       print('image123: $image');
       // ui.Image image = await getImageFromPath(imagePath); // Alternatively use your own method to get the image
-    //  paintImage(canvas: canvas, image: image, rect: oval, fit: BoxFit.fitWidth);
+      paintImage(canvas: canvas, image: image, rect: oval, fit: BoxFit.fitWidth);
 
       // Convert canvas to image
       final ui.Image markerAsImage = await pictureRecorder.endRecording().toImage(
@@ -190,6 +189,7 @@ class MapHelper {
   /// time to download the file and set the marker image.
   ///
   /// You can resize the marker image by providing a [targetWidth].
+
   static Future<BitmapDescriptor> getMarkerImageFromUrl(String url, {int targetWidth,}) async {
     assert(url != null);
 
