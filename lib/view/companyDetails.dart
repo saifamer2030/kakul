@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'dart:math';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,6 +30,7 @@ import 'package:kul_last/view/similaroffers.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../myColor.dart';
@@ -51,7 +53,6 @@ class _CompanyDetailsState extends State<CompanyDetails> {
   int picno = 0;
   _CompanyDetailsState(this.company);
   File coverImg;
-
   String address = '';
   List<String> urls = [];
   List<Job> jobs = [];
@@ -136,6 +137,7 @@ bool subcribecheck=true;
           }else{
             subcribecheck=false;
           }
+          subcribecheck=false;
          // plans[0].status;
           // print("ppll22${subcribecheck}");
           //       String date = plans[0].create_date.replaceAll("-", "").replaceAll(" ", "").replaceAll(":", "");
@@ -614,7 +616,6 @@ bool subcribecheck=true;
                             icon: Icon(Icons.add_a_photo_rounded,size: 40,),
                             color: Colors.black,
                             onPressed: () async{
-                              // loadAssets();
                               coverImg = await getImage().then((value) {
                                 if(value==null){
                                   Fluttertoast.showToast(
@@ -653,6 +654,21 @@ bool subcribecheck=true;
 
                                 }
                               });
+                              // loadAssets();
+                              // if (await Permission.storage.request().isGranted) {
+                              //   // The OS restricts access, for example because of parental controls.
+                              //
+                              // }else{
+                              //   Fluttertoast.showToast(
+                              //       msg: 'يجب السماح لاضافة صور',
+                              //       toastLength: Toast.LENGTH_SHORT,
+                              //       gravity: ToastGravity.CENTER,
+                              //       timeInSecForIos: 1,
+                              //       backgroundColor: MyColor.customColor,
+                              //       textColor: Colors.white,
+                              //       fontSize: 16.0);
+                              // }
+
                               setState(() {});
                             },
                           ),
@@ -666,7 +682,7 @@ bool subcribecheck=true;
                   height: 10,
                 ),
                 (( globals.myCompany.id==company.id)&&(globals.myCompany.Accept=="1"))?
-              true//  subcribecheck
+                subcribecheck
                     ? Container(
 
                   margin: EdgeInsets.only(left: 10, right: 10),
@@ -742,8 +758,9 @@ bool subcribecheck=true;
 
                     ],
                   ),
-                ):Container(
-
+                ):
+              // ignore: dead_code
+              Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
                   padding: EdgeInsets.all(1),
                   decoration: BoxDecoration(
@@ -1905,13 +1922,32 @@ bool subcribecheck=true;
     }
   }
 
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
 
-  Future<File> getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
 
-    return image;
+        return _image;
+      } else {
+        print('No image selected.');
+      }
+    });
+    _image = File(pickedFile.path);
+    print('_image $_image');
+    print('$_image');
+    return _image;
   }
+
+  // Future<File> getImage() async {
+  //   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  //
+  //   return image;
+  // }
   showAlertDialog(BuildContext context,String id) {
 
     // set up the buttons

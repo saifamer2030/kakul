@@ -206,6 +206,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                       height: 10,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Checkbox(
                           onChanged: (v) {
@@ -218,7 +219,7 @@ class _RegisterNewUserState extends State<RegisterNewUser> {
                           activeColor: MyColor.customColor,
                         ),
                         Text(
-                            translator.translate('ByClickingOnThisButtonIAgreeToTheTermsOfuse')),
+                            translator.translate('ByClickingOnThisButtonIAgreeToTheTermsOfuse'),style: TextStyle(fontSize: 10),),
                       ],
                     ),
                     RaisedButton(
