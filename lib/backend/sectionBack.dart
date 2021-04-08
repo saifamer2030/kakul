@@ -383,7 +383,7 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
             Timer(Duration(seconds: 0), () async {
               checkoffers = await getCompanyofferlength(jsonSecList[j]['id'])
                   .then((offerlen) {
-                    print("xyz${ jsonSecList[j]['Image']}");
+                print("xyz${jsonSecList[j]['Image']}");
                 Timer(Duration(seconds: 0), () async {
                   var markerImage = await MapHelper.getMarkerIcon(
                           jsonSecList[j]['Image'], 125.0, jobcolor[j], offerlen)
@@ -811,8 +811,8 @@ Future<dynamic> registerCompany(
     lookupMimeType(coverImg.path).split('/')[0]:
         lookupMimeType(coverImg.path).split('/')[1]
   };
-  String url = 'https://kk.vision.com.sa/API/UpdateUser.php';
-  Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
+  String url = 'http://kk.vision.com.sa/API/UpdateUser.php';
+  Map<String, String> headers = {'Cookie': 'PHPSESSID=jjc9k5umkovkd7bl62gl7jgk81'};
   var formData = dio.FormData.fromMap({
     "id": id,
     "Name": companyName,
@@ -1061,8 +1061,10 @@ Future<dynamic> registerCompanyphotos({
     lookupMimeType(coverImg.path).split('/')[0]:
         lookupMimeType(coverImg.path).split('/')[1]
   };
-  String url = 'https://kk.vision.com.sa/API/AddImage.php';
-  Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
+  String url = 'http://kk.vision.com.sa/API/AddImage.php';
+  Map<String, String> headers = {
+    'Cookie': 'PHPSESSID=jjc9k5umkovkd7bl62gl7jgk81'
+  };
   var formData = dio.FormData.fromMap({
     "Spid": id,
     "Image": await dio.MultipartFile.fromFile(coverImg.path,
@@ -1357,8 +1359,11 @@ Future<dynamic> Payment(user_id, price, paymentCard_type, context) async {
     var webViewHtml = html + html3 + html2;
     // html = html + '</form>';
 
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Payhtmlpage(webViewHtml,paymentCard_type,checkoutId,user_id)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Payhtmlpage(
+                webViewHtml, paymentCard_type, checkoutId, user_id)));
   }
   // var formData1 = dio.FormData.fromMap({
   //   "req_type": "getCheckoutResult",
