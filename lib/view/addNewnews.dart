@@ -59,7 +59,7 @@ class _AddNewNewsState extends State<AddNewNews> {
             },
           ),
           title:
-              Text('إضافة وظيفة جديدة', style: TextStyle(color: Colors.black54)),
+              Text('إضافة خبر جديدة', style: TextStyle(color: Colors.black54)),
         ),
         body: SafeArea(
           child: Container(

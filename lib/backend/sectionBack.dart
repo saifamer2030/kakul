@@ -812,7 +812,9 @@ Future<dynamic> registerCompany(
         lookupMimeType(coverImg.path).split('/')[1]
   };
   String url = 'http://kk.vision.com.sa/API/UpdateUser.php';
-  Map<String, String> headers = {'Cookie': 'PHPSESSID=jjc9k5umkovkd7bl62gl7jgk81'};
+  Map<String, String> headers = {
+    'Cookie': 'PHPSESSID=jjc9k5umkovkd7bl62gl7jgk81'
+  };
   var formData = dio.FormData.fromMap({
     "id": id,
     "Name": companyName,
@@ -885,7 +887,9 @@ Future<dynamic> registerOffer({
   };
 
   String url = 'https://kk.vision.com.sa/API/AddOffer.php';
-  Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
+  Map<String, String> headers = {
+    'Cookie': 'PHPSESSID=f19hhcf79d89hlnv4i62oedso5'
+  };
 
   //String copoun = (pinController.text == null) ? '' : pinController.text;
   //print('Coup:$copoun');
