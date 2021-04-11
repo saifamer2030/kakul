@@ -5,10 +5,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kul_last/backend/sectionBack.dart';
+import 'package:kul_last/model/companyInSection.dart';
 import 'package:kul_last/model/companyInmap.dart';
 import 'package:kul_last/model/globals.dart' as globals;
 import 'package:kul_last/model/message.dart';
 import 'package:kul_last/model/photo.dart';
+import 'package:kul_last/view/companyDetails.dart';
 import 'package:kul_last/view/companyDetailsmap.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
@@ -16,7 +18,7 @@ import '../myColor.dart';
 import 'package:story_view/story_view.dart';
 
 class PhotoSwiper extends StatefulWidget {
-  CompanyMap company;
+  Company company;
 
   PhotoSwiper(this.company);
 
@@ -96,7 +98,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        CompanyDetailsMap(widget.company)));
+                                        CompanyDetails(widget.company)));
                           },
                           child: FadeInImage.assetNetwork(
                             image: widget.company.imgURL,
@@ -156,7 +158,7 @@ class _PhotoSwiperState extends State<PhotoSwiper> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          CompanyDetailsMap(widget.company)));
+                          CompanyDetails(widget.company)));
             },
             progressPosition: ProgressPosition.top,
             repeat: true,

@@ -405,7 +405,7 @@ Future<dynamic> getAllCompaniesmap(BuildContext context) async {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PhotoSwiper(
-                                        CompanyMap.fromMap(jsonSecList[j]))));
+                                        Company.fromMap(jsonSecList[j]))));
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
